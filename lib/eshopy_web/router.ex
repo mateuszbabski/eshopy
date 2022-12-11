@@ -31,6 +31,7 @@ defmodule EshopyWeb.Router do
     pipe_through :browser
 
     live "/", MainLive, :home
+    live "/admin", MainLive, :admin_dashboard
   end
 
   scope "/", EshopyWeb do

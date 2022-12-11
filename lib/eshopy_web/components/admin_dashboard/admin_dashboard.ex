@@ -1,4 +1,4 @@
-defmodule EshopyWeb.HomePage do
+defmodule EshopyWeb.AdminDashboard do
   use EshopyWeb, :live_component
 
   # @impl true
