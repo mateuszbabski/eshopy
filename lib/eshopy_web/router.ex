@@ -14,13 +14,14 @@ defmodule EshopyWeb.Router do
     plug :fetch_current_user
   end
 
+  pipeline :admin do
+    plug EnsureRolePlug, :admin
+  end
+
   pipeline :user do
     plug EnsureRolePlug, [:admin, :user]
   end
 
-  pipeline :admin do
-    plug EnsureRolePlug, :admin
-  end
 
   pipeline :api do
     plug :accepts, ["json"]
