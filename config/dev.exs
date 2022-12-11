@@ -26,7 +26,8 @@ config :eshopy, EshopyWeb.Endpoint,
   secret_key_base: "VlZ9oA6ev0qhKOUsOx2fG6I4iDZs8g1cdGWokMfjtHFzUZYbCz4CqVN4JLs/FCWg",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support
