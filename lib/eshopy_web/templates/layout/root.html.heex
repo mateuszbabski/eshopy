@@ -5,27 +5,58 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="csrf-token" content={csrf_token_value()}>
-    <%= live_title_tag assigns[:page_title] || "Eshopy", suffix: " · Phoenix Framework" %>
+    <%= live_title_tag assigns[:page_title] || "eShopy", suffix: " · Phoenix Framework" %>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   </head>
-  <body>
-    <header>
-      <section class="container">
-        <nav>
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-          </ul>
-          <%= render "_user_menu.html", assigns %>
-        </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src={Routes.static_path(@conn, "/images/phoenix.png")} alt="Phoenix Framework Logo"/>
-        </a>
-      </section>
-    </header>
+  <body class="bg-gradient-to-r from-cyan-500 to-blue-500">
+    <nav class="p-5 bg-white shadow-2xl md:flex md:items-center md:justify-between">
+    <div class="flex justify-between items-center">
+    <span class="text-2xl font-[Poppins] bold cursor-pointer">eShopy</span>
+    <span class="text-3xl cursor-pointer md:hidden block"><ion-icon name="menu-outline" onclick="Menu(this)"></ion-icon></span>
+    </div>
+    <ul class="md:flex md:items-center z-[0] md:z-[auto] md:static absolute bg-white w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-5 md:opacity-100 hidden top[-400px] transition-all ease-in duration-500">
+    <li class="mx-4 my-4 md:my-0"><a href="/" class="text-xl hover:text-blue-500">HOME</a></li>
+    <li class="mx-4 my-4 md:my-0"><a href="/application" class="text-xl hover:text-blue-500">APPLICATION</a></li>
+    <li class="mx-4 my-4 md:my-0"><a href="/contact" class="text-xl hover:text-blue-500">CONTACT</a></li>
+    <li class="mx-4 my-4 md:my-0"><a href="/about" class="text-xl hover:text-blue-500">ABOUT</a></li>
+    <%= if @current_user do %>
+        <li>
+          <span class="text-xl font-[Poppins] cursor-pointer mx-4 my-4 md:my-0"><%= @current_user.email %></span>
+        </li>
+        <li>
+          <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">
+          <%= link "Sign out", to: Routes.user_session_path(@conn, :delete), method: :delete %>
+          </button>
+        </li>
+    <% else %>
+        <li>
+          <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">
+          <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
+          </button>
+        </li>
+        <li>
+          <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">
+          <%= link "Sign in", to: Routes.user_session_path(@conn, :new) %>
+          </button>
+
+        </li>
+    <% end %>
+    </ul>
+    </nav>
+
     <%= @inner_content %>
   </body>
+
+  <script>
+    function Menu(e) {
+      let list = document.querySelector('ul');
+      e.name === "menu" ?
+      (e.name = "close", list.classList.add('top-[70px]'), list.classList.add('opacity-100'), list.classList.remove('hidden')) :
+      (e.name = "menu", list.classList.remove('top-[70px]'), list.classList.remove('opacity-100'), list.classList.add('hidden'))
+    }
+  </script>
+
 </html>

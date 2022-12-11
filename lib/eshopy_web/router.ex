@@ -20,7 +20,7 @@ defmodule EshopyWeb.Router do
   scope "/", EshopyWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", MainLive, :home
   end
 
   # Other scopes may use custom stacks.
