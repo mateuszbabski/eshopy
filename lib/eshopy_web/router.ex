@@ -2,6 +2,7 @@ defmodule EshopyWeb.Router do
   use EshopyWeb, :router
 
   import EshopyWeb.UserAuth
+  alias EshopyWeb.EnsureRolePlug
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,6 +14,14 @@ defmodule EshopyWeb.Router do
     plug :fetch_current_user
   end
 
+  pipeline :user do
+    plug EnsureRolePlug, [:admin, :user]
+  end
+
+  pipeline :admin do
+    plug EnsureRolePlug, :admin
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -21,6 +30,14 @@ defmodule EshopyWeb.Router do
     pipe_through :browser
 
     live "/", MainLive, :home
+  end
+
+  scope "/", EshopyWeb do
+    pipe_through [:browser, :require_authenticated_user, :user]
+  end
+
+  scope "/", EshopyWeb do
+    pipe_through [:browser, :require_authenticated_user, :admin]
   end
 
   # Other scopes may use custom stacks.
