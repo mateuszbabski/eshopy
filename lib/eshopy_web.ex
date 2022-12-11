@@ -46,8 +46,8 @@ defmodule EshopyWeb do
     quote do
       use Phoenix.LiveView,
         layout: {EshopyWeb.LayoutView, "live.html"}
-
-      unquote(view_helpers())
+        unquote(view_helpers())
+        import EshopyWeb.LiveHelpers
     end
   end
 

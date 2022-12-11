@@ -1,13 +1,18 @@
 defmodule Eshopy.Repo.Migrations.CreateUsersAuthTables do
   use Ecto.Migration
 
+  alias Eshopy.Accounts.User.RolesEnum
+
+
   def change do
     execute "CREATE EXTENSION IF NOT EXISTS citext", ""
+    RolesEnum.create_type()
 
     create table(:users) do
       add :email, :citext, null: false
       add :hashed_password, :string, null: false
       add :confirmed_at, :naive_datetime
+      add :role, RolesEnum.type(), null: false
       timestamps()
     end
 
