@@ -1,6 +1,7 @@
-<h1>Settings</h1>
+<section class="bg-white font-[Poppins] max-w-xl shadow-2xl rounded mx-auto">
+<h1 class="text-3xl mx-4 mb-5">Settings</h1>
 
-<h3>Change email</h3>
+<h3 class="text-2xl mx-4 mb-5">Change email</h3>
 
 <.form let={f} for={@email_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_email">
   <%= if @email_changeset.action do %>
@@ -8,23 +9,25 @@
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
   <% end %>
+<div class="flex flex-col mx-auto max-w-sm text-lg my-2">
+  <div class="flex flex-col ">
+    <%= hidden_input f, :action, name: "action", value: "update_email" %>
 
-  <%= hidden_input f, :action, name: "action", value: "update_email" %>
+    <span class="mx-1"><%= label f, :email %></span>
+    <%= email_input f, :email, required: true %>
+    <span class="mt-4 mx-1"><%= error_tag f, :email %></span>
 
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
-  <%= error_tag f, :email %>
-
-  <%= label f, :current_password, for: "current_password_for_email" %>
-  <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_email" %>
-  <%= error_tag f, :current_password %>
-
-  <div>
-    <%= submit "Change email" %>
+    <span class="mx-1"><%= label f, :current_password, for: "current_password_for_email" %></span>
+    <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_email" %>
+    <span class="mt-4 mx-1"><%= error_tag f, :current_password %></span>
   </div>
+  <div class="flex flex-col my-5 mx-auto">
+    <button phx-click="submit" class="bg-blue-400 w-60 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">Change Email</button>
+  </div>
+</div>
 </.form>
 
-<h3>Change password</h3>
+<h3 class="text-2xl mx-4 mb-5">Change password</h3>
 
 <.form let={f} for={@password_changeset} action={Routes.user_settings_path(@conn, :update)} id="update_password">
   <%= if @password_changeset.action do %>
@@ -33,21 +36,26 @@
     </div>
   <% end %>
 
-  <%= hidden_input f, :action, name: "action", value: "update_password" %>
+<div class="flex flex-col mx-auto max-w-sm text-lg my-2">
+  <div class="flex flex-col ">
+    <%= hidden_input f, :action, name: "action", value: "update_password" %>
 
-  <%= label f, :password, "New password" %>
-  <%= password_input f, :password, required: true %>
-  <%= error_tag f, :password %>
+    <span class="mx-1"><%= label f, :password, "New password" %></span>
+    <%= password_input f, :password, required: true %>
+    <span class="mt-4 mx-1"><%= error_tag f, :password %></span>
 
-  <%= label f, :password_confirmation, "Confirm new password" %>
-  <%= password_input f, :password_confirmation, required: true %>
-  <%= error_tag f, :password_confirmation %>
+    <span class="mx-1"><%= label f, :password_confirmation, "Confirm new password" %></span>
+    <%= password_input f, :password_confirmation, required: true %>
+    <span class="mt-4 mx-1"><%= error_tag f, :password_confirmation %></span>
 
-  <%= label f, :current_password, for: "current_password_for_password" %>
-  <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_password" %>
-  <%= error_tag f, :current_password %>
-
-  <div>
-    <%= submit "Change password" %>
+    <span class="mx-1"><%= label f, :current_password, for: "current_password_for_password" %></span>
+    <%= password_input f, :current_password, required: true, name: "current_password", id: "current_password_for_password" %>
+    <span class="mt-4 mx-1"><%= error_tag f, :current_password %></span>
   </div>
+
+   <div class="flex flex-col my-5 mx-auto">
+    <button phx-click="submit" class="bg-blue-400 w-60 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">Change Password</button>
+  </div>
+</div>
 </.form>
+</section>

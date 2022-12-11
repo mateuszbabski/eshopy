@@ -1,12 +1,16 @@
-<h1>Confirm account</h1>
+<section class="bg-white font-[Poppins] max-w-xl shadow-2xl rounded mx-auto">
+<h1 class="text-3xl mx-4 mb-5">Confirm account</h1>
 
 <.form let={_f} for={:user} action={Routes.user_confirmation_path(@conn, :update, @token)}>
-  <div>
-    <%= submit "Confirm my account" %>
+<div class="flex flex-col mx-auto max-w-sm text-lg my-2">
+  <div class="text-lg my-5 mx-auto">
+    <button phx-click="submit" class="bg-blue-400 w-60 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">Confirm my account</button>
   </div>
+</div>
 </.form>
 
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
-</p>
+
+  <span class="mx-auto hover:text-blue-500 mt-1"><%= link "Register", to: Routes.user_registration_path(@conn, :new) %></span> |
+  <span class="mx-auto hover:text-blue-500 mt-1"><%= link "Log in", to: Routes.user_session_path(@conn, :new) %></span>
+
+</section>

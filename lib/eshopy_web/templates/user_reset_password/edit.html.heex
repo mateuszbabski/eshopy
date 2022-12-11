@@ -1,4 +1,5 @@
-<h1>Reset password</h1>
+<section class="bg-white font-[Poppins] max-w-xl shadow-2xl rounded mx-auto">
+<h1 class="text-3xl mx-4 mb-5">Reset password</h1>
 
 <.form let={f} for={@changeset} action={Routes.user_reset_password_path(@conn, :update, @token)}>
   <%= if @changeset.action do %>
@@ -7,20 +8,25 @@
     </div>
   <% end %>
 
-  <%= label f, :password, "New password" %>
-  <%= password_input f, :password, required: true %>
-  <%= error_tag f, :password %>
+<div class="flex flex-col mx-auto max-w-sm text-lg my-2">
+  <div class="flex flex-col ">
+    <span class="mx-1"><%= label f, :password, "New password" %></span>
+    <%= password_input f, :password, required: true %>
+    <span class="mt-4 mx-1"><%= error_tag f, :password %></span>
 
-  <%= label f, :password_confirmation, "Confirm new password" %>
-  <%= password_input f, :password_confirmation, required: true %>
-  <%= error_tag f, :password_confirmation %>
+    <span class="mx-1"><%= label f, :password_confirmation, "Confirm new password" %></span>
+    <%= password_input f, :password_confirmation, required: true %>
+    <span class="mt-4 mx-1"><%= error_tag f, :password_confirmation %></span>
 
-  <div>
-    <%= submit "Reset password" %>
+    <div class="flex flex-col my-5 mx-auto">
+      <button phx-click="submit" class="bg-blue-400 w-60 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">Submit</button>
   </div>
+  </div>
+</div>
 </.form>
 
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
-</p>
+
+  <span class="mx-auto hover:text-blue-500 mt-1"><%= link "Register", to: Routes.user_registration_path(@conn, :new) %></span> |
+  <span class="mx-auto hover:text-blue-500 mt-1"><%= link "Log in", to: Routes.user_session_path(@conn, :new) %></span>
+
+</section>

@@ -1,15 +1,22 @@
-<h1>Forgot your password?</h1>
+<section class="bg-white font-[Poppins] max-w-xl shadow-2xl rounded mx-auto">
+<h1 class="text-3xl mx-4 mb-5">Forgot your password?</h1>
 
 <.form let={f} for={:user} action={Routes.user_reset_password_path(@conn, :create)}>
-  <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
 
-  <div>
-    <%= submit "Send instructions to reset password" %>
+<div class="flex flex-col mx-auto max-w-sm text-lg my-2">
+  <div class="flex flex-col ">
+    <span class="mx-1"><%= label f, :email %></span>
+    <%= email_input f, :email, required: true %>
+
+    <div class="flex flex-col my-5 mx-auto">
+      <button phx-click="submit" class="bg-blue-400 w-60 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">Submit</button>
+    </div>
   </div>
+</div>
 </.form>
 
-<p>
-  <%= link "Register", to: Routes.user_registration_path(@conn, :new) %> |
-  <%= link "Log in", to: Routes.user_session_path(@conn, :new) %>
-</p>
+
+  <span class="mx-auto hover:text-blue-500 mt-1"><%= link "Register", to: Routes.user_registration_path(@conn, :new) %></span> |
+  <span class="mx-auto hover:text-blue-500 mt-1"><%= link "Log in", to: Routes.user_session_path(@conn, :new) %></span>
+
+</section>
