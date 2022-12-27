@@ -32,6 +32,27 @@ defmodule EshopyWeb.Router do
 
     live "/", MainLive, :home
     live "/admin", MainLive, :admin_dashboard
+
+    live "/categories", CategoryLive.Index, :index
+    live "/categories/new", CategoryLive.Index, :new
+    live "/categories/:id/edit", CategoryLive.Index, :edit
+
+    live "/categories/:id", CategoryLive.Show, :show
+    live "/categories/:id/show/edit", CategoryLive.Show, :edit
+
+    live "/brands", BrandLive.Index, :index
+    live "/brands/new", BrandLive.Index, :new
+    live "/brands/:id/edit", BrandLive.Index, :edit
+
+    live "/brands/:id", BrandLive.Show, :show
+    live "/brands/:id/show/edit", BrandLive.Show, :edit
+
+    live "/products", ProductLive.Index, :index
+    live "/products/new", ProductLive.Index, :new
+    live "/products/:id/edit", ProductLive.Index, :edit
+
+    live "/products/:id", ProductLive.Show, :show
+    live "/products/:id/show/edit", ProductLive.Show, :edit
   end
 
   scope "/", EshopyWeb do
