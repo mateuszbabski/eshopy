@@ -5,7 +5,7 @@ defmodule Eshopy.Catalog.Brand do
   schema "brands" do
     field :name, :string
 
-    has_many :products, Eshopy.Catalog.Products, on_delete: :delete_all
+    has_many :products, Eshopy.Catalog.Product, on_delete: :delete_all
 
     timestamps()
   end
