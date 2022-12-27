@@ -19,7 +19,7 @@ defmodule Eshopy.Catalog do
 
   """
   def list_products do
-    Repo.all(Product)
+    Repo.all(Product) |> Repo.preload([:brand])
   end
 
   @doc """
@@ -36,7 +36,7 @@ defmodule Eshopy.Catalog do
       ** (Ecto.NoResultsError)
 
   """
-  def get_product!(id), do: Repo.get!(Product, id)
+  def get_product!(id), do: Repo.get!(Product, id) |> Repo.preload([:brand])
 
   @doc """
   Creates a product.
@@ -51,8 +51,11 @@ defmodule Eshopy.Catalog do
 
   """
   def create_product(attrs \\ %{}) do
+    brand = get_brand!(attrs["brand_id"])
+
     %Product{}
     |> Product.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:brand, brand)
     |> Repo.insert()
   end
 
@@ -69,8 +72,11 @@ defmodule Eshopy.Catalog do
 
   """
   def update_product(%Product{} = product, attrs) do
+    brand = get_brand!(attrs["brand_id"])
+
     product
     |> Product.changeset(attrs)
+    |> Ecto.Changeset.put_change(:brand_id, brand.id)
     |> Repo.update()
   end
 
