@@ -18,7 +18,7 @@
     <%= error_tag f, :description %>
 
     <%= label f, :brand_id %>
-    <%= select f, :brand_id, @brands %>
+    <%= select f, :brand_id, Enum.map(@brands, &{&1.name, &1.id}) %>
     <%= error_tag f, :brand_id %>
 
     <%= label f, :unit_price %>
