@@ -3,11 +3,9 @@ defmodule Eshopy.Repo.Migrations.CreateBrands do
 
   def change do
     create table(:brands) do
-      add :name, :citext, null: false
+      add :name, :citext
 
       timestamps()
     end
-
-    create unique_index(:brands, [:name])
   end
 end

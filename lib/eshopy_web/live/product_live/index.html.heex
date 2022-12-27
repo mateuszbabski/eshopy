@@ -8,6 +8,7 @@
       title={@page_title}
       action={@live_action}
       product={@product}
+      brands={@brands}
       return_to={Routes.product_index_path(@socket, :index)}
     />
   </.modal>
@@ -18,8 +19,6 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
-      <th>Brand</th>
-      <th>Category</th>
       <th>Unit price</th>
       <th>Sku</th>
 
@@ -31,8 +30,6 @@
       <tr id={"product-#{product.id}"}>
         <td><%= product.name %></td>
         <td><%= product.description %></td>
-        <td><%= product.brand %></td>
-        <td><%= product.category %></td>
         <td><%= product.unit_price %></td>
         <td><%= product.sku %></td>
 

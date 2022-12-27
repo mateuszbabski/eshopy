@@ -17,13 +17,9 @@
     <%= text_input f, :description %>
     <%= error_tag f, :description %>
 
-    <%= label f, :brand %>
-    <%= text_input f, :brand %>
-    <%= error_tag f, :brand %>
-
-    <%= label f, :category %>
-    <%= text_input f, :category %>
-    <%= error_tag f, :category %>
+    <%= label f, :brand_id %>
+    <%= select f, :brand_id, @brands %>
+    <%= error_tag f, :brand_id %>
 
     <%= label f, :unit_price %>
     <%= number_input f, :unit_price, step: "any" %>

@@ -6,7 +6,14 @@ defmodule EshopyWeb.ProductLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :products, list_products())}
+    brand_list = Enum.map(Catalog.list_brands(), fn %{id: id, name: name} ->
+        [value: id, key: name]
+    end)
+
+    {:ok, socket
+          |> assign(:products, list_products())
+          |> assign(:brands, brand_list)
+    }
   end
 
   @impl true
