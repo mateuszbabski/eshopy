@@ -4,6 +4,7 @@ defmodule Eshopy.Repo.Migrations.CreateProducts do
   def change do
     create table(:products) do
       add :brand_id, references(:brands, on_delete: :nothing)
+      add :category_id, references(:categories, on_delete: :nothing)
 
       add :name, :string
       add :description, :string

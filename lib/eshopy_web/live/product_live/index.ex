@@ -13,6 +13,7 @@ defmodule EshopyWeb.ProductLive.Index do
     {:ok, socket
           |> assign(:products, list_products())
           |> assign(:brands, Catalog.list_brands())
+          |> assign(:categories, Catalog.list_categories())
     }
   end
 

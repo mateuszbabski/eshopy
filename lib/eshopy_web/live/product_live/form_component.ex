@@ -10,7 +10,9 @@ defmodule EshopyWeb.ProductLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:changeset, changeset)}
+     |> assign(:changeset, changeset)
+     |> assign(:brands, Catalog.list_brands())
+     |> assign(:categories, Catalog.list_categories())}
   end
 
   @impl true
@@ -24,6 +26,7 @@ defmodule EshopyWeb.ProductLive.FormComponent do
   end
 
   def handle_event("save", %{"product" => product_params}, socket) do
+    IO.inspect(product_params)
     save_product(socket, socket.assigns.action, product_params)
   end
 

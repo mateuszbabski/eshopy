@@ -21,6 +21,10 @@
     <%= select f, :brand_id, Enum.map(@brands, &{&1.name, &1.id}) %>
     <%= error_tag f, :brand_id %>
 
+    <%= label f, :category_id %>
+    <%= select f, :category_id, Enum.map(@categories, &{&1.name, &1.id}) %>
+    <%= error_tag f, :category_id %>
+
     <%= label f, :unit_price %>
     <%= number_input f, :unit_price, step: "any" %>
     <%= error_tag f, :unit_price %>

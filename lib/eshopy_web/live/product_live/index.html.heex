@@ -9,6 +9,7 @@
       action={@live_action}
       product={@product}
       brands={@brands}
+      categories={@categories}
       return_to={Routes.product_index_path(@socket, :index)}
     />
   </.modal>
@@ -22,6 +23,7 @@
       <th>Unit price</th>
       <th>Sku</th>
       <th>Brand</th>
+      <th>Category</th>
 
       <th></th>
     </tr>
@@ -34,6 +36,7 @@
         <td><%= product.unit_price %></td>
         <td><%= product.sku %></td>
         <td><%= product.brand.name %></td>
+        <td><%= product.category.name %></td>
 
         <td>
           <span><%= live_redirect "Show", to: Routes.product_show_path(@socket, :show, product) %></span>

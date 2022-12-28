@@ -3,7 +3,7 @@ defmodule Eshopy.Repo.Migrations.CreateCategories do
 
   def change do
     create table(:categories) do
-      add :name, :string
+      add :name, :citext
 
       timestamps()
     end
