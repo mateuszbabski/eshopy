@@ -13,6 +13,16 @@
   </.modal>
 <% end %>
 
+<article class="column">
+  <% product_image = @product.image_upload || ~s[/images/default-thumgnail.jpg] %>
+  <img
+    alt="Product image"
+    width="300"
+    height="300"
+    src={Routes.static_path(@socket, product_image)}
+  />
+</article>
+
 <ul>
 
   <li>
