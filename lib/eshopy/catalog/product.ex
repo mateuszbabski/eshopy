@@ -9,6 +9,7 @@ defmodule Eshopy.Catalog.Product do
     field :unit_price, :decimal
 
     belongs_to :brand, Eshopy.Catalog.Brand, foreign_key: :brand_id
+    belongs_to :category, Eshopy.Catalog.Category, foreign_key: :category_id
 
     timestamps()
   end
@@ -18,7 +19,15 @@ defmodule Eshopy.Catalog.Product do
     product
     |> cast(attrs, [:name, :description, :unit_price, :sku])
     |> cast_assoc(:brand)
-    |> validate_required([:name, :description, :unit_price, :sku])
+    |> cast_assoc(:category)
+    |> validate_required([:name, :description, :sku])
+    |> validate_price()
     |> unique_constraint(:sku)
+  end
+
+  defp validate_price(changeset) do
+    changeset
+    |> validate_required(:unit_price, message: "Price has to be set and be greater than 0")
+    |> validate_number(:unit_price, greater_than: 0)
   end
 end
