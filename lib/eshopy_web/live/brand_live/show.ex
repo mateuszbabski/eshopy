@@ -13,7 +13,8 @@ defmodule EshopyWeb.BrandLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:brand, Catalog.get_brand!(id))}
+     |> assign(:brand, Catalog.get_brand!(id))
+     |> assign(:products, Catalog.get_product_by_brand_id(id))}
   end
 
   defp page_title(:show), do: "Show Brand"

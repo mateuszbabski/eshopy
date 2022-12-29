@@ -13,7 +13,8 @@ defmodule EshopyWeb.CategoryLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:category, Catalog.get_category!(id))}
+     |> assign(:category, Catalog.get_category!(id))
+     |> assign(:products, Catalog.get_product_by_category_id(id))}
   end
 
   defp page_title(:show), do: "Show Category"

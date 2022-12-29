@@ -6,7 +6,9 @@ defmodule EshopyWeb.BrandLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :brands, list_brands())}
+    {:ok,
+      socket
+      |> assign(:brands, list_brands())}
   end
 
   @impl true

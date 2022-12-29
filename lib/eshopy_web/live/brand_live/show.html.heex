@@ -8,19 +8,38 @@
       title={@page_title}
       action={@live_action}
       brand={@brand}
+      products={@products}
       return_to={Routes.brand_show_path(@socket, :show, @brand)}
     />
   </.modal>
 <% end %>
 
-<ul>
 
-  <li>
+
+<div>
     <strong>Name:</strong>
     <%= @brand.name %>
-  </li>
+</div>
 
-</ul>
+<div>
+  <ul>
+    <%= for product <- @products do %>
+
+        <%= live_patch to: Routes.product_show_path(@socket, :show, product.id) do %>
+          <tr id={"product-#{product.id}"}>
+            <li><img
+              alt="product image" width="200" height="200"
+              src={ product.image_upload } ></li>
+            <li><%= product.name %></li>
+            <li><%= product.unit_price %></li>
+            <li><%= product.category_id %></li>
+          </tr>
+        <% end %>
+    <% end %>
+  </ul>
+</div>
+
+
 
 <span><%= live_patch "Edit", to: Routes.brand_show_path(@socket, :edit, @brand), class: "button" %></span> |
 <span><%= live_redirect "Back", to: Routes.brand_index_path(@socket, :index) %></span>

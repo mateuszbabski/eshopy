@@ -47,6 +47,14 @@ defmodule Eshopy.Catalog do
     Repo.all(query)
   end
 
+  def get_product_by_category_id(category_id) do
+    query =
+      from p in Product,
+      where: p.category_id == ^category_id
+
+    Repo.all(query)
+  end
+
   @doc """
   Creates a product.
 
