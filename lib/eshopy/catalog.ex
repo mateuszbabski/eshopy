@@ -8,6 +8,7 @@ defmodule Eshopy.Catalog do
 
   alias Eshopy.Catalog.Product
   alias Eshopy.Catalog.Brand
+  alias Eshopy.Catalog.Category
 
   @doc """
   Returns the list of products.
@@ -37,6 +38,14 @@ defmodule Eshopy.Catalog do
 
   """
   def get_product!(id), do: Repo.get!(Product, id) |> Repo.preload([:brand, :category])
+
+  def get_product_by_brand_id(brand_id) do
+    query =
+      from p in Product,
+      where: p.brand_id == ^brand_id
+
+    Repo.all(query)
+  end
 
   @doc """
   Creates a product.
@@ -208,8 +217,6 @@ defmodule Eshopy.Catalog do
   def change_brand(%Brand{} = brand, attrs \\ %{}) do
     Brand.changeset(brand, attrs)
   end
-
-  alias Eshopy.Catalog.Category
 
   @doc """
   Returns the list of categories.
