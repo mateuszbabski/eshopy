@@ -14,13 +14,9 @@
 <% end %>
 
 <article class="column">
-  <% product_image = @product.image_upload || ~s[/images/default-thumgnail.jpg] %>
   <img
-    alt="Product image"
-    width="300"
-    height="300"
-    src={Routes.static_path(@socket, product_image)}
-  />
+    alt="product image" width="200" height="200"
+    src={ Routes.static_path(@socket, @product.image_upload || ~s[/images/default-thumbnail.jpg])} >
 </article>
 
 <ul>
