@@ -1,4 +1,4 @@
-<h1>Listing Categories</h1>
+<div class="bg-white mx-auto h-screen">
 
 <%= if @live_action in [:new, :edit] do %>
   <.modal return_to={Routes.category_index_path(@socket, :index)}>
@@ -12,28 +12,50 @@
     />
   </.modal>
 <% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="categories">
+  <section class="mx-auto max-w-screen-lg justify-items-center mt-10 mb-5">
+  <img
+    alt="category image"
+    src={ ~s[/images/main-site-photo.jpg]} >
+  </section>
+  <div class="mx-auto mb-10">
+    <p class="text-center text-blue-500 md:text-2xl sm:text-xl">The best equipment for your office</p>
+  </div>
+  <div class="flex flex-wrap mx-auto justify-items-center max-w-6xl">
     <%= for category <- @categories do %>
-      <tr id={"category-#{category.id}"}>
-        <td><%= category.name %></td>
-
-        <td>
-          <span><%= live_redirect "Show", to: Routes.category_show_path(@socket, :show, category) %></span>
-          <span><%= live_patch "Edit", to: Routes.category_index_path(@socket, :edit, category) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: category.id, data: [confirm: "Are you sure?"] %></span>
-        </td>
-      </tr>
+      <div class="grid grid-cols-1 content-between mx-auto my-10 w-64 max-h-72" id={"category-#{category.id}"}>
+        <div class="justify-self-center">
+          <img
+            alt="category image" width="250" height="250"
+            src={ Routes.static_path(@socket, category.image_upload || ~s[/images/default-thumbnail.jpg])} >
+        </div>
+        <div><p class="text-center text-blue-500 md:text-2xl sm:text-xl"><%= category.name %></p>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
 
-<span><%= live_patch "New Category", to: Routes.category_index_path(@socket, :new) %></span>
+    <!-- <table class="mt-20">
+      <thead>
+        <tr>
+          <th>Name</th>
+
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="categories">
+        <%= for category <- @categories do %>
+          <tr id={"category-#{category.id}"}>
+            <td><%= category.name %></td>
+
+            <td>
+              <span><%= live_redirect "Show", to: Routes.category_show_path(@socket, :show, category) %></span>
+              <span><%= live_patch "Edit", to: Routes.category_index_path(@socket, :edit, category) %></span>
+              <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: category.id, data: [confirm: "Are you sure?"] %></span>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <span><%= live_patch "New Category", to: Routes.category_index_path(@socket, :new) %></span> -->
+  </div>
+</div>

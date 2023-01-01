@@ -12,7 +12,7 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   </head>
   <body class="bg-white">
-    <nav class="p-5 bg-light_gray shadow-2xl md:flex md:items-center md:justify-between">
+    <nav class="p-5 bg-white md:flex md:items-center md:justify-between">
       <div class="flex justify-between items-center">
         <span class="text-2xl font-[Poppins] bold cursor-pointer">eShopy</span>
         <ul class="flex">
@@ -21,10 +21,10 @@
         </ul>
       </div>
       <ul class="md:flex md:items-center z-[0] md:z-[auto] md:static absolute bg-white w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-5 md:opacity-100 hidden top[-400px] transition-all ease-in duration-500">
-        <li class="mx-4 my-4 md:my-0"><a href="/" class="text-xl hover:text-blue-500">HOME</a></li>
+        <li class="mx-4 my-4 md:my-0"><a href="/" class="text-xl hover:text-blue-500">PRODUCTS</a></li>
         <li class="mx-4 my-4 md:my-0"><a href="/application" class="text-xl hover:text-blue-500">APPLICATION</a></li>
+        <li class="mx-4 my-4 md:my-0"><a href="/about" class="text-xl hover:text-blue-500">ABOUT US</a></li>
         <li class="mx-4 my-4 md:my-0"><a href="/contact" class="text-xl hover:text-blue-500">CONTACT</a></li>
-        <li class="mx-4 my-4 md:my-0"><a href="/about" class="text-xl hover:text-blue-500">ABOUT</a></li>
       <%= if @current_user do %>
           <li>
             <span class="text-xl cursor-pointer mx-4 my-4 md:my-0"><%= link @current_user.email, to: Routes.user_settings_path(@conn, :edit) %></span>
