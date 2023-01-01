@@ -8,12 +8,27 @@
     phx-target={@myself}
     phx-change="validate"
     phx-submit="save">
-  
+
     <%= label f, :name %>
     <%= text_input f, :name %>
     <%= error_tag f, :name %>
-  
+
+    <div phx-drop-target={@uploads.image.ref}>
+      <%= live_file_input(@uploads.image) %>
+    </div>
+
+    <p>Entries</p>
+    <%= for entry <- @uploads.image.entries do %>
+      <p>
+        <%= entry.client_name %> - <%= entry.progress %>%
+        <span class="alert-danger"><%= upload_image_error(@uploads, entry) %></span>
+      </p>
+    <% end %>
+
+    <p class="alert-danger-info" role="alert" phx-click="lv:clear-flash" phx-value-key="info"><%= live_flash(@flash, :info) %></p>
+
     <div>
+
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>
   </.form>

@@ -1,5 +1,5 @@
-defmodule EshopyWeb.AdminDashboard do
-  use EshopyWeb, :live_component
+defmodule EshopyWeb.AdminDashboardLive do
+  use EshopyWeb, :live_view
 
   # @impl true
   # def mount(_params, _session, socket) do

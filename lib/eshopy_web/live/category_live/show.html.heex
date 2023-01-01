@@ -16,6 +16,12 @@
 
 <ul>
 
+<article class="column">
+  <img
+    alt="category image" width="200" height="200"
+    src={ Routes.static_path(@socket, @category.image_upload || ~s[/images/default-thumbnail.jpg])} >
+</article>
+
   <li>
     <strong>Name:</strong>
     <%= @category.name %>
@@ -33,6 +39,7 @@
               src={ product.image_upload } ></li>
             <li><%= product.name %></li>
             <li><%= product.unit_price %></li>
+            <li><%= Catalog.get_brand!(product.brand_id).name %></li>
           </tr>
         <% end %>
     <% end %>

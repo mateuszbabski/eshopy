@@ -33,6 +33,7 @@
             <li><%= product.name %></li>
             <li><%= product.unit_price %></li>
             <li><%= product.category_id %></li>
+            <li><%= Catalog.get_category!(product.category_id).name %></li>
           </tr>
         <% end %>
     <% end %>

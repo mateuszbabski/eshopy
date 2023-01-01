@@ -30,8 +30,8 @@ defmodule EshopyWeb.Router do
   scope "/", EshopyWeb do
     pipe_through :browser
 
-    live "/", MainLive, :home
-    live "/admin", MainLive, :admin_dashboard
+    live "/", HomeLive, :home
+    live "/admin", AdminDashboardLive, :admin_dashboard
 
     live "/products", ProductLive.Index, :index
     live "/products/new", ProductLive.Index, :new

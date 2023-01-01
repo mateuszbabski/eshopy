@@ -1,0 +1,14 @@
+<div class="homepage bg-white container mx-auto h-screen">
+    <div class="main-container mx-auto">
+        <img alt="title image" src=""/>
+        <div class="main-section">
+        <%= for category <- @categories do %>
+        <div>
+        <img src="" alt="category"/>
+        <span><strong><% category.name %></strong></span>
+        <button>Check products!</button>
+        </div>
+        <% end %>
+        </div>
+    </div>
+</div>
