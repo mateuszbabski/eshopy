@@ -1,5 +1,3 @@
-<h1>Show Brand</h1>
-
 <%= if @live_action in [:edit] do %>
   <.modal return_to={Routes.brand_show_path(@socket, :show, @brand)}>
     <.live_component
@@ -17,30 +15,29 @@
 
 
 <div>
-    <strong>Name:</strong>
-    <%= @brand.name %>
-</div>
-
-<div>
-  <ul>
-    <%= for product <- @products do %>
-
-        <%= live_patch to: Routes.product_show_path(@socket, :show, product.id) do %>
-          <tr id={"product-#{product.id}"}>
-            <li><img
-              alt="product image" width="200" height="200"
-              src={ product.image_upload } ></li>
-            <li><%= product.name %></li>
-            <li><%= product.unit_price %></li>
-            <li><%= product.category_id %></li>
-            <li><%= Catalog.get_category!(product.category_id).name %></li>
-          </tr>
+    <p class="text-center text-blue-500 md:text-2xl text-xl"><strong><%= @brand.name %></strong></p>
+    <div class="flex flex-wrap mx-auto justify-center max-w-7xl">
+        <%= for product <- @products do %>
+          <%= live_patch to: Routes.product_show_path(@socket, :show, product.id) do %>
+            <div class="grid grid-cols-1 content-center justify-center mx-auto my-10" id={"product-#{product.id}"}>
+              <div class="self-center w-64 h-64">
+                <img
+                  alt="product image" width="250" height="250"
+                  src={ product.image_upload } >
+              </div>
+                  <p class="text-center text-blue-500 md:text-2xl sm:text-xl mt-5"><strong><%= product.name %></strong></p>
+                  <p class="text-center text-blue-500 md:text-xl sm:text-xl"><%= Catalog.get_brand!(product.brand_id).name %></p>
+                  <p class="text-center text-blue-500 md:text-2xl sm:text-xl"><em><%= product.unit_price %>$</em></p>
+                  <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">
+                    <%= link "Add to cart!", to: Routes.brand_show_path(@socket, :edit, @brand), class: "button" %>
+                  </button>
+            </div>
+          <% end %>
         <% end %>
-    <% end %>
-  </ul>
+    </div>
 </div>
 
 
 
-<span><%= live_patch "Edit", to: Routes.brand_show_path(@socket, :edit, @brand), class: "button" %></span> |
-<span><%= live_redirect "Back", to: Routes.brand_index_path(@socket, :index) %></span>
+<!--<span><%= live_patch "Edit", to: Routes.brand_show_path(@socket, :edit, @brand), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.brand_index_path(@socket, :index) %></span>-->

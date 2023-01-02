@@ -16,6 +16,28 @@
         <span class="mx-1 my-3"><%= error_tag f, :name %></span>
       </div>
 
+    <div phx-drop-target={@uploads.image.ref}>
+      <%= live_file_input(@uploads.image) %>
+    </div>
+
+    <p class="my-5">Entries</p>
+    <%= for entry <- @uploads.image.entries do %>
+      <p>
+        <%= entry.client_name %> - <%= entry.progress %>%
+        <span class="alert-danger"><%= upload_image_error(@uploads, entry) %></span>
+      </p>
+    <% end %>
+
+    <%= if @image_upload do %>
+      <div class="self-center">
+        <img
+          alt="category image" width="200" height="200"
+          src={ Routes.static_path(@socket, @image_upload || ~s[/images/default-thumbnail.jpg])} >
+      </div>
+    <% end %>
+
+    <p class="alert-danger-info" role="alert" phx-click="lv:clear-flash" phx-value-key="info"><%= live_flash(@flash, :info) %></p>
+
       <div class="bg-blue-400 text-white text-center font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">
         <%= submit "Save", phx_disable_with: "Saving..." %>
       </div>

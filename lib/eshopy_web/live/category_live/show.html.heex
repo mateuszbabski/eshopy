@@ -24,7 +24,7 @@
                   src={ product.image_upload } >
               </div>
                   <p class="text-center text-blue-500 md:text-2xl sm:text-xl mt-5"><strong><%= product.name %></strong></p>
-                  <p class="text-center text-blue-500 md:text-xl sm:text-xl"><%= Catalog.get_brand!(product.brand_id).name %></p>
+                  <p class="text-center text-blue-500 md:text-xl sm:text-xl"><%= Catalog.get_category!(product.category_id).name %></p>
                   <p class="text-center text-blue-500 md:text-2xl sm:text-xl"><em><%= product.unit_price %>$</em></p>
                   <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">
                     <%= link "Add to cart!", to: Routes.category_show_path(@socket, :edit, @category), class: "button" %>
