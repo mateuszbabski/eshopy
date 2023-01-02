@@ -1,5 +1,3 @@
-<h1>Listing Products</h1>
-
 <%= if @live_action in [:new, :edit] do %>
   <.modal return_to={Routes.product_index_path(@socket, :index)}>
     <.live_component
@@ -14,38 +12,36 @@
     />
   </.modal>
 <% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Unit price</th>
-      <th>Sku</th>
-      <th>Brand</th>
-      <th>Category</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="products">
+  <div class="flex flex-wrap mx-auto justify-center max-w-7xl">
     <%= for product <- @products do %>
-      <tr id={"product-#{product.id}"}>
-        <td><%= product.name %></td>
-        <td><%= product.description %></td>
-        <td><%= product.unit_price %></td>
-        <td><%= product.sku %></td>
-        <td><%= product.brand.name %></td>
-        <td><%= product.category.name %></td>
-
-        <td>
-          <span><%= live_redirect "Show", to: Routes.product_show_path(@socket, :show, product) %></span>
-          <span><%= live_patch "Edit", to: Routes.product_index_path(@socket, :edit, product) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: product.id, data: [confirm: "Are you sure?"] %></span>
-        </td>
-      </tr>
+      <%= live_patch to: Routes.product_show_path(@socket, :show, product.id) do %>
+        <div class="flex flex-col content-between justify-center mx-auto my-10" id={"product-#{product.id}"}>
+          <div class="self-center w-64 h-64">
+            <img
+              alt="product image" width="250" height="250"
+              src={ Routes.static_path(@socket, product.image_upload || ~s[/images/default-thumbnail.jpg])} >
+          </div>
+          <p class="text-center text-blue-500 md:text-2xl sm:text-xl mt-5"><%= product.name %></p>
+          <p class="text-center text-blue-500 md:text-2xl sm:text-xl"><%= product.brand.name %></p>
+          <p class="text-center text-blue-500 md:text-2xl sm:text-xl"><%= product.unit_price %>$</p>
+          <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">
+            <%= link "Add to cart!", to: Routes.product_show_path(@socket, :edit, product.id), class: "button" %>
+          </button>
+        </div>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<span><%= live_patch "New Product", to: Routes.product_index_path(@socket, :new) %></span>
+
+    <%= for product <- @products do %>
+      <%= live_patch to: Routes.product_show_path(@socket, :show, product.id) do %>
+
+          <!--<span><%= live_redirect "Show", to: Routes.product_show_path(@socket, :show, product) %></span>
+          <span><%= live_patch "Edit", to: Routes.product_index_path(@socket, :edit, product) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: product.id, data: [confirm: "Are you sure?"] %></span>-->
+      <% end %>
+    <% end %>
+
+
+
+<!--<span><%= live_patch "New Product", to: Routes.product_index_path(@socket, :new) %></span>-->

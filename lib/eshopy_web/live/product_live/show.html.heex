@@ -11,9 +11,9 @@
   </.modal>
 <% end %>
 
-<div class="flex flex-auto flex-col mx-auto justify-center max-w-screen-md mt-5">
+<div class="flex flex-col mx-auto justify-center max-w-screen-md mt-5">
   <div class="flex flex-row justify-between">
-    <div class="flex justify-self-center">
+    <div class="flex justify-self-center mx-auto">
       <img
         alt="product image" width="350" height="350"
         src={ Routes.static_path(@socket, @product.image_upload || ~s[/images/default-thumbnail.jpg])} >
