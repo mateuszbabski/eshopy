@@ -1,5 +1,5 @@
-<div>
-  <h2><%= @title %></h2>
+<div class="max-w-lg mx-auto">
+  <p class="text-center text-blue-500 md:text-2xl text-xl"><strong><%= @title %></strong></p>
 
   <.form
     let={f}
@@ -9,15 +9,18 @@
     phx-change="validate"
     phx-submit="save">
 
-    <%= label f, :name %>
-    <%= text_input f, :name %>
-    <%= error_tag f, :name %>
+  <div class="flex flex-col mx-auto max-w-sm text-lg my-2">
+    <div class="flex flex-col">
+      <span class="mx-1"><%= label f, :name %></span>
+      <%= text_input f, :name %>
+      <span class="mx-1 my-3"><%= error_tag f, :name %></span>
+    </div>
 
     <div phx-drop-target={@uploads.image.ref}>
       <%= live_file_input(@uploads.image) %>
     </div>
 
-    <p>Entries</p>
+    <p class="my-5">Entries</p>
     <%= for entry <- @uploads.image.entries do %>
       <p>
         <%= entry.client_name %> - <%= entry.progress %>%
@@ -25,11 +28,19 @@
       </p>
     <% end %>
 
+    <%= if @image_upload do %>
+      <div class="self-center">
+        <img
+          alt="category image" width="200" height="200"
+          src={ Routes.static_path(@socket, @image_upload || ~s[/images/default-thumbnail.jpg])} >
+      </div>
+    <% end %>
+
     <p class="alert-danger-info" role="alert" phx-click="lv:clear-flash" phx-value-key="info"><%= live_flash(@flash, :info) %></p>
 
-    <div>
-
+    <div class="bg-blue-400 text-white text-center font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">
       <%= submit "Save", phx_disable_with: "Saving..." %>
     </div>
+  </div>
   </.form>
 </div>
