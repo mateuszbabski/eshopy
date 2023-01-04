@@ -6,7 +6,10 @@ defmodule Eshopy.ShoppingCart do
   import Ecto.Query, warn: false
   alias Eshopy.Repo
 
+  alias Eshopy.ShoppingCart.Cart
   alias Eshopy.ShoppingCart.CartItem
+  alias Eshopy.Accounts.User
+  alias Eshopy.Catalog.Product
 
   @doc """
   Returns the list of cart_items.
@@ -17,8 +20,16 @@ defmodule Eshopy.ShoppingCart do
       [%CartItem{}, ...]
 
   """
-  def list_cart_items do
+  def list_cart_items() do
     Repo.all(CartItem)
+  end
+
+  def list_cart_items(cart_id) do
+    query =
+      from item in CartItem,
+      where: item.cart_id == ^cart_id
+
+    Repo.all(query)
   end
 
   @doc """
@@ -102,8 +113,6 @@ defmodule Eshopy.ShoppingCart do
     CartItem.changeset(cart_item, attrs)
   end
 
-  alias Eshopy.ShoppingCart.Cart
-
   @doc """
   Returns the list of carts.
 
@@ -133,6 +142,15 @@ defmodule Eshopy.ShoppingCart do
   """
   def get_cart!(id), do: Repo.get!(Cart, id)
 
+  def get_cart_by_user_id(user_id) do
+    query =
+      from c in Cart,
+      where: c.user_id == ^user_id,
+      left_join: i in assoc(c, :cart_items)
+
+    Repo.all(query)
+  end
+
   @doc """
   Creates a cart.
 
@@ -145,10 +163,27 @@ defmodule Eshopy.ShoppingCart do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_cart(attrs \\ %{}) do
+  # def create_cart(attrs \\ %{}) do
+  #   %Cart{}
+  #   |> Cart.changeset(attrs)
+  #   |> Repo.insert()
+  # end
+
+  def create_cart(%User{} = user, attrs \\ %{}) do
     %Cart{}
     |> Cart.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:user, user)
     |> Repo.insert()
+  end
+
+  def add_item_to_cart(%Cart{} = cart, %Product{} = product, quantity \\ 1) do
+    %CartItem{quantity: quantity, price: product.unit_price}
+    |> CartItem.changeset(%{})
+    |> Ecto.Changeset.put_assoc(:cart, cart)
+    |> Ecto.Changeset.put_assoc(:product, product)
+    |> Repo.insert(
+      on_conflict: [inc: [quantity: 1]]
+    )
   end
 
   @doc """
