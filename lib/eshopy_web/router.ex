@@ -53,6 +53,20 @@ defmodule EshopyWeb.Router do
 
     live "/categories/:id", CategoryLive.Show, :show
     live "/categories/:id/show/edit", CategoryLive.Show, :edit
+
+    live "/carts", CartLive.Index, :index
+    live "/carts/new", CartLive.Index, :new
+    live "/carts/:id/edit", CartLive.Index, :edit
+
+    live "/carts/:id", CartLive.Show, :show
+    live "/carts/:id/show/edit", CartLive.Show, :edit
+
+    live "/cart_items", CartItemLive.Index, :index
+    live "/cart_items/new", CartItemLive.Index, :new
+    live "/cart_items/:id/edit", CartItemLive.Index, :edit
+
+    live "/cart_items/:id", CartItemLive.Show, :show
+    live "/cart_items/:id/show/edit", CartItemLive.Show, :edit
   end
 
   scope "/", EshopyWeb do

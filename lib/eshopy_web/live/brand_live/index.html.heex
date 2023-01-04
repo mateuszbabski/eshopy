@@ -27,12 +27,12 @@
               src={ Routes.static_path(@socket, brand.image_upload || ~s[/images/default-thumbnail.jpg])} >
           </div>
           <p class="text-center text-blue-500 md:text-2xl sm:text-xl mt-5"><%= brand.name %></p>
-          <!--<span><%= live_redirect "Show", to: Routes.brand_show_path(@socket, :show, brand) %></span>
-          <span><%= live_patch "Edit", to: Routes.brand_index_path(@socket, :edit, brand) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: brand.id, data: [confirm: "Are you sure?"] %></span>-->
         </div>
       <% end %>
     <% end %>
   </div>
 </div>
-<!--<span><%= live_patch "New Brand", to: Routes.brand_index_path(@socket, :new) %></span>-->
+<!--<span>live_redirect "Show", to: Routes.brand_show_path(@socket, :show, brand) %></span>
+          <span>live_patch "Edit", to: Routes.brand_index_path(@socket, :edit, brand) %></span>
+          <span>link "Delete", to: "#", phx_click: "delete", phx_value_id: brand.id, data: [confirm: "Are you sure?"] %></span>
+          <span>live_patch "New Brand", to: Routes.brand_index_path(@socket, :new) %></span>-->
