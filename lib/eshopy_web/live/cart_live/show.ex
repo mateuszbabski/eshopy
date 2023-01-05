@@ -1,11 +1,17 @@
 defmodule EshopyWeb.CartLive.Show do
   use EshopyWeb, :live_view
 
+  alias Eshopy.Accounts
   alias Eshopy.ShoppingCart
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, socket}
+  def mount(_params, %{"user_token" => user_token}, socket) do
+    user = Accounts.get_user_by_session_token(user_token)
+
+    {:ok,
+    socket
+    |> assign(:current_user, user)
+    |> assign(:carts, ShoppingCart.get_cart_by_user_id_with_items(user.id))}
   end
 
   @impl true
