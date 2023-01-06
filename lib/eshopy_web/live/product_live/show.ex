@@ -31,6 +31,16 @@ defmodule EshopyWeb.ProductLive.Show do
 
   @impl true
   def handle_event("add_to_cart", %{"product" => product_id, "quantity" => quantity}, socket) do
+    if socket.assigns[:current_user] do
+      create_and_add_item(product_id, quantity, socket)
+    else
+      {:noreply,
+        socket
+        |> put_flash(:info, "You must be logged in")}
+    end
+  end
+
+  defp create_and_add_item(product_id, quantity, socket) do
     product = Catalog.get_product!(product_id)
     quantity = String.to_integer(quantity)
 
@@ -52,12 +62,10 @@ defmodule EshopyWeb.ProductLive.Show do
           {:ok, _item} ->
             socket
             |> put_flash(:info, "Item added to shopping cart")
-            |> redirect(to: Routes.cart_show_path(socket, :show, cart))
 
           {:error, _changeset} ->
             socket
             |> put_flash(:info, "Error with adding item")
-            |> redirect(to: Routes.cart_show_path(socket, :show, cart))
     end
   end
 

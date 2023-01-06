@@ -24,6 +24,25 @@ defmodule EshopyWeb.CategoryLive.Show do
 
   @impl true
   def handle_event("add_to_cart", %{"product" => product_id, "quantity" => quantity}, socket) do
+    if socket.assigns[:current_user] do
+      create_and_add_item(product_id, quantity, socket)
+    else
+      {:noreply,
+        socket
+        |> put_flash(:info, "You must be logged in")}
+    end
+  end
+
+  @impl true
+  def handle_params(%{"id" => id}, _, socket) do
+    {:noreply,
+     socket
+     |> assign(:page_title, page_title(socket.assigns.live_action))
+     |> assign(:category, Catalog.get_category!(id))
+     |> assign(:products, Catalog.get_product_by_category_id(id))}
+  end
+
+  defp create_and_add_item(product_id, quantity, socket) do
     product = Catalog.get_product!(product_id)
     quantity = String.to_integer(quantity)
 
@@ -40,33 +59,15 @@ defmodule EshopyWeb.CategoryLive.Show do
     {:noreply, socket}
   end
 
-  @impl true
-  def handle_params(%{"id" => id}, _, socket) do
-    {:noreply,
-     socket
-     |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:category, Catalog.get_category!(id))
-     |> assign(:products, Catalog.get_product_by_category_id(id))}
-  end
-
-  # def handle_params(%{"product" => product_id, "quantity" => _quantity}, _, socket) do
-  #   {:noreply,
-  #   socket
-  #   |> assign(:products, Catalog.get_product!(product_id))
-  #   |> assign(:cart_items, ShoppingCart.create_cart_item())}
-  # end
-
   defp add_item_to_shopping_cart(socket, cart, product, quantity) do
     case ShoppingCart.add_item_to_cart(cart, product, quantity) do
           {:ok, _item} ->
             socket
             |> put_flash(:info, "Item added to shopping cart")
-            |> redirect(to: Routes.cart_show_path(socket, :show, cart))
 
           {:error, _changeset} ->
             socket
             |> put_flash(:info, "Error with adding item")
-            |> redirect(to: Routes.cart_show_path(socket, :show, cart))
     end
   end
 
