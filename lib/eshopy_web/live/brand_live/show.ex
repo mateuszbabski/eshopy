@@ -16,6 +16,10 @@ defmodule EshopyWeb.BrandLive.Show do
     |> assign(:cart_items, nil)}
   end
 
+  def mount(_params, _session, socket) do
+    {:ok, socket}
+  end
+
   @impl true
   def handle_event("add_to_cart", %{"product" => product_id, "quantity" => quantity}, socket) do
     product = Catalog.get_product!(product_id)

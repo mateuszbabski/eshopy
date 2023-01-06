@@ -50,9 +50,7 @@
         </li>
 
         <li>
-          <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">
-            <%= link "Add to cart!", to: Routes.product_show_path(@socket, :edit, @product), class: "button" %>
-          </button>
+          <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 md:my-0 hover:bg-blue-600 rounded" phx-click="add_to_cart" phx-value-product={@product.id} phx-value-quantity={1}>Add to cart</button>
         </li>
 
       </ul>

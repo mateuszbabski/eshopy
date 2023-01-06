@@ -7,13 +7,19 @@ defmodule EshopyWeb.CategoryLive.Show do
   alias Eshopy.Accounts
 
   @impl true
+
   def mount(_params, %{"user_token" => user_token}, socket) do
     user = Accounts.get_user_by_session_token(user_token)
+
     {:ok,
     socket
     |> assign(:current_user, user)
     |> assign(:cart, ShoppingCart.get_cart_by_user_id(user.id))
     |> assign(:cart_items, nil)}
+  end
+
+  def mount(_params, _session, socket) do
+    {:ok, socket}
   end
 
   @impl true
