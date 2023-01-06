@@ -43,15 +43,12 @@ defmodule EshopyWeb.CategoryLive.Show do
      |> assign(:products, Catalog.get_product_by_category_id(id))}
   end
 
-  def handle_params(%{"product" => product_id, "quantity" => _quantity}, _, socket) do
-    {:noreply,
-    socket
-    |> assign(:products, Catalog.get_product!(product_id))
-    |> assign(:cart_items, ShoppingCart.create_cart_item())}
-  end
-
-  defp page_title(:show), do: "Show Category"
-  defp page_title(:edit), do: "Edit Category"
+  # def handle_params(%{"product" => product_id, "quantity" => _quantity}, _, socket) do
+  #   {:noreply,
+  #   socket
+  #   |> assign(:products, Catalog.get_product!(product_id))
+  #   |> assign(:cart_items, ShoppingCart.create_cart_item())}
+  # end
 
   defp add_item_to_shopping_cart(socket, cart, product, quantity) do
     case ShoppingCart.add_item_to_cart(cart, product, quantity) do
@@ -66,4 +63,8 @@ defmodule EshopyWeb.CategoryLive.Show do
             |> redirect(to: Routes.cart_show_path(socket, :show, cart))
     end
   end
+
+  defp page_title(:show), do: "Show Category"
+  defp page_title(:edit), do: "Edit Category"
+
 end

@@ -11,7 +11,7 @@ defmodule EshopyWeb.CartLive.Show do
     {:ok,
     socket
     |> assign(:current_user, user)
-    |> assign(:carts, ShoppingCart.get_cart_by_user_id_with_items(user.id))}
+    |> assign(:carts, ShoppingCart.get_cart_by_user_id(user.id))}
   end
 
   @impl true
