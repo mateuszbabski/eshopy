@@ -5,6 +5,7 @@ defmodule EshopyWeb.ProductLive.Show do
   alias Eshopy.Accounts
   alias Eshopy.ShoppingCart
   alias Eshopy.ShoppingCart.Cart
+  alias Eshopy.ShoppingCart.CartItem
 
   @impl true
   def mount(_params, %{"user_token" => user_token}, socket) do
@@ -14,7 +15,7 @@ defmodule EshopyWeb.ProductLive.Show do
     socket
     |> assign(:current_user, user)
     |> assign(:cart, ShoppingCart.get_cart_by_user_id(user.id))
-    |> assign(:cart_items, nil)}
+    |> assign(:cart_items, %CartItem{})}
   end
 
   def mount(_params, _session, socket) do
@@ -30,9 +31,11 @@ defmodule EshopyWeb.ProductLive.Show do
   end
 
   @impl true
-  def handle_event("add_to_cart", %{"product" => product_id, "quantity" => quantity}, socket) do
+  def handle_event("add_to_cart", %{"quantity" => quantity}, socket) do
+    product = socket.assigns[:product]
+
     if socket.assigns[:current_user] do
-      create_and_add_item(product_id, quantity, socket)
+      create_and_add_item(product, quantity, socket)
     else
       {:noreply,
         socket
@@ -40,8 +43,7 @@ defmodule EshopyWeb.ProductLive.Show do
     end
   end
 
-  defp create_and_add_item(product_id, quantity, socket) do
-    product = Catalog.get_product!(product_id)
+  defp create_and_add_item(product, quantity, socket) do
     quantity = String.to_integer(quantity)
 
     socket =

@@ -4,6 +4,7 @@ defmodule EshopyWeb.BrandLive.Show do
   alias Eshopy.Catalog
   alias Eshopy.ShoppingCart
   alias Eshopy.ShoppingCart.Cart
+  alias Eshopy.ShoppingCart.CartItem
   alias Eshopy.Accounts
 
   @impl true
@@ -14,7 +15,7 @@ defmodule EshopyWeb.BrandLive.Show do
     socket
     |> assign(:current_user, user)
     |> assign(:cart, ShoppingCart.get_cart_by_user_id(user.id))
-    |> assign(:cart_items, nil)}
+    |> assign(:cart_items, %CartItem{})}
   end
 
   def mount(_params, _session, socket) do
