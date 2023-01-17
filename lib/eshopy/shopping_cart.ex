@@ -142,11 +142,30 @@ defmodule Eshopy.ShoppingCart do
   """
   def get_cart!(id), do: Repo.get!(Cart, id)
 
+  def get_cart_with_items(id), do: Repo.get!(Cart, id) |> Repo.preload([:cart_items])
+
   def get_cart_by_user_id(user_id) do
-    Repo.get_by(Cart, [user_id: user_id])
+    query =
+      from c in Cart,
+      where: c.user_id == ^user_id
+
+    Repo.one(query)
   end
 
-  def get_cart_by_user_id_with_items(user_id), do: Repo.get_by(Cart, [user_id: user_id]) |> Repo.preload(:cart_items)
+  def get_cart_by_user_id_with_cart_items(user_id) do
+    Repo.one(
+      from(c in Cart,
+        where: c.user_id == ^user_id,
+        left_join: i in assoc(c, :cart_items),
+        left_join: p in assoc(i, :product),
+        preload: [cart_items: {i, product: p}]
+      )
+    )
+  end
+
+  def get_cart_by_user_id_with_items(user_id), do: Repo.get_by(Cart, [user_id: user_id]) |> Repo.preload([:cart_items])
+
+  def reload_cart(id), do: get_cart_with_items(id)
 
   @doc """
   Creates a cart.
@@ -173,6 +192,26 @@ defmodule Eshopy.ShoppingCart do
     |> Repo.insert()
   end
 
+  @doc """
+  Creates an item and adds it to the cart.
+
+  Cart is created while adding first Product to the cart
+  (in the case of cart doesnt exist yet)
+
+  Creates association with specific product and cart.
+
+  In the case of conflict function updates the quantity and total price.
+
+  ## Examples
+
+      iex> add_item_to_cart(%Cart{}, %Product{}, quantity)
+      {:ok, %CartItem{}}
+
+      iex> add_item_to_cart(%Cart{}, %Product{}, quantity)
+      {:error, %Ecto.Changeset{}}
+
+  """
+
   def add_item_to_cart(%Cart{} = cart, %Product{} = product, quantity \\ 1) do
     %CartItem{}
     |> CartItem.changeset(%{quantity: quantity, price: Decimal.mult(product.unit_price, quantity)})
@@ -182,6 +221,20 @@ defmodule Eshopy.ShoppingCart do
       conflict_target: [:cart_id, :product_id],
       on_conflict: [inc: [quantity: quantity, price: Decimal.mult(product.unit_price, quantity)]]
     )
+  end
+
+  @doc """
+  Removes specific item from the cart
+  """
+  def remove_item_from_cart(%Cart{} = cart, product_id) do
+    query =
+      from item in CartItem,
+      where: item.cart_id == ^cart.id,
+      where: item.product_id == ^product_id
+
+    Repo.delete_all(query)
+
+    {:ok, reload_cart(cart.id)}
   end
 
   @doc """
@@ -229,5 +282,18 @@ defmodule Eshopy.ShoppingCart do
   """
   def change_cart(%Cart{} = cart, attrs \\ %{}) do
     Cart.changeset(cart, attrs)
+  end
+  @doc """
+  Returns a full price of shopping cart basis on user_id
+
+  """
+
+  def total_cart_price(user_id) do
+    cart = get_cart_by_user_id_with_cart_items(user_id)
+
+    Enum.reduce(cart.cart_items, 0, fn cart_item, acc ->
+      cart_item.price
+      |> Decimal.add(acc)
+    end)
   end
 end

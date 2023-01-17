@@ -1,48 +1,44 @@
 <div class="mx-auto justify-center max-w-2xl md:max-w-5xl">
-<div class="flex justify-between mb-10">
-<h1 class="text-3xl font-[Poppins]">Shopping Cart</h1>
-<h4 class="text-md font-[Poppins] self-end text-red-600">Clear cart</h4>
-</div>
+  <div class="flex justify-between mb-10">
+    <h1 class="text-3xl font-[Poppins]">Shopping Cart</h1>
+    <button phx-click="clear-cart" class="cursor-pointer text-md font-[Poppins] self-end text-red-600">Clear cart</button>
+  </div>
 
-<div class="cart-item flex flex-col">
+  <div class="cart-item flex flex-col">
 
-  <%= for cart_item <- @cart_items do %>
-    <div class="flex flex-row justify-between" id={"cart_item-#{cart_item.id}"}>
-      <div class="image">
-        <img
-              alt="cart_item image" width="100" height="100"
-              src={ Routes.static_path(@socket, cart_item.product.image_upload || ~s[/images/default-thumbnail.jpg])} >
-      </div>
-      <div class="self-center cursor-pointer hover:text-blue-500">
-        <%= live_patch to: Routes.product_show_path(@socket, :show, cart_item.product_id) do %>
-          <%= cart_item.product.name %>
-        <% end %>
-      </div>
-      <div class="flex flex-row w-54">
-        <div class="flex self-center mx-5">
-          <i class="fa-solid fa-circle-plus self-center mr-5" title="Add 1"></i>
-          <%= cart_item.quantity %>
-          <i class="fa-solid fa-circle-minus self-center ml-5" title="Remove 1"></i>
+    <%= for cart_item <- @cart_items do %>
+      <div class="flex flex-row justify-between" id={"cart_item-#{cart_item.id}"}>
+        <div class="w-8 sm:w-24">
+          <img
+                alt="cart_item image" width="100" height="100"
+                src={ Routes.static_path(@socket, cart_item.product.image_upload || ~s[/images/default-thumbnail.jpg])} >
         </div>
-        <div class="flex self-center mx-5 font-semibold text-green-700"><%= cart_item.price %>$</div>
-        <div class="flex self-center cursor-pointer mx-5">
-          <i class="fa-solid fa-trash" title="Remove product from cart"></i>
+        <div class="self-center justify-start cursor-pointer hover:text-blue-500">
+          <%= live_patch to: Routes.product_show_path(@socket, :show, cart_item.product_id) do %>
+            <%= cart_item.product.name %>
+          <% end %>
+        </div>
+        <div class="flex flex-row md:w-54">
+          <div class="flex self-center">
+            <button phx-click="inc"><i class="fa-solid fa-circle-plus cursor-pointer self-center mx-1 sm:mx-5" title="Add 1"></i></button>
+            <div class="sm:w-6 justify-center"><%= cart_item.quantity %></div>
+            <button phx-click="dec"><i class="fa-solid fa-circle-minus cursor-pointer self-center mx-1 sm:mx-5" title="Remove 1"></i></button>
+          </div>
+          <div class="flex self-center justify-end ml-5 font-semibold text-green-700 w-6"><%= cart_item.price %>$</div>
+          <div class="flex self-center cursor-pointer sm:mx-5">
+            <button phx-click="delete" phx-value-product={cart_item.product_id}><i class="fa-solid fa-trash sm:mx-5" title="Remove product from cart"></i></button>
+          </div>
         </div>
       </div>
+      <hr class="my-5">
+    <% end %>
+    <div class="flex justify-end my-5">
+      <h1 class="flex mx-5 text-2xl font-[Poppins] font-semibold text-green-700"><%= ShoppingCart.total_cart_price(@cart.user_id) %> $</h1>
+
     </div>
-    <hr>
-  <% end %>
+  </div>
 
+  <div class="flex justify-end">
+    <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 md:my-0 hover:bg-blue-600 rounded">Checkout</button>
+  </div>
 </div>
-
-<div class="flex justify-end">
-<div>amount</div>
-<div>total price</div>
-</div>
-
-<div class="flex justify-end">checkout button</div>
-</div>
-<!--
-<span><%= live_patch "Edit", to: Routes.cart_show_path(@socket, :edit, @cart), class: "button" %></span> |
-<span><%= live_redirect "Back", to: Routes.cart_index_path(@socket, :index) %></span>
--->

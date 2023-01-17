@@ -4,6 +4,7 @@ defmodule Eshopy.ShoppingCart.Cart do
 
   schema "carts" do
     belongs_to :user, Eshopy.Accounts.User, foreign_key: :user_id
+
     has_many :cart_items, Eshopy.ShoppingCart.CartItem
 
     timestamps()

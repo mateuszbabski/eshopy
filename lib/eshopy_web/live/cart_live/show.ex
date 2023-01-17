@@ -13,7 +13,7 @@ defmodule EshopyWeb.CartLive.Show do
     {:ok,
     socket
     |> assign(:current_user, user)
-    |> assign(:cart, ShoppingCart.get_cart_by_user_id(user.id))
+    |> assign(:cart, ShoppingCart.get_cart_by_user_id_with_cart_items(user.id))
     |> assign(:cart_items, ShoppingCart.list_cart_items(cart.id))
     |> assign(:product, Catalog.list_products())
     }
@@ -21,6 +21,16 @@ defmodule EshopyWeb.CartLive.Show do
 
   def mount(_params, _session, socket) do
     {:ok, socket}
+  end
+
+  @impl true
+  def handle_event("delete", %{"product" => product_id}, socket) do
+    {:ok, cart} = ShoppingCart.remove_item_from_cart(socket.assigns[:cart], product_id)
+    send_update(Cart, cart)
+
+    {:noreply,
+        socket
+        |> put_flash(:info, "Product removed from cart")}
   end
 
   @impl true
