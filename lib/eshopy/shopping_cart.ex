@@ -29,7 +29,7 @@ defmodule Eshopy.ShoppingCart do
       from item in CartItem,
       where: item.cart_id == ^cart_id
 
-    Repo.all(query)
+    Repo.all(query) |> Repo.preload(:product)
   end
 
   @doc """
@@ -143,12 +143,6 @@ defmodule Eshopy.ShoppingCart do
   def get_cart!(id), do: Repo.get!(Cart, id)
 
   def get_cart_by_user_id(user_id) do
-    # query =
-    #   from c in Cart,
-    #   where: c.user_id == ^user_id,
-    #   left_join: i in assoc(c, :cart_items)
-
-    # Repo.one(query)
     Repo.get_by(Cart, [user_id: user_id])
   end
 
