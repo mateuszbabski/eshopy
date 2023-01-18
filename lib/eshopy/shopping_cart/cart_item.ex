@@ -17,6 +17,6 @@ defmodule Eshopy.ShoppingCart.CartItem do
     cart_item
     |> cast(attrs, [:price, :quantity])
     |> validate_required([:price, :quantity])
-    |> validate_number(:quantity, greater_than_or_equal_to: 0)
+    |> validate_number(:quantity, greater_than_or_equal_to: 1)
   end
 end

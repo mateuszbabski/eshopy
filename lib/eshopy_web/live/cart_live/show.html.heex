@@ -20,9 +20,9 @@
         </div>
         <div class="flex flex-row md:w-54">
           <div class="flex self-center">
-            <button phx-click="inc"><i class="fa-solid fa-circle-plus cursor-pointer self-center mx-1 sm:mx-5" title="Add 1"></i></button>
-            <div class="sm:w-6 justify-center"><%= cart_item.quantity %></div>
-            <button phx-click="dec"><i class="fa-solid fa-circle-minus cursor-pointer self-center mx-1 sm:mx-5" title="Remove 1"></i></button>
+            <button phx-click="inc" phx-value-id={cart_item.id}><i class="fa-solid fa-circle-plus cursor-pointer self-center mx-1 sm:mx-5" title="Add 1"></i></button>
+            <div class="justify-center sm:w-6"><%= cart_item.quantity %></div>
+            <button phx-click="dec" phx-value-id={cart_item.id}><i class="fa-solid fa-circle-minus cursor-pointer self-center mx-1 sm:mx-5" title="Remove 1"></i></button>
           </div>
           <div class="flex self-center justify-end ml-5 font-semibold text-green-700 w-6"><%= cart_item.price %>$</div>
           <div class="flex self-center cursor-pointer sm:mx-5">

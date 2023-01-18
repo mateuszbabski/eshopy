@@ -17,7 +17,7 @@
       <div class="flex justify-between items-center">
         <span class="text-2xl font-[Poppins] bold cursor-pointer">eShopy</span>
         <ul class="flex">
-          <li><span class="text-xl cursor-pointer mx-4 my-4 md:my-0 md:hidden"><a href="http://wp.pl"><i class="fa-solid fa-cart-shopping" ></i></a></span></li>
+          <li><span class="text-xl cursor-pointer mx-4 my-4 md:my-0 md:hidden"><a href="/cart"><i class="fa-solid fa-cart-shopping" ></i></a></span></li>
           <li><span class="text-3xl cursor-pointer md:hidden block"><ion-icon name="menu-outline" onclick="Menu(this)"></ion-icon></span></li>
         </ul>
       </div>
@@ -31,7 +31,7 @@
             <span class="text-xl cursor-pointer mx-4 my-4 md:my-0"><%= link @current_user.email, to: Routes.user_settings_path(@conn, :edit) %></span>
           </li>
           <%= if @current_user.role == :user do %>
-            <li><span class="text-xl cursor-pointer mx-4 my-4 md:my-0"><a href="http://wp.pl"><i class="fa-solid fa-cart-shopping"></i></a></span></li>
+            <li><span class="text-xl cursor-pointer mx-4 my-4 md:my-0"><a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a></span></li>
           <% else %>
             <li><span class="text-xl cursor-pointer mx-4 my-4 md:my-0">
               <%= link "Live dashboard", to: Routes.admin_dashboard_path(@conn, :admin_dashboard)%></span></li>
