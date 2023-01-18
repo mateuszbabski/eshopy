@@ -41,7 +41,10 @@ defmodule EshopyWeb.CartLive.Show do
   end
 
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok,
+        socket
+        |> put_flash(:info, "You must be logged in")
+        |> redirect(to: Routes.home_path(socket, :home))}
   end
 
   @impl true
@@ -83,13 +86,4 @@ defmodule EshopyWeb.CartLive.Show do
         # |> assign(:cart_items, ShoppingCart.list_cart_items(cart.id))
         |> redirect(to: Routes.cart_show_path(socket, :show, cart.id))}
   end
-
-  # @impl true
-  # def handle_params(%{"id" => id}, _, socket) do
-  #   {:noreply,
-  #    socket
-  #    |> assign(:page_title, page_title(socket.assigns.live_action))
-  #    |> assign(:cart, ShoppingCart.get_cart_with_items(id))}
-  # end
-
 end
