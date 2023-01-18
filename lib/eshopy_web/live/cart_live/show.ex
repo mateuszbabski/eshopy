@@ -49,15 +49,15 @@ defmodule EshopyWeb.CartLive.Show do
 
   @impl true
   def handle_event("delete", %{"product" => product_id}, socket) do
-    {:ok, cart} = ShoppingCart.remove_item_from_cart(socket.assigns[:cart], product_id)
+    {:ok, _cart} = ShoppingCart.remove_item_from_cart(socket.assigns[:cart], product_id)
 
     {:noreply,
         socket
         |> put_flash(:info, "Product removed from cart")
-        |> redirect(to: Routes.cart_show_path(socket, :show, cart.id))}
+        |> redirect(to: Routes.cart_show_path(socket, :show))}
   end
 
-  def handle_event("clear-cart", _, socket) do
+  def handle_event("clear_cart", _, socket) do
     cart = socket.assigns[:cart]
     {:ok, _} = ShoppingCart.delete_cart(cart)
 
@@ -68,22 +68,22 @@ defmodule EshopyWeb.CartLive.Show do
   end
 
   def handle_event("inc", %{"id" => item_id}, socket) do
-    {:ok, %Cart{} = cart} = ShoppingCart.increase_quantity_by_one(item_id, socket.assigns[:cart])
+    {:ok, %Cart{} = _cart} = ShoppingCart.increase_quantity_by_one(item_id, socket.assigns[:cart])
 
     {:noreply,
         socket
         # |> assign(:cart, ShoppingCart.reload_cart(cart.id))
         # |> assign(:cart_items, ShoppingCart.list_cart_items(cart.id))
-        |> redirect(to: Routes.cart_show_path(socket, :show, cart.id))}
+        |> redirect(to: Routes.cart_show_path(socket, :show))}
   end
 
   def handle_event("dec", %{"id" => item_id}, socket) do
-    {:ok, %Cart{} = cart} = ShoppingCart.decrease_quantity_by_one(item_id, socket.assigns[:cart])
+    {:ok, %Cart{} = _cart} = ShoppingCart.decrease_quantity_by_one(item_id, socket.assigns[:cart])
 
     {:noreply,
         socket
         # |> assign(:cart, ShoppingCart.reload_cart(cart.id))
         # |> assign(:cart_items, ShoppingCart.list_cart_items(cart.id))
-        |> redirect(to: Routes.cart_show_path(socket, :show, cart.id))}
+        |> redirect(to: Routes.cart_show_path(socket, :show))}
   end
 end
