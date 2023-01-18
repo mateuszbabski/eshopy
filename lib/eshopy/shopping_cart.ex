@@ -10,6 +10,7 @@ defmodule Eshopy.ShoppingCart do
   alias Eshopy.ShoppingCart.CartItem
   alias Eshopy.Accounts.User
   alias Eshopy.Catalog.Product
+  alias Eshopy.Catalog
 
   @doc """
   Returns the list of cart_items.
@@ -27,7 +28,8 @@ defmodule Eshopy.ShoppingCart do
   def list_cart_items(cart_id) do
     query =
       from item in CartItem,
-      where: item.cart_id == ^cart_id
+      where: item.cart_id == ^cart_id,
+      order_by: [desc: item.price]
 
     Repo.all(query) |> Repo.preload(:product)
   end
@@ -222,6 +224,28 @@ defmodule Eshopy.ShoppingCart do
       on_conflict: [inc: [quantity: quantity, price: Decimal.mult(product.unit_price, quantity)]]
     )
   end
+
+   def increase_quantity_by_one(item_id, %Cart{} = cart) do
+    item = get_cart_item!(item_id)
+    product = Catalog.get_product!(item.product_id)
+
+    item
+    |> CartItem.changeset(%{quantity: item.quantity + 1, price: Decimal.add(item.price, product.unit_price)})
+    |> Repo.update()
+
+    {:ok, reload_cart(cart.id)}
+   end
+
+  def decrease_quantity_by_one(item_id, %Cart{} = cart) do
+    item = get_cart_item!(item_id)
+    product = Catalog.get_product!(item.product_id)
+
+    item
+    |> CartItem.changeset(%{quantity: item.quantity - 1, price: Decimal.sub(item.price, product.unit_price)})
+    |> Repo.update()
+
+    {:ok, reload_cart(cart.id)}
+   end
 
   @doc """
   Removes specific item from the cart
