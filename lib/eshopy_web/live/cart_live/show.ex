@@ -3,40 +3,30 @@ defmodule EshopyWeb.CartLive.Show do
 
   alias Eshopy.Accounts
   alias Eshopy.Catalog
+  alias Eshopy.Delivery
   alias Eshopy.ShoppingCart.Cart
   alias Eshopy.ShoppingCart
 
   @impl true
-  # def mount(_params, %{"user_token" => user_token}, socket) do
-  #   user = Accounts.get_user_by_session_token(user_token)
-  #   cart = ShoppingCart.get_cart_by_user_id(user.id)
-
-  #   {:ok,
-  #   socket
-  #   |> assign(:current_user, user)
-  #   |> assign(:cart, ShoppingCart.get_cart_by_user_id_with_cart_items(user.id))
-  #   |> assign(:cart_items, ShoppingCart.list_cart_items(cart.id))
-  #   |> assign(:product, Catalog.list_products())
-  #   }
-  # end
-
   def mount(_params, %{"user_token" => user_token}, socket) do
     user = Accounts.get_user_by_session_token(user_token)
-    cart = ShoppingCart.get_cart_by_user_id(user.id)
 
-    if cart do
-      {:ok,
-          socket
-          |> assign(:current_user, user)
-          |> assign(:cart, ShoppingCart.get_cart_by_user_id_with_cart_items(user.id))
-          |> assign(:cart_items, ShoppingCart.list_cart_items(cart.id))
-          |> assign(:product, Catalog.list_products())}
-    else
-      {:ok,
-          socket
-          |> assign(:current_user, user)
-          |> put_flash(:info, "Cart is empty! Add a product!")
-          |> redirect(to: Routes.home_path(socket, :home))}
+    case ShoppingCart.get_cart_by_user_id(user.id) do
+      %Cart{} = cart ->
+        {:ok,
+        socket
+        |> assign(:current_user, user)
+        |> assign(:cart, ShoppingCart.get_cart_by_user_id_with_cart_items(user.id))
+        |> assign(:cart_items, ShoppingCart.list_cart_items(cart.id))
+        |> assign(:product, Catalog.list_products())
+        |> assign(:shipping, Delivery.list_shippings())}
+
+      nil ->
+        {:ok,
+         socket
+         |> assign(:current_user, user)
+         |> put_flash(:info, "Cart is empty! Add a product!")
+         |> redirect(to: Routes.home_path(socket, :home))}
     end
   end
 
@@ -72,8 +62,6 @@ defmodule EshopyWeb.CartLive.Show do
 
     {:noreply,
         socket
-        # |> assign(:cart, ShoppingCart.reload_cart(cart.id))
-        # |> assign(:cart_items, ShoppingCart.list_cart_items(cart.id))
         |> redirect(to: Routes.cart_show_path(socket, :show))}
   end
 
@@ -82,8 +70,6 @@ defmodule EshopyWeb.CartLive.Show do
 
     {:noreply,
         socket
-        # |> assign(:cart, ShoppingCart.reload_cart(cart.id))
-        # |> assign(:cart_items, ShoppingCart.list_cart_items(cart.id))
         |> redirect(to: Routes.cart_show_path(socket, :show))}
   end
 end

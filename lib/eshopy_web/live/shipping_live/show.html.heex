@@ -1,0 +1,36 @@
+<h1>Show Shipping</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.shipping_show_path(@socket, :show, @shipping)}>
+    <.live_component
+      module={EshopyWeb.ShippingLive.FormComponent}
+      id={@shipping.id}
+      title={@page_title}
+      action={@live_action}
+      shipping={@shipping}
+      return_to={Routes.shipping_show_path(@socket, :show, @shipping)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @shipping.name %>
+  </li>
+
+  <li>
+    <strong>Price:</strong>
+    <%= @shipping.price %>
+  </li>
+
+  <li>
+    <strong>Days:</strong>
+    <%= @shipping.days %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.shipping_show_path(@socket, :edit, @shipping), class: "button" %></span> |
+<span><%= live_redirect "Back", to: Routes.shipping_index_path(@socket, :index) %></span>

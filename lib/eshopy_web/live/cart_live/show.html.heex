@@ -1,10 +1,10 @@
 <div class="mx-auto justify-center max-w-2xl md:max-w-5xl">
   <div class="flex justify-between mb-10">
     <h1 class="text-3xl font-[Poppins]">Shopping Cart</h1>
-    <button phx-click="clear_cart" class="cursor-pointer text-md font-[Poppins] self-end text-red-600">Clear cart</button>
+    <button phx-click="clear_cart" class="cursor-pointer text-md font-[Poppins] self-end text-red-600 underline">Clear cart</button>
   </div>
 
-  <div class="cart-item flex flex-col">
+  <div class="flex flex-col">
 
     <%= for cart_item <- @cart_items do %>
       <div class="flex flex-row justify-between" id={"cart_item-#{cart_item.id}"}>
@@ -32,13 +32,27 @@
       </div>
       <hr class="my-5">
     <% end %>
+    <h3 class="font-[Poppins] sm:text-xl mb-5">Shipment:</h3>
+    <div class="flex flex-row justify-around">
+      <%= for shipping <- @shipping do %>
+      <div class="flex flex-col outline outline-offset-4 outline-2 outline-blue-400 rounded w-24 md:w-48 cursor-pointer">
+        <div class="flex flex-col mx-auto">
+          <p class="flex self-center justify-center font-semibold w-6 text-md"><%= shipping.name %></p>
+          <p class="flex self-center justify-center italic mx-auto text-xs md:text-md">Delivery time: <%= shipping.days %> day(s)</p>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex self-center justify-end ml-5 font-semibold text-green-700 w-6 mr-5"><%= shipping.price %>$</div>
+          <div class="flex self-center">X</div>
+        </div>
+      </div>
+      <% end %>
+    </div>
     <div class="flex justify-end my-5">
       <h1 class="flex mx-5 text-2xl font-[Poppins] font-semibold text-green-700"><%= ShoppingCart.total_cart_price(@cart.user_id) %> $</h1>
-
     </div>
   </div>
 
   <div class="flex justify-end">
-    <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 md:my-0 hover:bg-blue-600 rounded">Checkout</button>
+    <button phx-click="checkout" class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 md:my-0 hover:bg-blue-600 rounded">Checkout</button>
   </div>
 </div>

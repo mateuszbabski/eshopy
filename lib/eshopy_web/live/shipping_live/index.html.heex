@@ -1,0 +1,42 @@
+<h1>Listing Shippings</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.shipping_index_path(@socket, :index)}>
+    <.live_component
+      module={EshopyWeb.ShippingLive.FormComponent}
+      id={@shipping.id || :new}
+      title={@page_title}
+      action={@live_action}
+      shipping={@shipping}
+      return_to={Routes.shipping_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="shippings">
+    <%= for shipping <- @shippings do %>
+      <tr id={"shipping-#{shipping.id}"}>
+        <td><%= shipping.name %></td>
+        <td><%= shipping.price %></td>
+        <td><%= shipping.days %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.shipping_show_path(@socket, :show, shipping) %></span>
+          <span><%= live_patch "Edit", to: Routes.shipping_index_path(@socket, :edit, shipping) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: shipping.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Shipping", to: Routes.shipping_index_path(@socket, :new) %></span>
