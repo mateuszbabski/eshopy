@@ -9,7 +9,6 @@ defmodule Eshopy.Orders.OrderItem do
     belongs_to :order, Eshopy.Orders.Order, foreign_key: :order_id
     belongs_to :product, Eshopy.Catalog.Product, foreign_key: :product_id
 
-
     timestamps()
   end
 
