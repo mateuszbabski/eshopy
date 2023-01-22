@@ -28,4 +28,24 @@ defmodule Eshopy.AccountsFixtures do
     [_, token | _] = String.split(captured_email.text_body, "[TOKEN]")
     token
   end
+
+  @doc """
+  Generate a customer.
+  """
+  def customer_fixture(attrs \\ %{}) do
+    {:ok, customer} =
+      attrs
+      |> Enum.into(%{
+        city: "some city",
+        country: "some country",
+        lastname: "some lastname",
+        name: "some name",
+        postal: "some postal",
+        street: "some street",
+        telephone_number: "some telephone_number"
+      })
+      |> Eshopy.Accounts.create_customer()
+
+    customer
+  end
 end

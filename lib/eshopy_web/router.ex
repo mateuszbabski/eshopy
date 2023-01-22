@@ -75,6 +75,13 @@ defmodule EshopyWeb.Router do
     live "/order_items/:id", Order_itemLive.Show, :show
     live "/order_items/:id/show/edit", Order_itemLive.Show, :edit
 
+    live "/customers", CustomerLive.Index, :index
+    live "/customers/new", CustomerLive.Index, :new
+    live "/customers/:id/edit", CustomerLive.Index, :edit
+
+    live "/customers/:id", CustomerLive.Show, :show
+    live "/customers/:id/show/edit", CustomerLive.Show, :edit
+
     live "/cart/", CartLive.Show, :show
   end
 

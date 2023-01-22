@@ -505,4 +505,70 @@ defmodule Eshopy.AccountsTest do
       refute inspect(%User{password: "123456"}) =~ "password: \"123456\""
     end
   end
+
+  describe "customers" do
+    alias Eshopy.Accounts.Customer
+
+    import Eshopy.AccountsFixtures
+
+    @invalid_attrs %{city: nil, country: nil, lastname: nil, name: nil, postal: nil, street: nil, telephone_number: nil}
+
+    test "list_customers/0 returns all customers" do
+      customer = customer_fixture()
+      assert Accounts.list_customers() == [customer]
+    end
+
+    test "get_customer!/1 returns the customer with given id" do
+      customer = customer_fixture()
+      assert Accounts.get_customer!(customer.id) == customer
+    end
+
+    test "create_customer/1 with valid data creates a customer" do
+      valid_attrs = %{city: "some city", country: "some country", lastname: "some lastname", name: "some name", postal: "some postal", street: "some street", telephone_number: "some telephone_number"}
+
+      assert {:ok, %Customer{} = customer} = Accounts.create_customer(valid_attrs)
+      assert customer.city == "some city"
+      assert customer.country == "some country"
+      assert customer.lastname == "some lastname"
+      assert customer.name == "some name"
+      assert customer.postal == "some postal"
+      assert customer.street == "some street"
+      assert customer.telephone_number == "some telephone_number"
+    end
+
+    test "create_customer/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Accounts.create_customer(@invalid_attrs)
+    end
+
+    test "update_customer/2 with valid data updates the customer" do
+      customer = customer_fixture()
+      update_attrs = %{city: "some updated city", country: "some updated country", lastname: "some updated lastname", name: "some updated name", postal: "some updated postal", street: "some updated street", telephone_number: "some updated telephone_number"}
+
+      assert {:ok, %Customer{} = customer} = Accounts.update_customer(customer, update_attrs)
+      assert customer.city == "some updated city"
+      assert customer.country == "some updated country"
+      assert customer.lastname == "some updated lastname"
+      assert customer.name == "some updated name"
+      assert customer.postal == "some updated postal"
+      assert customer.street == "some updated street"
+      assert customer.telephone_number == "some updated telephone_number"
+    end
+
+    test "update_customer/2 with invalid data returns error changeset" do
+      customer = customer_fixture()
+      assert {:error, %Ecto.Changeset{}} = Accounts.update_customer(customer, @invalid_attrs)
+      assert customer == Accounts.get_customer!(customer.id)
+    end
+
+    test "delete_customer/1 deletes the customer" do
+      customer = customer_fixture()
+      assert {:ok, %Customer{}} = Accounts.delete_customer(customer)
+      assert_raise Ecto.NoResultsError, fn -> Accounts.get_customer!(customer.id) end
+    end
+
+    test "change_customer/1 returns a customer changeset" do
+      customer = customer_fixture()
+      assert %Ecto.Changeset{} = Accounts.change_customer(customer)
+    end
+  end
 end

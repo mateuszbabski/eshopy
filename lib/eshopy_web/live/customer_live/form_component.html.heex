@@ -1,0 +1,44 @@
+<div>
+  <h2><%= @title %></h2>
+
+  <.form
+    let={f}
+    for={@changeset}
+    id="customer-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save">
+  
+    <%= label f, :name %>
+    <%= text_input f, :name %>
+    <%= error_tag f, :name %>
+  
+    <%= label f, :lastname %>
+    <%= text_input f, :lastname %>
+    <%= error_tag f, :lastname %>
+  
+    <%= label f, :country %>
+    <%= text_input f, :country %>
+    <%= error_tag f, :country %>
+  
+    <%= label f, :city %>
+    <%= text_input f, :city %>
+    <%= error_tag f, :city %>
+  
+    <%= label f, :street %>
+    <%= text_input f, :street %>
+    <%= error_tag f, :street %>
+  
+    <%= label f, :postal %>
+    <%= text_input f, :postal %>
+    <%= error_tag f, :postal %>
+  
+    <%= label f, :telephone_number %>
+    <%= text_input f, :telephone_number %>
+    <%= error_tag f, :telephone_number %>
+  
+    <div>
+      <%= submit "Save", phx_disable_with: "Saving..." %>
+    </div>
+  </.form>
+</div>
