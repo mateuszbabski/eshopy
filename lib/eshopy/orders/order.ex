@@ -5,7 +5,9 @@ defmodule Eshopy.Orders.Order do
   schema "orders" do
     field :total_price, :decimal
 
+    belongs_to :shipping, Eshopy.Delivery.Shipping, foreign_key: :shipping_id
     belongs_to :user, Eshopy.Accounts.User, foreign_key: :user_id
+
     has_many :order_items, Eshopy.Orders.OrderItem
 
     timestamps()
