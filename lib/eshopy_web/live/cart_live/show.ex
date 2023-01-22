@@ -6,6 +6,7 @@ defmodule EshopyWeb.CartLive.Show do
   alias Eshopy.Delivery
   alias Eshopy.ShoppingCart.Cart
   alias Eshopy.ShoppingCart
+  alias Eshopy.Orders
 
   @impl true
   def mount(_params, %{"user_token" => user_token}, socket) do
@@ -80,14 +81,14 @@ defmodule EshopyWeb.CartLive.Show do
   end
 
   def handle_event("checkout", _, socket) do
-    #{:ok, %Order{} = order} = create_an_order_from_shopping_cart(cart, cart_items, shipping, socket)
-    #get cart_items
-    #get shipping method
-    #create an order / with/or order_items
+    {:ok, order} = Orders.create_order_from_cart(socket.assigns[:cart], socket.assigns[:shipping])
+    IO.inspect(order)
+    #redirects to customer data
+    #delete shopping cart
     #redirect to create deliver address page
     {:noreply,
       socket
-      #|> assign(:order, order)
+      |> assign(:order, order)
       #|> redirect(to: )
     }
   end

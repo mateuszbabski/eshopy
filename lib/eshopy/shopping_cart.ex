@@ -320,4 +320,13 @@ defmodule Eshopy.ShoppingCart do
       |> Decimal.add(acc)
     end)
   end
+
+  def cart_price_by_id(cart_id) do
+    cart = get_cart_with_items(cart_id)
+
+    Enum.reduce(cart.cart_items, 0, fn cart_item, acc ->
+      cart_item.price
+      |> Decimal.add(acc)
+    end)
+  end
 end

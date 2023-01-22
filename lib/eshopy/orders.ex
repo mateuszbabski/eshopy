@@ -4,6 +4,7 @@ defmodule Eshopy.Orders do
   """
 
   import Ecto.Query, warn: false
+  alias Eshopy.ShoppingCart
   alias Eshopy.Repo
 
   alias Eshopy.Orders.Order
@@ -54,6 +55,32 @@ defmodule Eshopy.Orders do
     %Order{}
     |> Order.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def create_order_from_cart(cart, shipping) do
+    order_items =
+      Enum.map(cart.cart_items, fn cart_item ->
+        %{product_id: cart_item.product_id, price: cart_item.price, quantity: cart_item.quantity}
+      end)
+
+    order =
+      Ecto.Changeset.change(%Order{},
+        user_id: cart.user_id,
+        total_price: order_price(cart, shipping),
+        shipping_id: shipping.id,
+        order_items: order_items)
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.insert(:order, order)
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{order: order}} -> {:ok, order}
+      {:error, name, value, _} -> {:error, {name, value}}
+    end
+  end
+
+  defp order_price(cart, shipping) do
+    Decimal.add(ShoppingCart.cart_price_by_id(cart.id), shipping.price)
   end
 
   @doc """
