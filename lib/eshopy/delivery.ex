@@ -37,6 +37,15 @@ defmodule Eshopy.Delivery do
   """
   def get_shipping!(id), do: Repo.get!(Shipping, id)
 
+  def get_shipping_price(id) do
+    query =
+      from s in Shipping,
+      where: s.id == ^id,
+      select: s.price
+
+    Repo.one(query)
+  end
+
   @doc """
   Creates a shipping.
 
