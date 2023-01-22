@@ -19,7 +19,7 @@ defmodule EshopyWeb.CartLive.Show do
         |> assign(:cart, ShoppingCart.get_cart_by_user_id_with_cart_items(user.id))
         |> assign(:cart_items, ShoppingCart.list_cart_items(cart.id))
         |> assign(:product, Catalog.list_products())
-        |> assign(:shipping, Delivery.list_shippings())}
+        |> assign(:shipping_list, Delivery.list_shippings())}
 
       nil ->
         {:ok,
@@ -72,4 +72,27 @@ defmodule EshopyWeb.CartLive.Show do
         socket
         |> redirect(to: Routes.cart_show_path(socket, :show))}
   end
+
+  def handle_event("shipment", %{"shipping" => shipping_id}, socket) do
+    {:noreply,
+      socket
+      |> assign(:shipping, Delivery.get_shipping!(shipping_id))}
+  end
+
+  def handle_event("checkout", _, socket) do
+    #{:ok, %Order{} = order} = create_an_order_from_shopping_cart(cart, cart_items, shipping, socket)
+    #get cart_items
+    #get shipping method
+    #create an order / with/or order_items
+    #redirect to create deliver address page
+    {:noreply,
+      socket
+      #|> assign(:order, order)
+      #|> redirect(to: )
+    }
+  end
+
+  # defp create_an_order_from_shopping_cart(cart, cart_items, shipping, socket) do
+  #   #create order_items, order
+  # end
 end
