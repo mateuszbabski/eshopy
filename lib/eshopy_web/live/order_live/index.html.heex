@@ -1,26 +1,27 @@
-<h1>Listing Orders</h1>
+<div class="bg-white mx-auto h-screen justify-items-center">
+  <h1 class="text-center md:mb-10 md:text-2xl sm:text-xl">Listing Orders</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Order number</th>
-      <th>Total price</th>
-      <th>Date</th>
+  <table class="border-separate border-spacing-1 border-collapse border border-slate-400 mx-auto max-w-screen-lg md:text-2xl sm:text-l">
+    <thead>
+      <tr>
+        <th class="border border-slate-300">Order number</th>
+        <th class="border border-slate-300">Total price</th>
+        <th class="border border-slate-300">Date</th>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="orders">
-    <%= for order <- @orders do %>
-      <tr id={"order-#{order.id}"}>
-        <td><%= order.id %></td>
-        <td><%= order.total_price %> $</td>
-        <td><%= order.updated_at %></td>
-
-        <td>
-          <span><%= live_redirect "Show", to: Routes.order_show_path(@socket, :show, order) %></span>
-        </td>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody id="orders">
+      <%= for order <- @orders do %>
+          <tr id={"order-#{order.id}"}>
+            <td class="border border-slate-300"><%= order.id %></td>
+            <td class="border border-slate-300"><%= order.total_price %> $</td>
+            <td class="border border-slate-300"><%= order.updated_at %></td>
+            <td>
+              <span><%= live_redirect "Show", to: Routes.order_show_path(@socket, :show, order) %></span>
+            </td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
