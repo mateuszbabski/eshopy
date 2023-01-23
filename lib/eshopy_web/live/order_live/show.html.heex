@@ -1,11 +1,45 @@
-<h1>Show Order</h1>
+<h1 class="text-center md:text-2xl sm:text-l">Show Order</h1>
+<div class="mx-auto justify-center max-w-2xl md:max-w-5xl">
+  <div class="justify-self-center">
+    <strong>Order number:</strong>
+    <%= @order.id %>
+  </div>
+
+<table class="md:text-2xl sm:text-l border-separate border-spacing-1 border-collapse border border-slate-400 mx-auto max-w-screen-lg">
+  <thead>
+    <tr>
+      <th class="border border-slate-300">Product</th>
+      <th class="border border-slate-300">Quantity</th>
+      <th class="border border-slate-300">Price ($)</th>
+    </tr>
+  </thead>
+
+   <tbody id="order_items">
+    <%= for order_items <- @order.order_items do %>
+      <tr id={"order_items-#{order_items.id}"}>
+        <td class="border border-slate-300"><%= order_items.product.name %></td>
+        <td class="border border-slate-300"><%= order_items.quantity %></td>
+        <td class="border border-slate-300"><%= order_items.price %></td>
+      </tr>
+     <% end %>
+  </tbody>
+</table>
 
 <ul>
+  <li>
+    <strong>Shipping method:</strong>
+    <%= @order.shipping.name %>
+  </li>
+
+  <li>
+    <strong>Shipping price:</strong>
+    <%= @order.shipping.price %> $
+  </li>
 
   <li>
     <strong>Total price:</strong>
-    <%= @order.total_price %>
+    <%= @order.total_price %> $
   </li>
-
 </ul>
 <span><%= live_redirect "Back", to: Routes.order_index_path(@socket, :index) %></span>
+</div>

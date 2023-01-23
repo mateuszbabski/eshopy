@@ -9,13 +9,13 @@ defmodule EshopyWeb.OrderLive.Show do
     user = Accounts.get_user_by_session_token(user_token)
     case user.role do
       :user ->
-        mount_order(user, id, socket)
+        assign_order(user, id, socket)
 
       :admin ->
         {:ok,
         socket
         |> assign(:current_user, user)
-        |> assign(:order, Orders.get_order!(id))}
+        |> assign(:order, Orders.get_order_with_items(id))}
     end
   end
 
@@ -26,7 +26,7 @@ defmodule EshopyWeb.OrderLive.Show do
     |> redirect(to: Routes.home_path(socket, :home))}
   end
 
-  defp mount_order(user, id, socket) do
+  defp assign_order(user, id, socket) do
     case Orders.get_full_order_by_user_id(user.id, id) do
       nil ->
         {:ok,
