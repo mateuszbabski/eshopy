@@ -1,4 +1,5 @@
-<h1>Listing Shippings</h1>
+<div class="bg-white max-w-screen-lg mx-auto h-screen justify-center">
+<h1 class="justify-center text-center mb-10 md:text-2xl sm:text-xl">Listing Shippings</h1>
 
 <%= if @live_action in [:new, :edit] do %>
   <.modal return_to={Routes.shipping_index_path(@socket, :index)}>
@@ -13,31 +14,34 @@
   </.modal>
 <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Delivery time</th>
+<div class="mx-auto">
+  <table class="md:text-2xl sm:text-l border-separate border-spacing-1 border-collapse border border-slate-400 mx-auto max-w-screen-lg">
+    <thead>
+      <tr>
+        <th class="border border-slate-300">Name</th>
+        <th class="border border-slate-300">Price ($)</th>
+        <th class="border border-slate-300">Delivery time (days)</th>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="shippings">
-    <%= for shipping <- @shippings do %>
-      <tr id={"shipping-#{shipping.id}"}>
-        <td><%= shipping.name %></td>
-        <td><%= shipping.price %></td>
-        <td><%= shipping.days %></td>
-
-        <td>
-          <span><%= live_redirect "Show", to: Routes.shipping_show_path(@socket, :show, shipping) %></span>
-          <span><%= live_patch "Edit", to: Routes.shipping_index_path(@socket, :edit, shipping) %></span>
-          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: shipping.id, data: [confirm: "Are you sure?"] %></span>
-        </td>
+        <th><p class="cursor-pointer"><%= live_patch "Add Shipping", to: Routes.shipping_index_path(@socket, :new) %></p></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<span><%= live_patch "New Shipping", to: Routes.shipping_index_path(@socket, :new) %></span>
+    <tbody id="shippings">
+      <%= for shipping <- @shippings do %>
+        <tr id={"shipping-#{shipping.id}"}>
+          <td class="border border-slate-300"><%= shipping.name %></td>
+          <td class="border border-slate-300"><%= shipping.price %></td>
+          <td class="border border-slate-300"><%= shipping.days %></td>
+
+          <td>
+            <span><%= live_redirect "Show", to: Routes.shipping_show_path(@socket, :show, shipping) %></span>
+            <span><%= live_patch "Edit", to: Routes.shipping_index_path(@socket, :edit, shipping) %></span>
+            <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: shipping.id, data: [confirm: "Are you sure?"] %></span>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+</div>
