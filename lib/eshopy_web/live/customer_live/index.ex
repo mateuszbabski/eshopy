@@ -16,13 +16,13 @@ defmodule EshopyWeb.CustomerLive.Index do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, "Edit Customer")
+    |> assign(:page_title, "Edit delivery data")
     |> assign(:customer, Accounts.get_customer!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Customer")
+    |> assign(:page_title, "Add delivery data")
     |> assign(:customer, %Customer{})
   end
 

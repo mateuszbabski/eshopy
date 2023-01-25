@@ -1,5 +1,5 @@
-<div>
-  <h2><%= @title %></h2>
+<div class="max-w-lg mx-auto">
+  <p class="text-center text-blue-500 md:text-2xl text-xl"><strong><%= @title %></strong></p>
 
   <.form
     let={f}
@@ -8,37 +8,41 @@
     phx-target={@myself}
     phx-change="validate"
     phx-submit="save">
-  
-    <%= label f, :name %>
-    <%= text_input f, :name %>
-    <%= error_tag f, :name %>
-  
-    <%= label f, :lastname %>
-    <%= text_input f, :lastname %>
-    <%= error_tag f, :lastname %>
-  
-    <%= label f, :country %>
-    <%= text_input f, :country %>
-    <%= error_tag f, :country %>
-  
-    <%= label f, :city %>
-    <%= text_input f, :city %>
-    <%= error_tag f, :city %>
-  
-    <%= label f, :street %>
-    <%= text_input f, :street %>
-    <%= error_tag f, :street %>
-  
-    <%= label f, :postal %>
-    <%= text_input f, :postal %>
-    <%= error_tag f, :postal %>
-  
-    <%= label f, :telephone_number %>
-    <%= text_input f, :telephone_number %>
-    <%= error_tag f, :telephone_number %>
-  
-    <div>
-      <%= submit "Save", phx_disable_with: "Saving..." %>
+
+  <div class="flex flex-col mx-auto max-w-sm text-lg my-2">
+    <div class="flex flex-col">
+
+      <span class="mx-1"><%= label f, :name %></span>
+      <%= text_input f, :name %>
+      <span class="mx-1 my-3"><%= error_tag f, :name %></span>
+
+      <span class="mx-1"><%= label f, :lastname %></span>
+      <%= text_input f, :lastname %>
+      <span class="mx-1 my-3"><%= error_tag f, :lastname %></span>
+
+      <span class="mx-1"><%= label f, :country %></span>
+      <%= text_input f, :country %>
+      <span class="mx-1 my-3"><%= error_tag f, :country %></span>
+
+      <span class="mx-1"><%= label f, :city %></span>
+      <%= text_input f, :city %>
+      <span class="mx-1 my-3"><%= error_tag f, :city %></span>
+
+      <span class="mx-1"><%= label f, :street %></span>
+      <%= text_input f, :street %>
+      <span class="mx-1 my-3"><%= error_tag f, :street %></span>
+
+      <span class="mx-1"><%= label f, :postal %></span>
+      <%= text_input f, :postal %>
+      <span class="mx-1 my-3"><%= error_tag f, :postal %></span>
+
+      <span class="mx-1"><%= label f, :telephone_number %></span>
+      <%= text_input f, :telephone_number %>
+      <span class="mx-1 my-3"><%= error_tag f, :telephone_number %></span>
     </div>
+  </div>
+    <div class="bg-blue-400 text-white text-center font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">
+        <%= submit "Save", phx_disable_with: "Saving..." %>
+      </div>
   </.form>
 </div>
