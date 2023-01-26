@@ -382,6 +382,15 @@ defmodule Eshopy.Accounts do
   """
   def get_customer!(id), do: Repo.get!(Customer, id)
 
+  def get_customer_data_by_user_id(user_id) do
+    query =
+      from c in Customer,
+      where: c.user_id == ^user_id,
+      preload: [:user]
+
+    Repo.one(query)
+  end
+
   @doc """
   Creates a customer.
 
