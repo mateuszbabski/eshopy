@@ -12,7 +12,6 @@ defmodule EshopyWeb.CompleteOrderLive.ShowOrder do
     socket
     |> assign(:current_user, user)
     |> assign(:order, Orders.get_full_order_by_user_id(user.id, id))}
-
   end
 
   def mount(_params, _session, socket) do
@@ -23,11 +22,13 @@ defmodule EshopyWeb.CompleteOrderLive.ShowOrder do
   end
 
   @impl true
-  def handle_event("proceed", %{"order" => _order_id}, socket) do
-    IO.inspect(socket.assigns[:order])
+  def handle_event("proceed", %{"order" => order_id}, socket) do
+    order = Orders.get_full_order_by_user_id(socket.assigns[:current_user].id, order_id)
+    IO.inspect(order)
 
     {:noreply,
     socket
+    |> assign(:order, order)
     |> redirect(to: Routes.complete_order_show_customer_data_path(socket, :show_customer_data))
     }
   end
