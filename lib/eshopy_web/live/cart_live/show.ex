@@ -88,10 +88,9 @@ defmodule EshopyWeb.CartLive.Show do
 
         {:noreply,
         socket
-        |> assign(:order, order)
+        #|> assign(:order, order)
         |> put_flash(:info, "Order created!")
-        |> redirect(to: Routes.order_show_path(socket, :show, order))
-      }
+        |> redirect(to: Routes.complete_order_show_order_path(socket, :show_order, order.id))}
 
       nil ->
         {:noreply,

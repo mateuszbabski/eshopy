@@ -64,14 +64,15 @@ defmodule EshopyWeb.Router do
     live "/orders", OrderLive.Index, :index
     live "/orders/:id", OrderLive.Show, :show
 
-    live "/customers", CustomerLive.Index, :index
-    live "/customers/new", CustomerLive.Index, :new
-    live "/customers/:id/edit", CustomerLive.Index, :edit
-
-    live "/customers/:id", CustomerLive.Show, :show
-    live "/customers/:id/show/edit", CustomerLive.Show, :edit
+    live "/customers/new", CustomerLive.FormComponent, :new
+    live "/customers/:id/show/edit", CustomerLive.FormComponent, :edit
 
     live "/cart/", CartLive.Show, :show
+
+    live "/order/:id", CompleteOrderLive.ShowOrder, :show_order
+    live "/delivery/", CompleteOrderLive.ShowCustomerData, :show_customer_data
+    # live "/payment/", CompleteOrderLive.ShowPaymentMethod, :show_payment_method
+    # live "/summary/", CompleteOrderLive.Summary, :summary
   end
 
   scope "/", EshopyWeb do

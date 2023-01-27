@@ -403,9 +403,10 @@ defmodule Eshopy.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_customer(attrs \\ %{}) do
+  def create_customer(user, attrs \\ %{}) do
     %Customer{}
     |> Customer.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:user, user)
     |> Repo.insert()
   end
 
@@ -421,9 +422,10 @@ defmodule Eshopy.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_customer(%Customer{} = customer, attrs) do
+  def update_customer(user, %Customer{} = customer, attrs) do
     customer
     |> Customer.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:user, user)
     |> Repo.update()
   end
 

@@ -62,6 +62,7 @@ defmodule Eshopy.Orders do
     Repo.one(query)
   end
 
+
   @doc """
   Creates a order.
 
@@ -109,7 +110,11 @@ defmodule Eshopy.Orders do
     #get order with shipping
     #add customer data
     #add payment method
-    #returns invoice with full data
+    #add user id
+    #delete shopping cart
+    #create completed_order
+    #delete proceeding order
+    #creates and returns invoice with full data
   # end
 
   defp order_price(cart, shipping) do
