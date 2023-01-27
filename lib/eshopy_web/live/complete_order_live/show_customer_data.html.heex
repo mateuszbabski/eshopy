@@ -1,0 +1,56 @@
+<h1>Customer delivery data</h1>
+
+<%= if @live_action in [:edit] do %>
+    <.live_component
+      module={EshopyWeb.CustomerLive.FormComponent}
+      id={@customer.id}
+      title={@page_title}
+      action={@live_action}
+      customer={@customer}
+    />
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @customer.name %>
+  </li>
+
+  <li>
+    <strong>Lastname:</strong>
+    <%= @customer.lastname %>
+  </li>
+
+  <li>
+    <strong>Country:</strong>
+    <%= @customer.country %>
+  </li>
+
+  <li>
+    <strong>City:</strong>
+    <%= @customer.city %>
+  </li>
+
+  <li>
+    <strong>Street:</strong>
+    <%= @customer.street %>
+  </li>
+
+  <li>
+    <strong>Postal:</strong>
+    <%= @customer.postal %>
+  </li>
+
+  <li>
+    <strong>Telephone number:</strong>
+    <%= @customer.telephone_number %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.customer_form_component_path(@socket, :edit, @customer), class: "button" %></span>
+
+<div class="flex justify-center">
+<button phx-click="proceed" class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 md:my-0 hover:bg-blue-600 rounded" phx-value-customer={@customer.id} >Proceed order..</button>
+</div>
