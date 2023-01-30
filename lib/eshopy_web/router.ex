@@ -71,7 +71,7 @@ defmodule EshopyWeb.Router do
 
     live "/order/:id", CompleteOrderLive.ShowOrder, :show_order
     live "/delivery/", CompleteOrderLive.ShowCustomerData, :show_customer_data
-    # live "/payment/", CompleteOrderLive.ShowPaymentMethod, :show_payment_method
+    live "/payment/", CompleteOrderLive.ShowPaymentMethod, :show_payment_method
     # live "/summary/", CompleteOrderLive.Summary, :summary
   end
 

@@ -28,7 +28,9 @@ defmodule EshopyWeb.CompleteOrderLive.ShowCustomerData do
 
   def mount(_params, _session, socket) do
     {:ok,
-    socket}
+        socket
+        |> put_flash(:info, "You must be logged in")
+        |> redirect(to: Routes.home_path(socket, :home))}
   end
 
   @impl true
@@ -36,7 +38,7 @@ defmodule EshopyWeb.CompleteOrderLive.ShowCustomerData do
     IO.puts("hello world - PROCEED CLICKED")
     {:noreply,
     socket
-    #|> redirect(to: )
+    |> redirect(to: Routes.complete_order_show_payment_method_path(socket, :show_payment_method))
     }
   end
 end
