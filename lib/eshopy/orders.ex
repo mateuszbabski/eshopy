@@ -62,6 +62,19 @@ defmodule Eshopy.Orders do
     Repo.one(query)
   end
 
+  def get_order_in_progress(user_id) do
+    query =
+      from o in Order,
+      where: o.user_id == ^user_id,
+      where: o.status == :in_progress,
+      left_join: i in assoc(o, :order_items),
+      left_join: p in assoc(i, :product),
+      inner_join: s in assoc(o, :shipping),
+      preload: [:shipping, order_items: {i, product: p}]
+
+    Repo.one(query)
+  end
+
 
   @doc """
   Creates a order.
@@ -133,11 +146,28 @@ defmodule Eshopy.Orders do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_order(%Order{} = order, attrs) do
-    order
-    |> Order.changeset(attrs)
-    |> Repo.update()
+  def update_order(order, cart, shipping) do
+    updated_order_items =
+      Enum.map(cart.cart_items, fn cart_item ->
+        %{product_id: cart_item.product_id, price: cart_item.price, quantity: cart_item.quantity}
+      end)
+
+    updated_order =
+      Ecto.Changeset.change(order,
+        id: order.id,
+        total_price: order_price(cart, shipping),
+        shipping_id: shipping.id,
+        order_items: updated_order_items)
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:order, updated_order)
+    |> Repo.transaction()
+    |> case do
+      {:ok, %{order: updated_order}} -> {:ok, updated_order}
+      {:error, name, value, _} -> {:error, {name, value}}
+    end
   end
+
 
   @doc """
   Deletes a order.
