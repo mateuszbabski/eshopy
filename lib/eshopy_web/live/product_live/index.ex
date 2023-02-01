@@ -12,20 +12,21 @@ defmodule EshopyWeb.ProductLive.Index do
     user = Accounts.get_user_by_session_token(user_token)
 
     {:ok,
-    socket
-    |> assign(:current_user, user)
-    |> assign(:products, list_products())
-    |> assign(:brands, Catalog.list_brands())
-    |> assign(:categories, Catalog.list_categories())
-    |> assign(:cart, ShoppingCart.get_cart_by_user_id(user.id))
-    |> assign(:cart_items, nil)}
+      socket
+      |> assign(:current_user, user)
+      |> assign(:products, list_products())
+      |> assign(:brands, Catalog.list_brands())
+      |> assign(:categories, Catalog.list_categories())
+      |> assign(:cart, ShoppingCart.get_cart_by_user_id(user.id))
+      |> assign(:cart_items, nil)}
   end
 
   def mount(_params, _session, socket) do
-    {:ok, socket
-          |> assign(:products, list_products())
-          |> assign(:brands, Catalog.list_brands())
-          |> assign(:categories, Catalog.list_categories())
+    {:ok,
+      socket
+      |> assign(:products, list_products())
+      |> assign(:brands, Catalog.list_brands())
+      |> assign(:categories, Catalog.list_categories())
     }
   end
 

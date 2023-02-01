@@ -8,18 +8,18 @@ defmodule EshopyWeb.ProductLive.FormComponent do
     changeset = Catalog.change_product(product)
 
     {:ok,
-     socket
-     |> assign(assigns)
-     |> assign(:changeset, changeset)
-     |> assign(:brands, Catalog.list_brands())
-     |> assign(:categories, Catalog.list_categories())
-     |> assign(:image_upload, nil )
-     |> allow_upload(:image,
-      accept: ~w(.jpg .jpeg .png),
-      max_entries: 1,
-      max_file_size: 9_000_000,
-      auto_upload: true,
-      progress: &handle_progress/3)}
+      socket
+      |> assign(assigns)
+      |> assign(:changeset, changeset)
+      |> assign(:brands, Catalog.list_brands())
+      |> assign(:categories, Catalog.list_categories())
+      |> assign(:image_upload, nil )
+      |> allow_upload(:image,
+        accept: ~w(.jpg .jpeg .png),
+        max_entries: 1,
+        max_file_size: 9_000_000,
+        auto_upload: true,
+        progress: &handle_progress/3)}
   end
 
   @impl true
@@ -65,7 +65,7 @@ defmodule EshopyWeb.ProductLive.FormComponent do
     case Catalog.update_product(socket.assigns.product, product_params(socket, params)) do
     {:ok, _product} ->
       {:noreply,
-      socket
+        socket
         |> put_flash(:info, "Product updated successfully")
         |> push_redirect(to: socket.assigns.return_to)}
 
@@ -78,9 +78,9 @@ defmodule EshopyWeb.ProductLive.FormComponent do
     case Catalog.create_product(product_params(socket, params)) do
       {:ok, _product} ->
         {:noreply,
-         socket
-         |> put_flash(:info, "Product created successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+          socket
+          |> put_flash(:info, "Product created successfully")
+          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

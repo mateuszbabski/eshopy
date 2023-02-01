@@ -13,10 +13,10 @@ defmodule EshopyWeb.CategoryLive.Show do
     user = Accounts.get_user_by_session_token(user_token)
 
     {:ok,
-    socket
-    |> assign(:current_user, user)
-    |> assign(:cart, ShoppingCart.get_cart_by_user_id(user.id))
-    |> assign(:cart_items, %CartItem{})}
+      socket
+      |> assign(:current_user, user)
+      |> assign(:cart, ShoppingCart.get_cart_by_user_id(user.id))
+      |> assign(:cart_items, %CartItem{})}
   end
 
   def mount(_params, _session, socket) do
@@ -37,10 +37,10 @@ defmodule EshopyWeb.CategoryLive.Show do
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
     {:noreply,
-     socket
-     |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:category, Catalog.get_category!(id))
-     |> assign(:products, Catalog.get_product_by_category_id(id))}
+      socket
+      |> assign(:page_title, page_title(socket.assigns.live_action))
+      |> assign(:category, Catalog.get_category!(id))
+      |> assign(:products, Catalog.get_product_by_category_id(id))}
   end
 
   defp create_and_add_item(product_id, quantity, socket) do

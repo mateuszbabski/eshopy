@@ -76,9 +76,9 @@ defmodule EshopyWeb.CategoryLive.FormComponent do
     case Catalog.create_category(category_params(socket, params)) do
       {:ok, _category} ->
         {:noreply,
-         socket
-         |> put_flash(:info, "Category created successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+          socket
+          |> put_flash(:info, "Category created successfully")
+          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

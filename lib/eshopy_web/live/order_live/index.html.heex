@@ -7,7 +7,7 @@
         <th class="border border-slate-300">Order number</th>
         <th class="border border-slate-300">Total price</th>
         <th class="border border-slate-300">Date</th>
-
+        <th class="border border-slate-300">Status</th>
         <th></th>
       </tr>
     </thead>
@@ -17,6 +17,7 @@
             <td class="border border-slate-300"><%= order.id %></td>
             <td class="border border-slate-300"><%= order.total_price %> $</td>
             <td class="border border-slate-300"><%= order.updated_at %></td>
+            <td class="border border-slate-300"><%= order.status %></td>
             <td>
               <span><%= live_redirect "Show", to: Routes.order_show_path(@socket, :show, order) %></span>
             </td>

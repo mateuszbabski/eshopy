@@ -8,26 +8,27 @@ defmodule EshopyWeb.OrderLive.Index do
   @impl true
   def mount(_params, %{"user_token" => user_token}, socket) do
     user = Accounts.get_user_by_session_token(user_token)
+
     case user.role do
       :user ->
         {:ok,
-        socket
-        |> assign(:current_user, user)
-        |> assign(:orders, Orders.list_orders_by_user_id(user.id))}
+          socket
+          |> assign(:current_user, user)
+          |> assign(:orders, Orders.list_orders_by_user_id(user.id))}
 
       :admin ->
         {:ok,
-        socket
-        |> assign(:current_user, user)
-        |> assign(:orders, Orders.list_orders())}
+          socket
+          |> assign(:current_user, user)
+          |> assign(:orders, Orders.list_orders())}
     end
   end
 
   def mount(_params, _session, socket) do
     {:ok,
-    socket
-    |> put_flash(:info, "You must be logged in")
-    |> redirect(to: Routes.home_path(socket, :home))}
+      socket
+      |> put_flash(:info, "You must be logged in")
+      |> redirect(to: Routes.home_path(socket, :home))}
   end
 
   @impl true

@@ -3,44 +3,46 @@ defmodule EshopyWeb.OrderLive.Show do
 
   alias Eshopy.Orders
   alias Eshopy.Accounts
+  alias Eshopy.Orders.Order
 
   @impl true
   def mount(%{"id" => id}, %{"user_token" => user_token}, socket) do
     user = Accounts.get_user_by_session_token(user_token)
+
     case user.role do
       :user ->
         assign_order(user, id, socket)
 
       :admin ->
         {:ok,
-        socket
-        |> assign(:current_user, user)
-        |> assign(:order, Orders.get_order_with_items(id))}
+          socket
+          |> assign(:current_user, user)
+          |> assign(:order, Orders.get_order_with_items(id))}
     end
   end
 
   def mount(_params, _session, socket) do
     {:ok,
-    socket
-    |> put_flash(:info, "You must be logged in")
-    |> redirect(to: Routes.home_path(socket, :home))}
+      socket
+      |> put_flash(:info, "You must be logged in")
+      |> redirect(to: Routes.home_path(socket, :home))}
   end
 
   defp assign_order(user, id, socket) do
     case Orders.get_full_order_by_user_id(user.id, id) do
+      %Order{} = order ->
+        {:ok,
+          socket
+          |> assign(:current_user, user)
+          |> assign(:order, order)}
+
       nil ->
         {:ok,
-        socket
-        |> assign(:current_user, user)
-        |> assign(:order, nil)
-        |> put_flash(:info, "Order doesnt exist")
-        |> redirect(to: Routes.home_path(socket, :home))}
-
-      order ->
-        {:ok,
-        socket
-        |> assign(:current_user, user)
-        |> assign(:order, order)}
+          socket
+          |> assign(:current_user, user)
+          |> assign(:order, nil)
+          |> put_flash(:info, "Order doesnt exist")
+          |> redirect(to: Routes.home_path(socket, :home))}
     end
   end
 end

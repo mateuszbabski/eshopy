@@ -8,9 +8,9 @@ defmodule EshopyWeb.ShippingLive.FormComponent do
     changeset = Delivery.change_shipping(shipping)
 
     {:ok,
-     socket
-     |> assign(assigns)
-     |> assign(:changeset, changeset)}
+      socket
+      |> assign(assigns)
+      |> assign(:changeset, changeset)}
   end
 
   @impl true
@@ -31,9 +31,9 @@ defmodule EshopyWeb.ShippingLive.FormComponent do
     case Delivery.update_shipping(socket.assigns.shipping, shipping_params) do
       {:ok, _shipping} ->
         {:noreply,
-         socket
-         |> put_flash(:info, "Shipping updated successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+          socket
+          |> put_flash(:info, "Shipping updated successfully")
+          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, :changeset, changeset)}
@@ -44,9 +44,9 @@ defmodule EshopyWeb.ShippingLive.FormComponent do
     case Delivery.create_shipping(shipping_params) do
       {:ok, _shipping} ->
         {:noreply,
-         socket
-         |> put_flash(:info, "Shipping created successfully")
-         |> push_redirect(to: socket.assigns.return_to)}
+          socket
+          |> put_flash(:info, "Shipping created successfully")
+          |> push_redirect(to: socket.assigns.return_to)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
