@@ -15,7 +15,7 @@ defmodule Eshopy.Orders.Order do
     belongs_to :shipping, Eshopy.Delivery.Shipping, foreign_key: :shipping_id
     belongs_to :user, Eshopy.Accounts.User, foreign_key: :user_id
 
-    has_many :order_items, Eshopy.Orders.OrderItem
+    has_many :order_items, Eshopy.Orders.OrderItem, on_delete: :delete_all, on_replace: :delete
 
     timestamps()
   end
@@ -23,8 +23,8 @@ defmodule Eshopy.Orders.Order do
   @doc false
   def changeset(order, attrs) do
     order
-    |> cast(attrs, [:total_price])
-    |> validate_required([:total_price])
+    |> cast(attrs, [:total_price, :status])
+    |> validate_required([:total_price, :status])
     |> validate_number(:total_price, greater_than: 0)
   end
 

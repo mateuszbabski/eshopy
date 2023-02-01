@@ -7,6 +7,7 @@ defmodule EshopyWeb.CartLive.Show do
   alias Eshopy.ShoppingCart.Cart
   alias Eshopy.ShoppingCart
   alias Eshopy.Orders
+  alias Eshopy.Orders.Order
   alias Eshopy.Delivery.Shipping
 
   @impl true
@@ -81,21 +82,52 @@ defmodule EshopyWeb.CartLive.Show do
       |> assign(:shipping, Delivery.get_shipping!(shipping_id))}
   end
 
+  # def handle_event("checkout", _, socket) do
+  #   case socket.assigns[:shipping] do
+  #     %Shipping{} = shipping ->
+  #       {:ok, order} = Orders.create_order_from_cart(socket.assigns[:cart], shipping)
+
+  #       {:noreply,
+  #       socket
+  #       |> put_flash(:info, "Order created!")
+  #       |> redirect(to: Routes.complete_order_show_order_path(socket, :show_order, order.id))}
+
+  #     nil ->
+  #       {:noreply,
+  #       socket
+  #       |> put_flash(:info, "Check products and shipping method")}
+  #   end
+  # end
+
   def handle_event("checkout", _, socket) do
     case socket.assigns[:shipping] do
       %Shipping{} = shipping ->
-        {:ok, order} = Orders.create_order_from_cart(socket.assigns[:cart], shipping)
-
-        {:noreply,
-        socket
-        #|> assign(:order, order)
-        |> put_flash(:info, "Order created!")
-        |> redirect(to: Routes.complete_order_show_order_path(socket, :show_order, order.id))}
+        create_or_update_order(socket, socket.assigns[:cart], shipping)
 
       nil ->
         {:noreply,
         socket
         |> put_flash(:info, "Check products and shipping method")}
+    end
+  end
+
+  defp create_or_update_order(socket, cart, shipping) do
+    case Orders.get_order_in_progress(socket.assigns[:current_user].id) do
+      nil ->
+        {:ok, order} = Orders.create_order_from_cart(cart, shipping)
+
+        {:noreply,
+        socket
+        |> put_flash(:info, "Order created!")
+        |> redirect(to: Routes.complete_order_show_order_path(socket, :show_order, order.id))}
+
+      %Order{} = order ->
+        {:ok, updated_order} = Orders.update_order(order, cart, shipping)
+
+        {:noreply,
+        socket
+        |> put_flash(:info, "Order updated!")
+        |> redirect(to: Routes.complete_order_show_order_path(socket, :show_order, updated_order.id))}
     end
   end
 end
