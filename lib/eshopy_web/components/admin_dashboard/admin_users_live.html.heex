@@ -1,0 +1,35 @@
+<div class="homepage bg-white container mx-auto h-screen">
+    <div class="main-container mx-auto">
+        <div class="mx-auto mb-5">
+            <h1 class="text-3xl font-[Poppins]">Users</h1>
+        </div>
+
+       <div class="flex flex-col mx-auto justify-center max-w-6xl">
+        <table class="border-separate border-spacing-1 border-collapse border border-slate-400 mx-auto max-w-screen-lg md:text-2xl">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="border border-slate-300">Id</th>
+                    <th class="border border-slate-300">Email</th>
+                    <th class="border border-slate-300">Role</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="users">
+                <%= for user <- @users do %>
+                    <tr id={"user-#{user.id}"}>
+                        <td class="border border-slate-300"></td>
+                        <td class="border border-slate-300"><%= user.id %></td>
+                        <td class="border border-slate-300"><%= user.email %></td>
+                        <td class="border border-slate-300"><%= user.role %></td>
+                        <td>
+                            <!--<span class="text-center md:text-2xl sm:text-xl">live_redirect "Show", to: Routes.user_show_path(@socket, :show, user) %></span> -->
+                            <span class="text-center md:text-2xl sm:text-xl"><%= link "Delete", to: "#", phx_click: "change", phx_value_id: user.id, data: [confirm: "Are you sure?"] %></span>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>

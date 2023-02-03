@@ -20,9 +20,13 @@
                 <%= live_patch "Add New Brand", to: Routes.brand_index_path(@socket, :new), class: "button" %>
             </div><hr>
 
-            <div class="flex flex-row justify-between my-5">List orders history</div><hr>
+            <div class="flex flex-row justify-between my-5">
+                <%= live_patch "List orders", to: Routes.admin_orders_path(@socket, :admin_orders), class: "button" %>
+            </div><hr>
 
-            <div class="flex flex-row justify-between my-5">List users</div><hr>
+            <div class="flex flex-row justify-between my-5">
+                <%= live_patch "List users", to: Routes.admin_users_path(@socket, :admin_users), class: "button" %>
+            </div><hr>
         </div>
     </div>
 </div>

@@ -1,11 +1,11 @@
 defmodule EshopyWeb.ProductLive.Index do
   use EshopyWeb, :live_view
 
+  alias Eshopy.Accounts
   alias Eshopy.Catalog
   alias Eshopy.Catalog.Product
   alias Eshopy.ShoppingCart
   alias Eshopy.ShoppingCart.Cart
-  alias Eshopy.Accounts
 
   @impl true
   def mount(_params, %{"user_token" => user_token}, socket) do

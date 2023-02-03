@@ -1,0 +1,38 @@
+<div class="homepage bg-white container mx-auto h-screen">
+    <div class="main-container mx-auto">
+        <div class="mx-auto mb-5">
+            <h1 class="text-3xl font-[Poppins]">Orders</h1>
+        </div>
+
+       <div class="flex flex-col mx-auto justify-center max-w-6xl">
+        <table class="border-separate border-spacing-1 border-collapse border border-slate-400 mx-auto max-w-screen-lg md:text-2xl">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="border border-slate-300">Number</th>
+                    <th class="border border-slate-300">User Id</th>
+                    <th class="border border-slate-300">Last update</th>
+                    <th class="border border-slate-300">Total price</th>
+                    <th class="border border-slate-300">Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="categories">
+                <%= for order <- @orders do %>
+                    <tr id={"order-#{order.id}"}>
+                        <td></td>
+                        <td class="border border-slate-300"><%= order.id %></td>
+                        <td class="border border-slate-300"><%= order.user_id %></td>
+                        <td class="border border-slate-300"><%= order.updated_at %></td>
+                        <td class="border border-slate-300"><%= order.total_price %>$</td>
+                        <td class="border border-slate-300"><%= order.status %></td>
+                        <td>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.order_show_path(@socket, :show, order) %></span>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
