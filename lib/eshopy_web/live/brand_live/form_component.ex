@@ -11,7 +11,7 @@ defmodule EshopyWeb.BrandLive.FormComponent do
       socket
       |> assign(assigns)
       |> assign(:changeset, changeset)
-      |> assign(:image_upload, nil )
+      |> assign(:image_upload, brand.image_upload || nil )
       |> allow_upload(:image,
         accept: ~w(.jpg .jpeg .png),
         max_entries: 1,

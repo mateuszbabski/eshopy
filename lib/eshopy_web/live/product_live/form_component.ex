@@ -13,7 +13,7 @@ defmodule EshopyWeb.ProductLive.FormComponent do
       |> assign(:changeset, changeset)
       |> assign(:brands, Catalog.list_brands())
       |> assign(:categories, Catalog.list_categories())
-      |> assign(:image_upload, nil )
+      |> assign(:image_upload, product.image_upload || nil)
       |> allow_upload(:image,
         accept: ~w(.jpg .jpeg .png),
         max_entries: 1,
