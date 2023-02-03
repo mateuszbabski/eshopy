@@ -1,0 +1,36 @@
+<div class="homepage bg-white container mx-auto h-screen">
+    <div class="main-container mx-auto">
+        <div class="mx-auto mb-5">
+            <h1 class="text-3xl font-[Poppins]">Categories</h1>
+        </div>
+
+       <div class="flex flex-col mx-auto justify-center max-w-6xl">
+        <table class="border-separate border-spacing-1 border-collapse border border-slate-400 mx-auto max-w-screen-lg md:text-2xl">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="border border-slate-300">Category id</th>
+                    <th class="border border-slate-300">Category name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="categories">
+                <%= for category <- @categories do %>
+                    <tr id={"category-#{category.id}"}>
+                        <td class="border border-slate-300"><img
+                                            alt="category image" width="100" height="100"
+                                            src={ Routes.static_path(@socket, category.image_upload || ~s[/images/default-thumbnail.jpg])} ></td>
+                        <td class="border border-slate-300"><%= category.id %></td>
+                        <td class="border border-slate-300"><%= category.name %></td>
+                        <td>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.category_show_path(@socket, :show, category) %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= live_patch "Edit", to: Routes.category_index_path(@socket, :edit, category) %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= link "Delete", to: "#", phx_click: "change", phx_value_id: category.id, data: [confirm: "Are you sure?"] %></span>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>

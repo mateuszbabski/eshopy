@@ -10,9 +10,15 @@
             </div>
             <hr>
 
-            <div class="flex flex-row justify-between my-5">List categories <%= live_patch "Add New Category", to: Routes.category_index_path(@socket, :new), class: "button" %></div><hr>
+            <div class="flex flex-row justify-between my-5">
+                <%= live_patch "List categories", to: Routes.admin_categories_path(@socket, :admin_categories), class: "button" %>
+                <%= live_patch "Add New Category", to: Routes.category_index_path(@socket, :new), class: "button" %>
+            </div><hr>
 
-            <div class="flex flex-row justify-between my-5">List brands <%= live_patch "Add New Brand", to: Routes.brand_index_path(@socket, :new), class: "button" %></div><hr>
+            <div class="flex flex-row justify-between my-5">
+                <%= live_patch "List brands", to: Routes.admin_brands_path(@socket, :admin_brands), class: "button" %>
+                <%= live_patch "Add New Brand", to: Routes.brand_index_path(@socket, :new), class: "button" %>
+            </div><hr>
 
             <div class="flex flex-row justify-between my-5">List orders history</div><hr>
 

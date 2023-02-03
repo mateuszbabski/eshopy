@@ -1,6 +1,7 @@
-defmodule EshopyWeb.AdminDashboardLive do
+defmodule EshopyWeb.AdminBrandsLive do
   use EshopyWeb, :live_view
 
+  alias Eshopy.Catalog
   alias Eshopy.Accounts
 
   @impl true
@@ -18,7 +19,8 @@ defmodule EshopyWeb.AdminDashboardLive do
       :admin ->
         {:ok,
           socket
-          |> assign(:current_user, user)}
+          |> assign(:current_user, user)
+          |> assign(:brands, Catalog.list_brands())}
     end
   end
 

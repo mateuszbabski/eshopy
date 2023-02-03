@@ -1,7 +1,8 @@
-defmodule EshopyWeb.AdminDashboardLive do
+defmodule EshopyWeb.AdminCategoriesLive do
   use EshopyWeb, :live_view
 
   alias Eshopy.Accounts
+  alias Eshopy.Catalog
 
   @impl true
   def mount(_params, %{"user_token" => user_token}, socket) do
@@ -18,12 +19,13 @@ defmodule EshopyWeb.AdminDashboardLive do
       :admin ->
         {:ok,
           socket
-          |> assign(:current_user, user)}
+          |> assign(:current_user, user)
+          |> assign(:categories, Catalog.list_categories())}
     end
   end
 
   def mount(_params, _session, socket) do
-    {:ok,
+    {:noreply,
       socket
       |> put_flash(:info, "Unauthorized")
       |> redirect(to: Routes.home_path(socket, :home))}
