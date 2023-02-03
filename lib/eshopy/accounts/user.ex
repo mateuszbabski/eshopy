@@ -47,6 +47,10 @@ defmodule Eshopy.Accounts.User do
     user_or_changeset
     |> cast(attrs, [:role])
     |> validate_inclusion(:role, ~w(user admin))
+    |> case do
+      %{changes: %{role: _}} = changeset -> changeset
+      %{} = changeset -> add_error(changeset, :role, "Error with changing user's role")
+    end
   end
 
   defp validate_email(changeset) do

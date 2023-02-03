@@ -32,4 +32,14 @@ defmodule Eshopy.Catalog.Product do
     |> validate_required(:unit_price, message: "Price has to be set and be greater than 0")
     |> validate_number(:unit_price, greater_than: 0)
   end
+
+  def availability_changeset(product, attrs) do
+    product
+    |> cast(attrs, [:available])
+    |> validate_required([:available])
+    |> case do
+      %{changes: %{available: _}} = changeset -> changeset
+      %{} = changeset -> add_error(changeset, :available, "Error with changing product's availability")
+    end
+  end
 end
