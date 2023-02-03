@@ -23,6 +23,14 @@ defmodule Eshopy.Catalog do
     Repo.all(Product) |> Repo.preload([:brand, :category])
   end
 
+  def list_available_products() do
+    query =
+      from p in Product,
+      where: p.available == true
+
+    Repo.all(query) |> Repo.preload([:brand, :category])
+  end
+
   @doc """
   Gets a single product.
 
@@ -38,6 +46,8 @@ defmodule Eshopy.Catalog do
 
   """
   def get_product!(id), do: Repo.get!(Product, id) |> Repo.preload([:brand, :category])
+
+  def get_product(id), do: Repo.get(Product, id) |> Repo.preload([:brand, :category])
 
   def get_product_by_brand_id(brand_id) do
     query =
@@ -99,6 +109,20 @@ defmodule Eshopy.Catalog do
     |> Ecto.Changeset.put_change(:brand_id, brand.id)
     |> Ecto.Changeset.put_change(:category_id, category.id)
     |> Repo.update()
+  end
+
+  def change_product_availability(%Product{} = product, attrs \\ %{}) do
+    if product.available == true do
+      product
+      |> Product.changeset(attrs)
+      |> Ecto.Changeset.put_change(:available, false)
+      |> Repo.update()
+    else
+       product
+      |> Product.changeset(attrs)
+      |> Ecto.Changeset.put_change(:available, true)
+      |> Repo.update()
+    end
   end
 
   @doc """

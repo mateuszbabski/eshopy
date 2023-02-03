@@ -8,6 +8,7 @@ defmodule Eshopy.Catalog.Product do
     field :sku, :integer
     field :unit_price, :decimal
     field :image_upload, :string
+    field :available, :boolean, default: true
 
     belongs_to :brand, Eshopy.Catalog.Brand, foreign_key: :brand_id
     belongs_to :category, Eshopy.Catalog.Category, foreign_key: :category_id
@@ -18,7 +19,7 @@ defmodule Eshopy.Catalog.Product do
   @doc false
   def changeset(product, attrs) do
     product
-    |> cast(attrs, [:name, :description, :unit_price, :sku, :image_upload])
+    |> cast(attrs, [:name, :description, :unit_price, :sku, :image_upload, :available])
     |> cast_assoc(:brand)
     |> cast_assoc(:category)
     |> validate_required([:name, :description, :sku])
