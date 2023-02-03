@@ -2,6 +2,7 @@ defmodule EshopyWeb.ProductLive.Show do
   use EshopyWeb, :live_view
 
   alias Eshopy.Catalog
+  alias Eshopy.Catalog.Product
   alias Eshopy.Accounts
   alias Eshopy.ShoppingCart
   alias Eshopy.ShoppingCart.Cart
@@ -24,10 +25,25 @@ defmodule EshopyWeb.ProductLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
-    {:noreply,
-      socket
-      |> assign(:page_title, page_title(socket.assigns.live_action))
-      |> assign(:product, Catalog.get_product!(id))}
+    with %Product{} = product <- Catalog.get_product(id),
+            true <- product.available do
+      {:noreply,
+        socket
+        |> assign(:page_title, page_title(socket.assigns.live_action))
+        |> assign(:product, Catalog.get_product(id))}
+    else
+      nil ->
+        {:noreply,
+          socket
+          |> put_flash(:info, "Product not available")
+          |> redirect(to: Routes.home_path(socket, :home))}
+
+      false ->
+        {:noreply,
+          socket
+          |> put_flash(:info, "Product not available")
+          |> redirect(to: Routes.home_path(socket, :home))}
+      end
   end
 
   @impl true
