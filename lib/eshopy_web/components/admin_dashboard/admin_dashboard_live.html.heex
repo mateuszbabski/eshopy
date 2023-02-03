@@ -1,10 +1,22 @@
 <div class="homepage bg-white container mx-auto h-screen">
     <div class="main-container mx-auto">
-        <div class="mx-auto">
-            <h1>Welcome to the admin dashboard!</h1>
+        <div class="mx-auto mb-5">
+            <h1 class="text-4xl font-[Poppins]">Welcome to the admin dashboard!</h1>
         </div>
-        <div class="main-section">
-        <!-- inner content for admin panel render -->
+        <div class="text-2xl font-[Poppins] main-section flex flex-col mx-auto max-w-4xl justify-center">
+            <div class="flex flex-row justify-between my-5">
+                <%= live_patch "List products", to: Routes.admin_products_path(@socket, :admin_products), class: "button" %>
+                <%= live_patch "Add New Product", to: Routes.product_index_path(@socket, :new), class: "button" %>
+            </div>
+            <hr>
+
+            <div class="flex flex-row justify-between my-5">List categories <%= live_patch "Add New Category", to: Routes.category_index_path(@socket, :new), class: "button" %></div><hr>
+
+            <div class="flex flex-row justify-between my-5">List brands <%= live_patch "Add New Brand", to: Routes.brand_index_path(@socket, :new), class: "button" %></div><hr>
+
+            <div class="flex flex-row justify-between my-5">List orders history</div><hr>
+
+            <div class="flex flex-row justify-between my-5">List users</div><hr>
         </div>
     </div>
 </div>
