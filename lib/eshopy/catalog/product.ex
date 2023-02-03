@@ -19,7 +19,7 @@ defmodule Eshopy.Catalog.Product do
   @doc false
   def changeset(product, attrs) do
     product
-    |> cast(attrs, [:name, :description, :unit_price, :sku, :image_upload, :available])
+    |> cast(attrs, [:name, :description, :unit_price, :sku, :image_upload])
     |> cast_assoc(:brand)
     |> cast_assoc(:category)
     |> validate_required([:name, :description, :sku])
@@ -36,10 +36,6 @@ defmodule Eshopy.Catalog.Product do
   def availability_changeset(product, attrs) do
     product
     |> cast(attrs, [:available])
-    |> validate_required([:available])
-    |> case do
-      %{changes: %{available: _}} = changeset -> changeset
-      %{} = changeset -> add_error(changeset, :available, "Error with changing product's availability")
-    end
+    |> validate_inclusion(:available, [true, false])
   end
 end

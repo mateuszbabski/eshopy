@@ -116,12 +116,12 @@ defmodule Eshopy.Catalog do
   def change_product_availability(%Product{} = product, attrs \\ %{}) do
     if product.available == true do
       product
-      |> Product.changeset(attrs)
+      |> Product.availability_changeset(attrs)
       |> Ecto.Changeset.put_change(:available, false)
       |> Repo.update()
     else
       product
-      |> Product.changeset(attrs)
+      |> Product.availability_changeset(attrs)
       |> Ecto.Changeset.put_change(:available, true)
       |> Repo.update()
     end

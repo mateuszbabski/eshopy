@@ -19,6 +19,10 @@ defmodule EshopyWeb.Router do
   end
 
   pipeline :user do
+    plug EnsureRolePlug, :user
+  end
+
+  pipeline :authenticated do
     plug EnsureRolePlug, [:admin, :user]
   end
 
@@ -32,6 +36,11 @@ defmodule EshopyWeb.Router do
 
     live "/", HomeLive, :home
     live "/admin", AdminDashboardLive, :admin_dashboard
+    live "/admin/products", AdminProductsLive, :admin_products
+    live "/admin/categories", AdminCategoriesLive, :admin_categories
+    live "/admin/brands", AdminBrandsLive, :admin_brands
+    live "/admin/orders", AdminOrdersLive, :admin_orders
+    live "/admin/users", AdminUsersLive, :admin_users
 
     live "/products", ProductLive.Index, :index
     live "/products/new", ProductLive.Index, :new

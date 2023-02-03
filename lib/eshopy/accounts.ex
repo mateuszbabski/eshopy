@@ -44,6 +44,10 @@ defmodule Eshopy.Accounts do
     if User.valid_password?(user, password), do: user
   end
 
+  def list_users() do
+    Repo.all(User)
+  end
+
   @doc """
   Gets a single user.
 
@@ -59,6 +63,16 @@ defmodule Eshopy.Accounts do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+
+  def get_user_with_data(id) do
+    query =
+      from u in User,
+      where: u.id == ^id,
+      left_join: c in assoc(u, :customer),
+      preload: [:customer]
+
+    Repo.one(query)
+  end
 
   ## User registration
 

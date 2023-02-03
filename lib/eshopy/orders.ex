@@ -47,7 +47,17 @@ defmodule Eshopy.Orders do
   """
   def get_order!(id), do: Repo.get!(Order, id)
 
-  def get_order_with_items(id), do: Repo.get!(Order, id) |> Repo.preload([:order_items])
+  def get_order_with_items(id) do
+    query =
+      from o in Order,
+      where: o.id == ^id,
+      left_join: i in assoc(o, :order_items),
+      left_join: p in assoc(i, :product),
+      inner_join: s in assoc(o, :shipping),
+      preload: [:shipping, order_items: {i, product: p}]
+
+    Repo.one(query)
+  end
 
   def get_full_order_by_user_id(user_id, id) do
     query =
