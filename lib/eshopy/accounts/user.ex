@@ -43,6 +43,12 @@ defmodule Eshopy.Accounts.User do
     |> validate_password(opts)
   end
 
+  def changeset_role(user_or_changeset, attrs) do
+    user_or_changeset
+    |> cast(attrs, [:role])
+    |> validate_inclusion(:role, ~w(user admin))
+  end
+
   defp validate_email(changeset) do
     changeset
     |> validate_required([:email])
