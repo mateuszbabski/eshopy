@@ -26,7 +26,7 @@ defmodule EshopyWeb.ProductLive.Show do
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
     with %Product{} = product <- Catalog.get_product(id),
-            true <- product.available do
+                         true <- product.available do
       {:noreply,
         socket
         |> assign(:page_title, page_title(socket.assigns.live_action))
@@ -39,17 +39,29 @@ defmodule EshopyWeb.ProductLive.Show do
           |> redirect(to: Routes.home_path(socket, :home))}
 
       false ->
+        show_product_if_user_is_admin(id, socket)
+    end
+  end
+
+  defp show_product_if_user_is_admin(id, socket) do
+    case socket.assigns[:current_user] do
+      %Eshopy.Accounts.User{role: :admin} ->
+        {:noreply,
+           socket
+           |> assign(:page_title, page_title(socket.assigns.live_action))
+           |> assign(:product, Catalog.get_product(id))}
+      _ ->
         {:noreply,
           socket
           |> put_flash(:info, "Product not available")
           |> redirect(to: Routes.home_path(socket, :home))}
-      end
+    end
   end
 
   @impl true
   def handle_event("add_to_cart", %{"quantity" => quantity}, socket) do
     product = socket.assigns[:product]
-
+    #add role condition?
     if socket.assigns[:current_user] do
       create_and_add_item(product, quantity, socket)
     else

@@ -43,6 +43,6 @@
 </ul>
 </div>
 <div class="flex justify-center">
-<button>Back to shopping cart link</button>
+<span><%= live_redirect "Back to cart", to: Routes.cart_show_path(@socket, :show) %></span>
 <button phx-click="proceed" class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 md:my-0 hover:bg-blue-600 rounded" phx-value-order={@order.id} >Proceed order..</button>
 </div>
