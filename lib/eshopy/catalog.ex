@@ -52,7 +52,8 @@ defmodule Eshopy.Catalog do
   def get_product_by_brand_id(brand_id) do
     query =
       from p in Product,
-      where: p.brand_id == ^brand_id
+      where: p.brand_id == ^brand_id,
+      where: p.available == true
 
     Repo.all(query)
   end
@@ -60,7 +61,8 @@ defmodule Eshopy.Catalog do
   def get_product_by_category_id(category_id) do
     query =
       from p in Product,
-      where: p.category_id == ^category_id
+      where: p.category_id == ^category_id,
+      where: p.available == true
 
     Repo.all(query)
   end
@@ -118,7 +120,7 @@ defmodule Eshopy.Catalog do
       |> Ecto.Changeset.put_change(:available, false)
       |> Repo.update()
     else
-       product
+      product
       |> Product.changeset(attrs)
       |> Ecto.Changeset.put_change(:available, true)
       |> Repo.update()
