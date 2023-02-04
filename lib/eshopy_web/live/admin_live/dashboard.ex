@@ -1,7 +1,6 @@
-defmodule EshopyWeb.AdminBrandsLive do
+defmodule EshopyWeb.AdminLive.Dashboard do
   use EshopyWeb, :live_view
 
-  alias Eshopy.Catalog
   alias Eshopy.Accounts
 
   @impl true
@@ -14,13 +13,12 @@ defmodule EshopyWeb.AdminBrandsLive do
           socket
           |> assign(:current_user, user)
           |> put_flash(:info, "Unauthorized")
-          |> redirect(to: Routes.home_path(socket, :home))}
+          |> redirect(to: Routes.home_index_path(socket, :index))}
 
       :admin ->
         {:ok,
           socket
-          |> assign(:current_user, user)
-          |> assign(:brands, Catalog.list_brands())}
+          |> assign(:current_user, user)}
     end
   end
 
@@ -28,6 +26,6 @@ defmodule EshopyWeb.AdminBrandsLive do
     {:ok,
       socket
       |> put_flash(:info, "Unauthorized")
-      |> redirect(to: Routes.home_path(socket, :home))}
+      |> redirect(to: Routes.home_index_path(socket, :index))}
   end
 end

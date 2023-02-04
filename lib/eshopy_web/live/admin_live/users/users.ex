@@ -1,4 +1,4 @@
-defmodule EshopyWeb.AdminUsersLive do
+defmodule EshopyWeb.AdminLive.Users do
   use EshopyWeb, :live_view
 
   alias Eshopy.Accounts
@@ -13,7 +13,7 @@ defmodule EshopyWeb.AdminUsersLive do
           socket
           |> assign(:current_user, user)
           |> put_flash(:info, "Unauthorized")
-          |> redirect(to: Routes.home_path(socket, :home))}
+          |> redirect(to: Routes.home_index_path(socket, :index))}
 
       :admin ->
         {:ok,
@@ -27,6 +27,6 @@ defmodule EshopyWeb.AdminUsersLive do
     {:ok,
       socket
       |> put_flash(:info, "Unauthorized")
-      |> redirect(to: Routes.home_path(socket, :home))}
+      |> redirect(to: Routes.home_index_path(socket, :index))}
   end
 end

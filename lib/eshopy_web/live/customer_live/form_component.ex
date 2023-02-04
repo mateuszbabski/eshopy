@@ -20,7 +20,7 @@ defmodule EshopyWeb.CustomerLive.FormComponent do
     {:ok,
       socket
       |> put_flash(:info, "You must be logged in")
-      |> redirect(to: Routes.home_path(socket, :home))}
+      |> redirect(to: Routes.home_index_path(socket, :index))}
   end
 
   @impl true

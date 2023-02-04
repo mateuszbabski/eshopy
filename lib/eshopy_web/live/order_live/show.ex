@@ -25,7 +25,7 @@ defmodule EshopyWeb.OrderLive.Show do
     {:ok,
       socket
       |> put_flash(:info, "You must be logged in")
-      |> redirect(to: Routes.home_path(socket, :home))}
+      |> redirect(to: Routes.home_index_path(socket, :index))}
   end
 
   defp assign_order(user, id, socket) do
@@ -42,7 +42,7 @@ defmodule EshopyWeb.OrderLive.Show do
           |> assign(:current_user, user)
           |> assign(:order, nil)
           |> put_flash(:info, "Order doesnt exist")
-          |> redirect(to: Routes.home_path(socket, :home))}
+          |> redirect(to: Routes.home_index_path(socket, :index))}
     end
   end
 end

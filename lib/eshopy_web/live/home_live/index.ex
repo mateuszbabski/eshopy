@@ -1,10 +1,9 @@
-defmodule EshopyWeb.HomeLive do
-  alias Eshopy.Catalog
+defmodule EshopyWeb.HomeLive.Index do
   use EshopyWeb, :live_view
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :categories, Catalog.list_categories())}
+    {:ok, socket}
   end
 
   # @impl true

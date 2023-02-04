@@ -34,13 +34,13 @@ defmodule EshopyWeb.Router do
   scope "/", EshopyWeb do
     pipe_through :browser
 
-    live "/", HomeLive, :home
-    live "/admin", AdminDashboardLive, :admin_dashboard
-    live "/admin/products", AdminProductsLive, :admin_products
-    live "/admin/categories", AdminCategoriesLive, :admin_categories
-    live "/admin/brands", AdminBrandsLive, :admin_brands
-    live "/admin/orders", AdminOrdersLive, :admin_orders
-    live "/admin/users", AdminUsersLive, :admin_users
+    live "/", HomeLive.Index, :index
+    live "/admin", AdminLive.Dashboard, :admin_dashboard
+    live "/admin/products", AdminLive.Products, :products
+    live "/admin/categories", AdminLive.Categories, :categories
+    live "/admin/brands", AdminLive.Brands, :brands
+    live "/admin/orders", AdminLive.Orders, :orders
+    live "/admin/users", AdminLive.Users, :users
 
     live "/products", ProductLive.Index, :index
     live "/products/new", ProductLive.Index, :new

@@ -29,7 +29,7 @@ defmodule EshopyWeb.CartLive.Show do
           socket
           |> assign(:current_user, user)
           |> put_flash(:info, "Cart is empty! Add a product!")
-          |> redirect(to: Routes.home_path(socket, :home))}
+          |> redirect(to: Routes.home_index_path(socket, :index))}
     end
   end
 
@@ -37,7 +37,7 @@ defmodule EshopyWeb.CartLive.Show do
     {:ok,
       socket
       |> put_flash(:info, "You must be logged in")
-      |> redirect(to: Routes.home_path(socket, :home))}
+      |> redirect(to: Routes.home_index_path(socket, :index))}
   end
 
   @impl true
@@ -57,7 +57,7 @@ defmodule EshopyWeb.CartLive.Show do
     {:noreply,
       socket
       |> put_flash(:info, "Cart cleared! Add a product to create a new one!")
-      |> redirect(to: Routes.home_path(socket, :home))}
+      |> redirect(to: Routes.home_index_path(socket, :index))}
   end
 
   def handle_event("inc", %{"id" => item_id}, socket) do
