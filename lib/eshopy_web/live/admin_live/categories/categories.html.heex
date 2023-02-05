@@ -1,3 +1,15 @@
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.admin_categories_path(@socket, :index)}>
+    <.live_component
+      module={EshopyWeb.AdminLive.CategoryFormComponent}
+      id={@category.id || :new}
+      title={@page_title}
+      action={@live_action}
+      category={@category}
+      return_to={Routes.admin_categories_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
 <div class="homepage bg-white container mx-auto h-screen">
     <div class="main-container mx-auto">
         <div class="mx-auto mb-5">
@@ -23,9 +35,9 @@
                         <td class="border border-slate-300"><%= category.id %></td>
                         <td class="border border-slate-300"><%= category.name %></td>
                         <td>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.category_show_path(@socket, :show, category) %></span>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= live_patch "Edit", to: Routes.category_index_path(@socket, :edit, category) %></span>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= link "Delete", to: "#", phx_click: "change", phx_value_id: category.id, data: [confirm: "Are you sure?"] %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.admin_category_show_path(@socket, :show, category) %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= live_patch "Edit", to: Routes.admin_categories_path(@socket, :edit, category) %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: category.id, data: [confirm: "Are you sure?"] %></span>
                         </td>
                     </tr>
                 <% end %>

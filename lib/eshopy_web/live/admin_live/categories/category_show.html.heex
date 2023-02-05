@@ -1,0 +1,66 @@
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.admin_category_show_path(@socket, :show, @category)}>
+    <.live_component
+      module={EshopyWeb.CategoryLive.FormComponent}
+      id={@category.id}
+      title={@page_title}
+      action={@live_action}
+      category={@category}
+      products={@products}
+      return_to={Routes.admin_category_show_path(@socket, :show, @category)}
+    />
+  </.modal>
+<% end %>
+
+<div>
+    <div class="flex flex-col mx-auto justify-center max-w-6xl">
+    <img
+        alt="product image" width="350" height="350" class="mx-auto"
+        src={ Routes.static_path(@socket, @category.image_upload || ~s[/images/default-thumbnail.jpg])} >
+    <p class="text-center md:text-2xl text-xl mt-5"><strong><%= @category.name %></strong></p>
+    <div class="flex flex-row mx-auto mb-5">
+    <span><%= live_patch "Edit", to: Routes.admin_category_show_path(@socket, :edit, @category), class: "button" %></span> |
+    <span><%= live_redirect "Back", to: Routes.admin_categories_path(@socket, :index) %></span>
+    </div>
+    </div>
+
+<div class="flex flex-col mx-auto justify-center max-w-6xl">
+        <table class="border-separate border-spacing-1 border-collapse border border-slate-400 mx-auto max-w-screen-lg md:text-2xl">
+            <thead>
+                <tr>
+                    <th class="border border-slate-300">Product</th>
+                    <th class="border border-slate-300">Id</th>
+                    <th class="border border-slate-300">Name</th>
+                    <th class="border border-slate-300">Sku</th>
+                    <th class="border border-slate-300">Price</th>
+                    <th class="border border-slate-300">Available</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="categories">
+                <%= for product <- @products do %>
+                    <tr id={"product-#{product.id}"}>
+                        <td class="border border-slate-300"><img
+                                            alt="product image" width="100" height="100"
+                                            src={ Routes.static_path(@socket, product.image_upload || ~s[/images/default-thumbnail.jpg])} ></td>
+                        <td class="border border-slate-300"><%= product.id %></td>
+                        <td class="border border-slate-300"><%= product.name %></td>
+                        <td class="border border-slate-300"><%= product.sku %></td>
+                        <td class="border border-slate-300"><%= product.unit_price %></td>
+                        <td class="border border-slate-300"><%= product.available %></td>
+                        <td>
+                            <span>show</span>
+                            <span>edit</span>
+                            <span>delete</span>
+                        </td>
+                        <!--<td>
+                            <span class="text-center md:text-2xl sm:text-xl"> live_redirect "Show", to: Routes.admin_product_show_path(@socket, :show, product) %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"> live_patch "Edit", to: Routes.product_index_path(@socket, :edit, product) %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"> link "Delete", to: "#", phx_click: "change", phx_value_id: product.id, data: [confirm: "Are you sure?"] %></span>
+                        </td>-->
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+        </div>
+</div>

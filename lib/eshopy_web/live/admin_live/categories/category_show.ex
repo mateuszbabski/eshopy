@@ -1,32 +1,31 @@
-defmodule EshopyWeb.AdminLive.Categories do
+defmodule EshopyWeb.AdminLive.CategoryShow do
   use EshopyWeb, :live_view
 
-  alias Eshopy.Accounts
   alias Eshopy.Catalog
   alias Eshopy.Catalog.Category
+  alias Eshopy.Accounts
 
   @impl true
   def mount(_params, %{"user_token" => user_token}, socket) do
     user = Accounts.get_user_by_session_token(user_token)
 
     case user.role do
+      :admin ->
+        {:ok,
+          socket
+          |> assign(:current_user, user)}
+
       :user ->
         {:ok,
           socket
           |> assign(:current_user, user)
           |> put_flash(:info, "Unauthorized")
           |> redirect(to: Routes.home_index_path(socket, :index))}
-
-      :admin ->
-        {:ok,
-          socket
-          |> assign(:current_user, user)
-          |> assign(:categories, Catalog.list_categories())}
     end
   end
 
   def mount(_params, _session, socket) do
-    {:noreply,
+    {:ok,
       socket
       |> put_flash(:info, "Unauthorized")
       |> redirect(to: Routes.home_index_path(socket, :index))}
@@ -43,6 +42,13 @@ defmodule EshopyWeb.AdminLive.Categories do
     |> assign(:category, Catalog.get_category!(id))
   end
 
+  defp apply_action(socket, :show, %{"id" => id}) do
+    socket
+    |> assign(:page_title, "Show category")
+    |> assign(:category, Catalog.get_category!(id))
+    |> assign(:products, Catalog.get_products_by_category_id(id))
+  end
+
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Category")
@@ -53,13 +59,5 @@ defmodule EshopyWeb.AdminLive.Categories do
     socket
     |> assign(:page_title, "Listing Categories")
     |> assign(:category, nil)
-  end
-
-  @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    category = Catalog.get_category!(id)
-    {:ok, _} = Catalog.delete_category(category)
-
-    {:noreply, assign(socket, :categories, Catalog.list_categories())}
   end
 end
