@@ -47,6 +47,20 @@ defmodule Eshopy.Orders do
   """
   def get_order!(id), do: Repo.get!(Order, id)
 
+  @doc """
+  Gets a single order with associated order items, products and shipping.
+
+  Returns nil if the Order does not exist.
+
+  ## Examples
+
+      iex> get_order_with_items(123)
+      %Order{}
+
+      iex> get_order_with_items(456)
+      nil
+
+  """
   def get_order_with_items(id) do
     query =
       from o in Order,
@@ -59,6 +73,20 @@ defmodule Eshopy.Orders do
     Repo.one(query)
   end
 
+  @doc """
+  Gets a single order with associated order items, products and shipping.
+
+  Returns nil if the Order does not exist.
+
+  ## Examples
+
+      iex> get_full_order_by_user_id(1, 123)
+      %Order{}
+
+      iex> get_full_order_by_user_id(1, 456)
+      nil
+
+  """
   def get_full_order_by_user_id(user_id, id) do
     query =
       from o in Order,
@@ -72,6 +100,21 @@ defmodule Eshopy.Orders do
     Repo.one(query)
   end
 
+  @doc """
+  Gets a single order with associated order items, products and shipping
+  which status is marked as :in_progress.
+
+  Returns nil if the Order does not exist.
+
+  ## Examples
+
+      iex> get_order_in_progress(1)
+      %Order{}
+
+      iex> get_order_in_progress(100)
+      nil
+
+  """
   def get_order_in_progress(user_id) do
     query =
       from o in Order,
@@ -87,7 +130,7 @@ defmodule Eshopy.Orders do
 
 
   @doc """
-  Creates a order.
+  Creates an order.
 
   ## Examples
 
@@ -104,6 +147,21 @@ defmodule Eshopy.Orders do
     |> Repo.insert()
   end
 
+  @doc """
+  Creates an order with cart and shipping structs passed.
+
+  Cart items from %Cart{} are mapped to order_items and passed into
+  newly created %Cart{}
+
+  ## Examples
+
+      iex> create_order(%Cart{}, %Shipping{})
+      {:ok, %Order{}}
+
+      iex> create_order(%Cart{}, %Shipping{})
+      {:error, %Ecto.Changeset{}}
+
+  """
   def create_order_from_cart(cart, shipping) do
     order_items =
       Enum.map(cart.cart_items, fn cart_item ->
@@ -145,14 +203,14 @@ defmodule Eshopy.Orders do
   end
 
   @doc """
-  Updates a order.
+  Updates an order.
 
   ## Examples
 
-      iex> update_order(order, %{field: new_value})
+      iex> update_order(order, %Cart{}, %Shipping{})
       {:ok, %Order{}}
 
-      iex> update_order(order, %{field: bad_value})
+      iex> update_order(order, %Cart{}, %Shipping{})
       {:error, %Ecto.Changeset{}}
 
   """
