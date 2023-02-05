@@ -1,14 +1,14 @@
 <div class="bg-white mx-auto h-screen justify-items-center">
 
 <%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.brand_index_path(@socket, :index)}>
+  <.modal return_to={Routes.admin_brands_path(@socket, :index)}>
     <.live_component
       module={EshopyWeb.BrandLive.FormComponent}
       id={@brand.id || :new}
       title={@page_title}
       action={@live_action}
       brand={@brand}
-      return_to={Routes.brand_index_path(@socket, :index)}
+      return_to={Routes.admin_brands_path(@socket, :index)}
     />
   </.modal>
 <% end %>
@@ -32,7 +32,3 @@
     <% end %>
   </div>
 </div>
-<!--<span>live_redirect "Show", to: Routes.brand_show_path(@socket, :show, brand) %></span>
-          <span>live_patch "Edit", to: Routes.brand_index_path(@socket, :edit, brand) %></span>
-          <span>link "Delete", to: "#", phx_click: "delete", phx_value_id: brand.id, data: [confirm: "Are you sure?"] %></span>
-          <span>live_patch "New Brand", to: Routes.brand_index_path(@socket, :new) %></span>-->

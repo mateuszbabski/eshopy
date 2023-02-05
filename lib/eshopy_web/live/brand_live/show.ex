@@ -56,7 +56,7 @@ defmodule EshopyWeb.BrandLive.Show do
       socket
       |> assign(:page_title, page_title(socket.assigns.live_action))
       |> assign(:brand, Catalog.get_brand!(id))
-      |> assign(:products, Catalog.get_product_by_brand_id(id))}
+      |> assign(:products, Catalog.get_available_products_by_brand_id(id))}
   end
 
   defp add_item_to_shopping_cart(socket, cart, product, quantity) do

@@ -38,9 +38,9 @@ defmodule EshopyWeb.CategoryLive.Show do
   def handle_params(%{"id" => id}, _, socket) do
     {:noreply,
       socket
-      |> assign(:page_title, page_title(socket.assigns.live_action))
+      |> assign(:page_title, "Show Category")
       |> assign(:category, Catalog.get_category!(id))
-      |> assign(:products, Catalog.get_product_by_category_id(id))}
+      |> assign(:products, Catalog.get_available_products_by_category_id(id))}
   end
 
   defp create_and_add_item(product_id, quantity, socket) do
@@ -71,8 +71,4 @@ defmodule EshopyWeb.CategoryLive.Show do
             |> put_flash(:info, "Error with adding item")
     end
   end
-
-  defp page_title(:show), do: "Show Category"
-  defp page_title(:edit), do: "Edit Category"
-
 end

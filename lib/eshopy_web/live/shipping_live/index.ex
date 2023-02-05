@@ -6,7 +6,7 @@ defmodule EshopyWeb.ShippingLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :shippings, list_shippings())}
+    {:ok, assign(socket, :shippings, Delivery.list_available_shippings())}
   end
 
   @impl true
@@ -30,17 +30,5 @@ defmodule EshopyWeb.ShippingLive.Index do
     socket
     |> assign(:page_title, "Listing Shippings")
     |> assign(:shipping, nil)
-  end
-
-  @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    shipping = Delivery.get_shipping!(id)
-    {:ok, _} = Delivery.delete_shipping(shipping)
-
-    {:noreply, assign(socket, :shippings, list_shippings())}
-  end
-
-  defp list_shippings do
-    Delivery.list_shippings()
   end
 end

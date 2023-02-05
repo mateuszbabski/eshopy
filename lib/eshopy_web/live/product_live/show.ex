@@ -36,7 +36,7 @@ defmodule EshopyWeb.ProductLive.Show do
         {:noreply,
           socket
           |> put_flash(:info, "Product not available")
-          |> redirect(to: Routes.home_path(socket, :home))}
+          |> redirect(to: Routes.home_index_path(socket, :index))}
 
       false ->
         show_product_if_user_is_admin(id, socket)
@@ -50,11 +50,12 @@ defmodule EshopyWeb.ProductLive.Show do
            socket
            |> assign(:page_title, page_title(socket.assigns.live_action))
            |> assign(:product, Catalog.get_product(id))}
+
       _ ->
         {:noreply,
           socket
           |> put_flash(:info, "Product not available")
-          |> redirect(to: Routes.home_path(socket, :home))}
+          |> redirect(to: Routes.home_index_path(socket, :index))}
     end
   end
 

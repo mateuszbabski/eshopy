@@ -22,7 +22,7 @@ defmodule EshopyWeb.CartLive.Show do
           |> assign(:cart, ShoppingCart.get_cart_by_user_id_with_cart_items(user.id))
           |> assign(:cart_items, ShoppingCart.list_cart_items(cart.id))
           |> assign(:product, Catalog.list_products())
-          |> assign(:shipping_list, Delivery.list_shippings())}
+          |> assign(:shipping_list, Delivery.list_available_shippings())}
 
       nil ->
         {:ok,

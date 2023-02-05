@@ -1,5 +1,5 @@
 <%= if @live_action in [:edit] do %>
-  <.modal return_to={Routes.brand_show_path(@socket, :show, @brand)}>
+  <.modal return_to={Routes.admin_brand_show_path(@socket, :show, @brand)}>
     <.live_component
       module={EshopyWeb.BrandLive.FormComponent}
       id={@brand.id}
@@ -7,7 +7,7 @@
       action={@live_action}
       brand={@brand}
       products={@products}
-      return_to={Routes.brand_show_path(@socket, :show, @brand)}
+      return_to={Routes.admin_brand_show_path(@socket, :show, @brand)}
     />
   </.modal>
 <% end %>
@@ -36,8 +36,3 @@
         <% end %>
     </div>
 </div>
-
-
-
-<!--<span>live_patch "Edit", to: Routes.brand_show_path(@socket, :edit, @brand), class: "button" %></span> |
-<span>live_redirect "Back", to: Routes.brand_index_path(@socket, :index) %></span>-->
