@@ -8,7 +8,7 @@ defmodule EshopyWeb.BrandLive.Index do
   def mount(_params, _session, socket) do
     {:ok,
       socket
-      |> assign(:brands, list_brands())}
+      |> assign(:brands, Catalog.list_brands())}
   end
 
   @impl true
@@ -32,17 +32,5 @@ defmodule EshopyWeb.BrandLive.Index do
     socket
     |> assign(:page_title, "Listing Brands")
     |> assign(:brand, nil)
-  end
-
-  @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    brand = Catalog.get_brand!(id)
-    {:ok, _} = Catalog.delete_brand(brand)
-
-    {:noreply, assign(socket, :brands, list_brands())}
-  end
-
-  defp list_brands do
-    Catalog.list_brands()
   end
 end

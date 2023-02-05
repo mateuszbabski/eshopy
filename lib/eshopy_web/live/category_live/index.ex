@@ -6,7 +6,7 @@ defmodule EshopyWeb.CategoryLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :categories, list_categories())}
+    {:ok, assign(socket, :categories, Catalog.list_categories())}
   end
 
   @impl true
@@ -30,17 +30,5 @@ defmodule EshopyWeb.CategoryLive.Index do
     socket
     |> assign(:page_title, "Listing Categories")
     |> assign(:category, nil)
-  end
-
-  @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    category = Catalog.get_category!(id)
-    {:ok, _} = Catalog.delete_category(category)
-
-    {:noreply, assign(socket, :categories, list_categories())}
-  end
-
-  defp list_categories do
-    Catalog.list_categories()
   end
 end
