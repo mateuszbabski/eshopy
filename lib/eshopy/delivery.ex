@@ -21,6 +21,14 @@ defmodule Eshopy.Delivery do
     Repo.all(Shipping)
   end
 
+  def list_available_shippings() do
+    query =
+      from s in Shipping,
+      where: s.available == true
+
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single shipping.
 
@@ -80,6 +88,20 @@ defmodule Eshopy.Delivery do
     shipping
     |> Shipping.changeset(attrs)
     |> Repo.update()
+  end
+
+  def change_shipping_availability(%Shipping{} = shipping, attrs \\ %{}) do
+    if shipping.available == true do
+      shipping
+      |> Shipping.availability_changeset(attrs)
+      |> Ecto.Changeset.put_change(:available, false)
+      |> Repo.update()
+    else
+      shipping
+      |> Shipping.availability_changeset(attrs)
+      |> Ecto.Changeset.put_change(:available, true)
+      |> Repo.update()
+    end
   end
 
   @doc """
