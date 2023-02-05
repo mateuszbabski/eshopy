@@ -27,6 +27,7 @@
                     <th class="border border-slate-300">Name</th>
                     <th class="border border-slate-300">Price</th>
                     <th class="border border-slate-300">Delivery time</th>
+                    <th class="border border-slate-300">Available</th>
                     <th></th>
                 </tr>
             </thead>
@@ -38,10 +39,11 @@
                         <td class="border border-slate-300"><%= shipping.name %></td>
                         <td class="border border-slate-300"><%= shipping.price %></td>
                         <td class="border border-slate-300"><%= shipping.days %></td>
+                        <td class="border border-slate-300"><%= shipping.available %></td>
                         <td>
                             <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.admin_shipping_show_path(@socket, :show, shipping) %></span>
                             <span class="text-center md:text-2xl sm:text-xl"><%= live_patch "Edit", to: Routes.admin_shippings_path(@socket, :edit, shipping) %></span>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: shipping.id, data: [confirm: "Are you sure?"] %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= link "Delete", to: "#", phx_click: "change", phx_value_id: shipping.id, data: [confirm: "Are you sure?"] %></span>
                         </td>
                     </tr>
                 <% end %>

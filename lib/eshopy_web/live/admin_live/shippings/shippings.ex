@@ -56,10 +56,13 @@ defmodule EshopyWeb.AdminLive.Shippings do
   end
 
   @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
+  def handle_event("change", %{"id" => id}, socket) do
     shipping = Delivery.get_shipping!(id)
-    {:ok, _} = Delivery.delete_shipping(shipping)
+    Delivery.change_shipping_availability(shipping)
 
-    {:noreply, assign(socket, :shippings, Delivery.list_shippings())}
+    {:noreply,
+      socket
+      |> put_flash(:info, "Shipping availability changed")
+      |> assign(:shippings, Delivery.list_shippings())}
   end
 end

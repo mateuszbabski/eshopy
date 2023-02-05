@@ -59,4 +59,15 @@ defmodule EshopyWeb.AdminLive.ShippingShow do
     |> assign(:page_title, "Listing shippings")
     |> assign(:shipping, nil)
   end
+
+  @impl true
+  def handle_event("change", %{"id" => id}, socket) do
+    shipping = Delivery.get_shipping!(id)
+    Delivery.change_shipping_availability(shipping)
+
+    {:noreply,
+      socket
+      |> put_flash(:info, "Shipping availability changed")
+      |> assign(:shipping, Delivery.get_shipping!(id))}
+  end
 end

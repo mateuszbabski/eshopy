@@ -49,15 +49,10 @@
                         <td class="border border-slate-300"><%= product.unit_price %></td>
                         <td class="border border-slate-300"><%= product.available %></td>
                         <td>
-                            <span>show</span>
-                            <span>edit</span>
-                            <span>delete</span>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.admin_product_show_path(@socket, :show, product) %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= live_patch "Edit", to: Routes.admin_products_path(@socket, :edit, product) %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= link "Delete", to: "#", phx_click: "change", phx_value_id: product.id, data: [confirm: "Are you sure?"] %></span>
                         </td>
-                        <!--<td>
-                            <span class="text-center md:text-2xl sm:text-xl"> live_redirect "Show", to: Routes.admin_product_show_path(@socket, :show, product) %></span>
-                            <span class="text-center md:text-2xl sm:text-xl"> live_patch "Edit", to: Routes.product_index_path(@socket, :edit, product) %></span>
-                            <span class="text-center md:text-2xl sm:text-xl"> link "Delete", to: "#", phx_click: "change", phx_value_id: product.id, data: [confirm: "Are you sure?"] %></span>
-                        </td>-->
                     </tr>
                 <% end %>
             </tbody>

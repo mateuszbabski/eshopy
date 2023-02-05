@@ -60,4 +60,16 @@ defmodule EshopyWeb.AdminLive.CategoryShow do
     |> assign(:page_title, "Listing Categories")
     |> assign(:category, nil)
   end
+
+  @impl true
+  def handle_event("change", %{"id" => id}, socket) do
+    product = Catalog.get_product!(id)
+    Catalog.change_product_availability(product)
+
+    {:noreply,
+      socket
+      |> put_flash(:info, "Product availability changed")
+      |> assign(:category, socket.assigns[:category])
+      |> assign(:products, Catalog.get_products_by_category_id(product.category_id))}
+  end
 end

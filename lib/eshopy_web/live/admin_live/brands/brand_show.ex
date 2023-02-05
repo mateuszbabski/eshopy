@@ -60,4 +60,16 @@ defmodule EshopyWeb.AdminLive.BrandShow do
     |> assign(:page_title, "Listing Brands")
     |> assign(:brand, nil)
   end
+
+  @impl true
+  def handle_event("change", %{"id" => id}, socket) do
+    product = Catalog.get_product!(id)
+    Catalog.change_product_availability(product)
+
+    {:noreply,
+      socket
+      |> put_flash(:info, "Product availability changed")
+      |> assign(:brand, socket.assigns[:brand])
+      |> assign(:products, Catalog.get_products_by_brand_id(product.brand_id))}
+  end
 end
