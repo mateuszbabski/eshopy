@@ -1,27 +1,26 @@
-defmodule EshopyWeb.AdminLive.Brands do
+defmodule EshopyWeb.AdminLive.BrandShow do
   use EshopyWeb, :live_view
 
   alias Eshopy.Catalog
-  alias Eshopy.Accounts
   alias Eshopy.Catalog.Brand
+  alias Eshopy.Accounts
 
   @impl true
   def mount(_params, %{"user_token" => user_token}, socket) do
     user = Accounts.get_user_by_session_token(user_token)
 
     case user.role do
+      :admin ->
+        {:ok,
+          socket
+          |> assign(:current_user, user)}
+
       :user ->
         {:ok,
           socket
           |> assign(:current_user, user)
           |> put_flash(:info, "Unauthorized")
           |> redirect(to: Routes.home_index_path(socket, :index))}
-
-      :admin ->
-        {:ok,
-          socket
-          |> assign(:current_user, user)
-          |> assign(:brands, Catalog.list_brands())}
     end
   end
 
@@ -41,6 +40,13 @@ defmodule EshopyWeb.AdminLive.Brands do
     socket
     |> assign(:page_title, "Edit Brand")
     |> assign(:brand, Catalog.get_brand!(id))
+  end
+
+  defp apply_action(socket, :show, %{"id" => id}) do
+    socket
+    |> assign(:page_title, "Show brand")
+    |> assign(:brand, Catalog.get_brand!(id))
+    |> assign(:products, Catalog.get_products_by_brand_id(id))
   end
 
   defp apply_action(socket, :new, _params) do

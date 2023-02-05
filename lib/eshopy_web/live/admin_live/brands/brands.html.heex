@@ -1,3 +1,15 @@
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.admin_brands_path(@socket, :index)}>
+    <.live_component
+      module={EshopyWeb.AdminLive.BrandFormComponent}
+      id={@brand.id || :new}
+      title={@page_title}
+      action={@live_action}
+      brand={@brand}
+      return_to={Routes.admin_brands_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
 <div class="homepage bg-white container mx-auto h-screen">
     <div class="main-container mx-auto">
         <div class="mx-auto mb-5">
@@ -23,8 +35,8 @@
                         <td class="border border-slate-300"><%= brand.id %></td>
                         <td class="border border-slate-300"><%= brand.name %></td>
                         <td>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.brand_show_path(@socket, :show, brand) %></span>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= live_patch "Edit", to: Routes.brand_index_path(@socket, :edit, brand) %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.admin_brand_show_path(@socket, :show, brand) %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= live_patch "Edit", to: Routes.admin_brands_path(@socket, :edit, brand) %></span>
                             <span class="text-center md:text-2xl sm:text-xl"><%= link "Delete", to: "#", phx_click: "change", phx_value_id: brand.id, data: [confirm: "Are you sure?"] %></span>
                         </td>
                     </tr>
