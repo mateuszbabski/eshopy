@@ -39,7 +39,7 @@ defmodule EshopyWeb.ProductLive.Index do
   end
 
   def handle_event("add_to_cart", %{"product" => product_id, "quantity" => quantity}, socket) do
-    if socket.assigns[:current_user] do
+    if socket.assigns[:current_user].role == :user do
       create_and_add_item(product_id, quantity, socket)
     else
       {:noreply,
