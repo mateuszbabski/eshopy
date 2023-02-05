@@ -16,32 +16,31 @@
     <nav class="p-5 bg-white md:flex md:items-center md:justify-between">
       <div class="flex justify-between items-center">
         <span class="text-2xl font-[Poppins] bold cursor-pointer">eShopy</span>
-        <ul class="flex">
-          <li><span class="text-xl cursor-pointer mx-4 my-4 md:my-0 md:hidden"><a href="/cart"><i class="fa-solid fa-cart-shopping" ></i></a></span></li>
-          <li><span class="text-3xl cursor-pointer md:hidden block"><ion-icon name="menu-outline" onclick="Menu(this)"></ion-icon></span></li>
-        </ul>
+        <span class="text-3xl cursor-pointer md:hidden block"><ion-icon name="menu-outline" onclick="Menu(this)"></ion-icon></span>
       </div>
       <ul class="md:flex md:items-center z-[0] md:z-[auto] md:static absolute bg-white w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-5 md:opacity-100 hidden top[-400px] transition-all ease-in duration-500">
         <li class="mx-4 my-4 md:my-0"><a href="/" class="text-xl hover:text-blue-500">PRODUCTS</a></li>
         <li class="mx-4 my-4 md:my-0"><a href="/application" class="text-xl hover:text-blue-500">APPLICATION</a></li>
         <li class="mx-4 my-4 md:my-0"><a href="/about" class="text-xl hover:text-blue-500">ABOUT</a></li>
         <li class="mx-4 my-4 md:my-0"><a href="/contact" class="text-xl hover:text-blue-500">CONTACT</a></li>
-      <%= if @current_user do %>
-          <li>
+
+        <%= if @current_user do %>
+          <li class="my-4">
             <span class="text-xl cursor-pointer mx-4 my-4 md:my-0"><%= link @current_user.email, to: Routes.user_settings_path(@conn, :edit) %></span>
           </li>
           <%= if @current_user.role == :user do %>
-            <li><span class="text-xl cursor-pointer mx-4 my-4 md:my-0"><a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a></span></li>
+            <li class="my-4"><span class="text-xl cursor-pointer mx-4 my-4 md:my-0"><a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a></span></li>
           <% else %>
-            <li><span class="text-xl cursor-pointer mx-4 my-4 md:my-0">
-              <%= link "Live dashboard", to: Routes.admin_dashboard_path(@conn, :dashboard)%></span></li>
+            <li class="my-4"><span class="text-xl cursor-pointer mx-4 my-4 md:my-0">
+              <%= link "Dashboard", to: Routes.admin_dashboard_path(@conn, :dashboard)%></span></li>
+            <li class="my-4"><span class="text-xl cursor-pointer mx-4 my-4 md:my-0"><a href="/cart"><i class="fa-solid fa-cart-shopping"></i></a></span></li>
           <% end %>
           <li>
             <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">
             <%= link "Sign out", to: Routes.user_session_path(@conn, :delete), method: :delete %>
             </button>
           </li>
-      <% else %>
+        <% else %>
           <li>
             <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">
             <%= link "Register", to: Routes.user_registration_path(@conn, :new) %>
@@ -53,7 +52,7 @@
             </button>
 
           </li>
-      <% end %>
+        <% end %>
       </ul>
     </nav>
 
