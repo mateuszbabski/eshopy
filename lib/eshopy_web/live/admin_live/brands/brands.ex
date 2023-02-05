@@ -54,4 +54,12 @@ defmodule EshopyWeb.AdminLive.Brands do
     |> assign(:page_title, "Listing Brands")
     |> assign(:brand, nil)
   end
+
+  @impl true
+  def handle_event("delete", %{"id" => id}, socket) do
+    brand = Catalog.get_brand!(id)
+    {:ok, _} = Catalog.delete_brand(brand)
+
+    {:noreply, assign(socket, :brands, Catalog.list_brands())}
+  end
 end

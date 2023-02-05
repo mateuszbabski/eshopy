@@ -37,7 +37,7 @@
                         <td>
                             <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.admin_brand_show_path(@socket, :show, brand) %></span>
                             <span class="text-center md:text-2xl sm:text-xl"><%= live_patch "Edit", to: Routes.admin_brands_path(@socket, :edit, brand) %></span>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= link "Delete", to: "#", phx_click: "change", phx_value_id: brand.id, data: [confirm: "Are you sure?"] %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: brand.id, data: [confirm: "Are you sure?"] %></span>
                         </td>
                     </tr>
                 <% end %>
