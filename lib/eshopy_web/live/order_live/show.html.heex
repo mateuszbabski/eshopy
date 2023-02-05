@@ -1,4 +1,5 @@
 <h1 class="text-center md:text-2xl sm:text-l">Show Order</h1>
+<span class="justify-center"><%= live_redirect "Back", to: Routes.order_index_path(@socket, :index) %></span>
 <div class="mx-auto justify-center max-w-2xl md:max-w-5xl">
   <div class="justify-self-center">
     <strong>Order number:</strong>
@@ -43,5 +44,4 @@
     <%= @order.total_price %> $
   </li>
 </ul>
-<span><%= live_redirect "Back", to: Routes.order_index_path(@socket, :index) %></span>
 </div>
