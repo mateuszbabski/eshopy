@@ -49,7 +49,23 @@ defmodule Eshopy.Catalog do
 
   def get_product(id), do: Repo.get(Product, id) |> Repo.preload([:brand, :category])
 
-  def get_product_by_brand_id(brand_id) do
+  def get_products_by_brand_id(brand_id) do
+    query =
+      from p in Product,
+      where: p.brand_id == ^brand_id
+
+    Repo.all(query)
+  end
+
+  def get_products_by_category_id(category_id) do
+    query =
+      from p in Product,
+      where: p.category_id == ^category_id
+
+    Repo.all(query)
+  end
+
+  def get_available_products_by_brand_id(brand_id) do
     query =
       from p in Product,
       where: p.brand_id == ^brand_id,
@@ -58,7 +74,7 @@ defmodule Eshopy.Catalog do
     Repo.all(query)
   end
 
-  def get_product_by_category_id(category_id) do
+  def get_available_products_by_category_id(category_id) do
     query =
       from p in Product,
       where: p.category_id == ^category_id,
