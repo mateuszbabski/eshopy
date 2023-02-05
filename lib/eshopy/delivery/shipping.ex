@@ -6,6 +6,7 @@ defmodule Eshopy.Delivery.Shipping do
     field :name, :string
     field :price, :decimal
     field :days, :integer
+    field :available, :boolean, default: true
 
     timestamps()
   end
@@ -29,5 +30,11 @@ defmodule Eshopy.Delivery.Shipping do
     changeset
     |> validate_required(:days, message: "Delivery time has to be greater than 0")
     |> validate_number(:days, greater_than: 0)
+  end
+
+  def availability_changeset(product, attrs) do
+    product
+    |> cast(attrs, [:available])
+    |> validate_inclusion(:available, [true, false])
   end
 end
