@@ -1,0 +1,70 @@
+<div class="flex flex-col mx-auto justify-center max-w-screen-md mt-5">
+  <div class="flex flex-col justify-center">
+    <div class="flex justify-self-center mx-auto">
+      <h1 class="flex text-3xl font-[Poppins] justify-center">Show user</h1>
+    </div>
+    <div class="flex flex-row justify-center my-5">
+        <span class="mx-5"><%= live_redirect "Back", to: Routes.admin_users_path(@socket, :index) %></span>
+    </div>
+    <div class="flex flex-col content-center justify-center">
+      <ul class="flex flex-col content-between">
+        <li>
+            <strong>Id:</strong>
+            <%= @user.id %>
+        </li>
+
+        <li>
+            <strong>Email:</strong>
+            <%= @user.email %>
+        </li>
+
+        <li>
+            <strong>Role:</strong>
+            <%= @user.role %>
+        </li>
+
+        <li>
+            <strong>Confirmed at:</strong>
+            <%= @user.confirmed_at %>
+        </li>
+
+        <%= if @user.customer != nil do %>
+            <li>
+                <strong>Name:</strong>
+                <%= @user.customer.name %>
+            </li>
+
+            <li>
+                <strong>Last name:</strong>
+                <%= @user.customer.lastname %>
+            </li>
+
+            <li>
+                <strong>Country:</strong>
+                <%= @user.customer.country %>
+            </li>
+
+            <li>
+                <strong>City:</strong>
+                <%= @user.customer.city %>
+            </li>
+
+            <li>
+                <strong>Street:</strong>
+                <%= @user.customer.street %>
+            </li>
+
+            <li>
+                <strong>Postal:</strong>
+                <%= @user.customer.postal %>
+            </li>
+
+            <li>
+                <strong>Telephone number:</strong>
+                <%= @user.customer.telephone_number %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

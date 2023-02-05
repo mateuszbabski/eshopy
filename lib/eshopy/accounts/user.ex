@@ -16,6 +16,8 @@ defmodule Eshopy.Accounts.User do
 
     field :role, RolesEnum, default: :user
 
+    has_one :customer, Eshopy.Accounts.Customer, on_delete: :delete_all
+
     timestamps()
   end
 

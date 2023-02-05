@@ -35,12 +35,42 @@ defmodule EshopyWeb.Router do
     pipe_through :browser
 
     live "/", HomeLive.Index, :index
-    live "/admin", AdminLive.Dashboard, :admin_dashboard
-    live "/admin/products", AdminLive.Products, :products
-    live "/admin/categories", AdminLive.Categories, :categories
-    live "/admin/brands", AdminLive.Brands, :brands
-    live "/admin/orders", AdminLive.Orders, :orders
-    live "/admin/users", AdminLive.Users, :users
+
+    live "/admin", AdminLive.Dashboard, :dashboard
+
+    live "/admin/products", AdminLive.Products, :index
+    live "/admin/products/new", AdminLive.Products, :new
+    live "/admin/products/:id/edit", AdminLive.Products, :edit
+
+    live "/admin/products/:id", AdminLive.ProductShow, :show
+    live "/admin/products/:id/show/edit", AdminLive.ProductShow, :edit
+
+    live "/admin/categories", AdminLive.Categories, :index
+    live "/admin/categories/new", AdminLive.Categories, :new
+    live "/admin/categories/:id/edit", AdminLive.Categories, :edit
+
+    live "/admin/categories/:id", AdminLive.CategoryShow, :show
+    live "/admin/categories/:id/show/edit", AdminLive.CategoryShow, :edit
+
+    live "/admin/brands", AdminLive.Brands, :index
+    live "/admin/brands/new", AdminLive.Brands, :new
+    live "/admin/brands/:id/edit", AdminLive.Brands, :edit
+
+    live "/admin/brands/:id", AdminLive.BrandShow, :show
+    live "/admin/brands/:id/show/edit", AdminLive.BrandShow, :edit
+
+    live "/admin/shippings", AdminLive.Shippings, :index
+    live "/admin/shippings/new", AdminLive.Shippings, :new
+    live "/admin/shippings/:id/edit", AdminLive.Shippings, :edit
+
+    live "/admin/shippings/:id", AdminLive.ShippingShow, :show
+    live "/admin/shippings/:id/show/edit", AdminLive.ShippingShow, :edit
+
+    live "/admin/orders", AdminLive.Orders, :index
+    live "/admin/orders/:id", AdminLive.OrderShow, :show
+
+    live "/admin/users", AdminLive.Users, :index
+    live "/admin/users/:id", AdminLive.UserShow, :show
 
     live "/products", ProductLive.Index, :index
     live "/products/new", ProductLive.Index, :new
@@ -50,25 +80,13 @@ defmodule EshopyWeb.Router do
     live "/products/:id/show/edit", ProductLive.Show, :edit
 
     live "/brands", BrandLive.Index, :index
-    live "/brands/new", BrandLive.Index, :new
-    live "/brands/:id/edit", BrandLive.Index, :edit
-
     live "/brands/:id", BrandLive.Show, :show
-    live "/brands/:id/show/edit", BrandLive.Show, :edit
 
     live "/categories", CategoryLive.Index, :index
-    live "/categories/new", CategoryLive.Index, :new
-    live "/categories/:id/edit", CategoryLive.Index, :edit
-
     live "/categories/:id", CategoryLive.Show, :show
-    live "/categories/:id/show/edit", CategoryLive.Show, :edit
 
     live "/shippings", ShippingLive.Index, :index
-    live "/shippings/new", ShippingLive.Index, :new
-    live "/shippings/:id/edit", ShippingLive.Index, :edit
-
     live "/shippings/:id", ShippingLive.Show, :show
-    live "/shippings/:id/show/edit", ShippingLive.Show, :edit
 
     live "/orders", OrderLive.Index, :index
     live "/orders/:id", OrderLive.Show, :show
