@@ -36,6 +36,39 @@ defmodule EshopyWeb.Router do
 
     live "/", HomeLive.Index, :index
 
+    live "/products", ProductLive.Index, :index
+    live "/products/:id", ProductLive.Show, :show
+
+    live "/brands", BrandLive.Index, :index
+    live "/brands/:id", BrandLive.Show, :show
+
+    live "/categories", CategoryLive.Index, :index
+    live "/categories/:id", CategoryLive.Show, :show
+
+    live "/shippings", ShippingLive.Index, :index
+    live "/shippings/:id", ShippingLive.Show, :show
+  end
+
+  scope "/", EshopyWeb do
+    pipe_through [:browser, :require_authenticated_user, :user]
+
+    live "/customers/new", CustomerLive.FormComponent, :new
+    live "/customers/:id/show/edit", CustomerLive.FormComponent, :edit
+
+    live "/orders", OrderLive.Index, :index
+    live "/orders/:id", OrderLive.Show, :show
+
+    live "/cart/", CartLive.Show, :show
+
+    live "/order/:id", CompleteOrderLive.ShowOrder, :show_order
+    live "/delivery/", CompleteOrderLive.ShowCustomerData, :show_customer_data
+    live "/payment/", CompleteOrderLive.ShowPaymentMethod, :show_payment_method
+    live "/summary/", CompleteOrderLive.Summary, :summary
+  end
+
+  scope "/", EshopyWeb do
+    pipe_through [:browser, :require_authenticated_user, :admin]
+
     live "/admin", AdminLive.Dashboard, :dashboard
 
     live "/admin/products", AdminLive.Products, :index
@@ -71,43 +104,6 @@ defmodule EshopyWeb.Router do
 
     live "/admin/users", AdminLive.Users, :index
     live "/admin/users/:id", AdminLive.UserShow, :show
-
-    live "/products", ProductLive.Index, :index
-    live "/products/new", ProductLive.Index, :new
-    live "/products/:id/edit", ProductLive.Index, :edit
-
-    live "/products/:id", ProductLive.Show, :show
-    live "/products/:id/show/edit", ProductLive.Show, :edit
-
-    live "/brands", BrandLive.Index, :index
-    live "/brands/:id", BrandLive.Show, :show
-
-    live "/categories", CategoryLive.Index, :index
-    live "/categories/:id", CategoryLive.Show, :show
-
-    live "/shippings", ShippingLive.Index, :index
-    live "/shippings/:id", ShippingLive.Show, :show
-
-    live "/orders", OrderLive.Index, :index
-    live "/orders/:id", OrderLive.Show, :show
-
-    live "/customers/new", CustomerLive.FormComponent, :new
-    live "/customers/:id/show/edit", CustomerLive.FormComponent, :edit
-
-    live "/cart/", CartLive.Show, :show
-
-    live "/order/:id", CompleteOrderLive.ShowOrder, :show_order
-    live "/delivery/", CompleteOrderLive.ShowCustomerData, :show_customer_data
-    live "/payment/", CompleteOrderLive.ShowPaymentMethod, :show_payment_method
-    live "/summary/", CompleteOrderLive.Summary, :summary
-  end
-
-  scope "/", EshopyWeb do
-    pipe_through [:browser, :require_authenticated_user, :user]
-  end
-
-  scope "/", EshopyWeb do
-    pipe_through [:browser, :require_authenticated_user, :admin]
   end
 
   # Other scopes may use custom stacks.
