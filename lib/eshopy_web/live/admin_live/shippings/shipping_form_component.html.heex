@@ -1,0 +1,32 @@
+<div class="max-w-lg mx-auto">
+  <p class="text-center text-blue-500 md:text-2xl text-xl"><strong><%= @title %></strong></p>
+
+  <.form
+    let={f}
+    for={@changeset}
+    id="shipping-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save">
+
+   <div class="flex flex-col mx-auto max-w-sm text-lg my-2">
+    <div class="flex flex-col">
+      <span class="mx-1"><%= label f, :name %></span>
+      <%= text_input f, :name %>
+      <span class="mx-1 my-3"><%= error_tag f, :name %></span>
+
+      <span class="mx-1"><%= label f, :price %></span>
+      <%= number_input f, :price, step: "any" %>
+      <span class="mx-1 my-3"><%= error_tag f, :price %></span>
+
+      <span class="mx-1"><%= label f, :days %></span>
+      <%= number_input f, :days, step: "any" %>
+      <span class="mx-1 my-3"><%= error_tag f, :days %></span>
+    </div>
+
+    <div class="bg-blue-400 text-white text-center font-[Poppins] duration-500 px-6 py-2 mx-4 my-4 md:my-0 hover:bg-blue-600 rounded">
+      <%= submit "Save", phx_disable_with: "Saving..." %>
+    </div>
+  </div>
+  </.form>
+</div>
