@@ -20,9 +20,9 @@
         alt="product image" width="350" height="350" class="mx-auto"
         src={ Routes.static_path(@socket, @brand.image_upload || ~s[/images/default-thumbnail.jpg])} >
     <p class="text-center md:text-2xl text-xl mt-5"><strong><%= @brand.name %></strong></p>
-    <div class="flex flex-row mx-auto mb-5">
-    <span><%= live_patch "Edit", to: Routes.admin_brand_show_path(@socket, :edit, @brand), class: "button" %></span> |
-    <span><%= live_redirect "Back", to: Routes.admin_brands_path(@socket, :index) %></span>
+    <div class="flex flex-row mx-auto my-5">
+        <span class="mx-5"><%= live_patch "Edit", to: Routes.admin_brand_show_path(@socket, :edit, @brand), class: "button" %></span> |
+        <span class="mx-5"><%= live_redirect "Back", to: Routes.admin_brands_path(@socket, :index) %></span>
     </div>
     </div>
 

@@ -1,7 +1,23 @@
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.admin_products_path(@socket, :index)}>
+    <.live_component
+      module={EshopyWeb.AdminLive.ProductFormComponent}
+      id={@product.id || :new}
+      title={@page_title}
+      action={@live_action}
+      product={@product}
+      brands={@brands}
+      categories={@categories}
+      return_to={Routes.admin_products_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
 <div class="homepage bg-white container mx-auto h-screen">
-    <div class="main-container mx-auto">
-        <div class="mx-auto mb-5">
-            <h1 class="text-3xl font-[Poppins]">Products</h1>
+    <div class="flex flex-col mx-auto justify-center max-w-6xl">
+            <h1 class="flex text-3xl font-[Poppins] justify-center">Products</h1>
+        <div class="flex flex-row justify-center my-5">
+            <span class="mx-5"><%= live_redirect "Back", to: Routes.admin_dashboard_path(@socket, :dashboard) %></span> |
+            <span class="mx-5"><%= live_patch "Add New Product", to: Routes.admin_products_path(@socket, :new), class: "button" %></span>
         </div>
 
        <div class="flex flex-col mx-auto justify-center max-w-6xl">
@@ -29,8 +45,8 @@
                         <td class="border border-slate-300"><%= product.updated_at %></td>
                         <td class="border border-slate-300"><%= product.available %></td>
                         <td>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.product_show_path(@socket, :show, product) %></span>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= live_patch "Edit", to: Routes.product_index_path(@socket, :edit, product) %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.admin_product_show_path(@socket, :show, product) %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><%= live_patch "Edit", to: Routes.admin_products_path(@socket, :edit, product) %></span>
                             <span class="text-center md:text-2xl sm:text-xl"><%= link "Delete", to: "#", phx_click: "change", phx_value_id: product.id, data: [confirm: "Are you sure?"] %></span>
                         </td>
                     </tr>

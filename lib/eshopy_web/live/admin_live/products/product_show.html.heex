@@ -1,0 +1,61 @@
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.admin_product_show_path(@socket, :show, @product)}>
+    <.live_component
+      module={EshopyWeb.AdminLive.ProductFormComponent}
+      id={@product.id}
+      title={@page_title}
+      action={@live_action}
+      product={@product}
+      return_to={Routes.admin_product_show_path(@socket, :show, @product)}
+    />
+  </.modal>
+<% end %>
+
+<div class="flex flex-col mx-auto justify-center max-w-screen-md mt-5">
+  <div class="flex flex-col justify-center">
+    <div class="flex justify-self-center mx-auto">
+      <img
+        alt="product image" width="250" height="250"
+        src={ Routes.static_path(@socket, @product.image_upload || ~s[/images/default-thumbnail.jpg])} >
+    </div>
+    <div class="flex flex-row justify-center my-5">
+        <span class="mx-5"><%= live_redirect "Back", to: Routes.admin_products_path(@socket, :index) %></span> |
+        <span class="mx-5"><%= live_patch "Edit", to: Routes.admin_products_path(@socket, :edit, @product) %></span> |
+        <span class="mx-5"><%= link "Delete", to: "#", phx_click: "change", phx_value_id: @product.id, data: [confirm: "Are you sure?"] %></span>
+    </div>
+    <div class="flex flex-col content-center justify-center">
+      <ul class="flex flex-col content-between">
+        <li>
+            <strong>Name:</strong>
+            <%= @product.name %>
+        </li>
+
+        <li>
+            <strong>Brand:</strong>
+            <%= @product.brand.name %>
+        </li>
+
+        <li>
+            <strong>Category:</strong>
+            <%= @product.category.name %>
+        </li>
+
+        <li>
+            <strong>Sku:</strong>
+            <%= @product.sku %>
+        </li>
+
+        <li>
+            <strong>Unit price:</strong>
+            <%= @product.unit_price %>$
+        </li>
+            <strong>Available:</strong>
+            <%= @product.available %>
+        <li>
+            <strong>Description:</strong>
+            <%= @product.description %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
