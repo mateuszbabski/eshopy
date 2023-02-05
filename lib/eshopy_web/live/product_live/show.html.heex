@@ -25,16 +25,19 @@
           <%= @product.name %>
         </li>
 
+        <%= if @product.brand do %>
         <li>
           <strong>Brand:</strong>
           <%= @product.brand.name %>
         </li>
+        <% end %>
 
+        <%= if @product.category do %>
         <li>
           <strong>Category:</strong>
           <%= @product.category.name %>
         </li>
-
+        <% end %>
         <li>
           <strong>Sku:</strong>
           <%= @product.sku %>

@@ -28,7 +28,7 @@
             <%= @user.confirmed_at %>
         </li>
 
-        <%= if @user.customer != nil do %>
+        <%= if @user.customer do %>
             <li>
                 <strong>Name:</strong>
                 <%= @user.customer.name %>
