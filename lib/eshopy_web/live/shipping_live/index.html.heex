@@ -1,19 +1,6 @@
 <div class="bg-white max-w-screen-lg mx-auto h-screen justify-center">
 <h1 class="justify-center text-center mb-10 md:text-2xl sm:text-xl">Listing Shippings</h1>
 
-<%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.shipping_index_path(@socket, :index)}>
-    <.live_component
-      module={EshopyWeb.ShippingLive.FormComponent}
-      id={@shipping.id || :new}
-      title={@page_title}
-      action={@live_action}
-      shipping={@shipping}
-      return_to={Routes.shipping_index_path(@socket, :index)}
-    />
-  </.modal>
-<% end %>
-
 <div class="mx-auto">
   <table class="md:text-2xl sm:text-l border-separate border-spacing-1 border-collapse border border-slate-400 mx-auto max-w-screen-lg">
     <thead>
@@ -21,8 +8,6 @@
         <th class="border border-slate-300">Name</th>
         <th class="border border-slate-300">Price ($)</th>
         <th class="border border-slate-300">Delivery time (days)</th>
-
-        <th><p class="cursor-pointer"><%= live_patch "Add Shipping", to: Routes.shipping_index_path(@socket, :new) %></p></th>
       </tr>
     </thead>
 

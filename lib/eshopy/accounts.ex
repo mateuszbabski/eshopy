@@ -44,6 +44,16 @@ defmodule Eshopy.Accounts do
     if User.valid_password?(user, password), do: user
   end
 
+  @doc """
+  Gets a list of all users
+
+  ## Examples
+
+    iex> list_users()
+    [%User{}, ...]
+
+  """
+
   def list_users() do
     Repo.all(User)
   end
@@ -64,6 +74,20 @@ defmodule Eshopy.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  @doc """
+  Gets a single user with associated customer data.
+
+  Returns 'nil' if the User does not exist.
+
+  ## Examples
+
+      iex> get_user_with_data(123)
+      %User{}
+
+      iex> get_user_with_data(456)
+      nil
+
+  """
   def get_user_with_data(id) do
     query =
       from u in User,

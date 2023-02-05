@@ -23,6 +23,15 @@ defmodule Eshopy.Catalog do
     Repo.all(Product) |> Repo.preload([:brand, :category])
   end
 
+  @doc """
+  Returns the list of products which have available field set to 'true'.
+
+  ## Examples
+
+      iex> list_products()
+      [%Product{}, ...]
+
+  """
   def list_available_products() do
     query =
       from p in Product,
