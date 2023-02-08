@@ -146,6 +146,17 @@ defmodule Eshopy.Accounts do
     User.email_changeset(user, attrs)
   end
 
+  def change_user_role(user, attrs \\ %{}) do
+    User.changeset_role(user, attrs)
+  end
+
+  def update_user_role(user, attrs \\ %{}) do
+    user
+    |> User.changeset_role(attrs)
+    |> Ecto.Changeset.put_change(:role, attrs["role"])
+    |> Repo.update()
+  end
+
   @doc """
   Emulates that the email will change without actually changing
   it in the database.

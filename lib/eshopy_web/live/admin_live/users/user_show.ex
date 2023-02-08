@@ -35,8 +35,26 @@ defmodule EshopyWeb.AdminLive.UserShow do
   end
 
   defp apply_action(socket, :show, %{"id" => id}) do
+    changeset = Accounts.change_user_role(Accounts.get_user!(id))
+
     socket
     |> assign(:page_title, "Show user")
     |> assign(:user, Accounts.get_user_with_data(id))
+    |> assign(:changeset, changeset)
+  end
+
+  @impl true
+  def handle_event("save", %{"user" => %{"role" => role}}, socket) do
+    if socket.assigns[:user].id == socket.assigns[:current_user].id do
+      {:noreply,
+        socket
+        |> put_flash(:info, "Unauthorized")}
+    else
+      {:ok, user} = Accounts.update_user_role(socket.assigns[:user], %{"role" => role})
+
+      {:noreply,
+      socket
+      |> assign(:user, Accounts.get_user_with_data(user.id))}
+    end
   end
 end

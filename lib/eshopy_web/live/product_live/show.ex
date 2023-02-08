@@ -29,7 +29,7 @@ defmodule EshopyWeb.ProductLive.Show do
                          true <- product.available do
       {:noreply,
         socket
-        |> assign(:page_title, page_title(socket.assigns.live_action))
+        |> assign(:page_title, "Show Product")
         |> assign(:product, Catalog.get_product(id))}
     else
       nil ->
@@ -48,7 +48,7 @@ defmodule EshopyWeb.ProductLive.Show do
       %Eshopy.Accounts.User{role: :admin} ->
         {:noreply,
            socket
-           |> assign(:page_title, page_title(socket.assigns.live_action))
+           |> assign(:page_title, "Show Product")
            |> assign(:product, Catalog.get_product(id))}
 
       _ ->
@@ -99,7 +99,4 @@ defmodule EshopyWeb.ProductLive.Show do
             |> put_flash(:info, "Error with adding item")
     end
   end
-
-  defp page_title(:show), do: "Show Product"
-  defp page_title(:edit), do: "Edit Product"
 end
