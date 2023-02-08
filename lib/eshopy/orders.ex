@@ -23,6 +23,15 @@ defmodule Eshopy.Orders do
     Repo.all(Order)
   end
 
+  @doc """
+  Returns the list of orders for specific user.
+
+  ## Examples
+
+      iex> list_orders_by_user_id(id)
+      [%Order{}, ...]
+
+  """
   def list_orders_by_user_id(user_id) do
     query =
       from o in Order,
@@ -187,6 +196,30 @@ defmodule Eshopy.Orders do
     end
   end
 
+  @doc """
+  Checks if products added to shopping cart are available
+  before creating an order. Only products which are available
+  in the moment of creating an order are passed into it.
+
+  Cart items from %Cart{} are checked for availability and
+  are mapped to a list of %Order_Items{}.
+
+  ## Examples
+
+      iex> get_only_available_products(%Cart{})
+      [%Order_Item{}, ...]
+
+  """
+  def get_only_available_products(cart) do
+    available_products =
+      cart.cart_items
+      |> Enum.filter(fn cart_item -> cart_item.product.available == true end)
+      |> Enum.map(fn cart_item ->
+        %{product_id: cart_item.product_id, price: cart_item.price, quantity: cart_item.quantity}
+      end)
+
+    available_products
+  end
   # def complete_order() do
     #get order with shipping
     #add customer data
