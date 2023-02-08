@@ -138,6 +138,18 @@ defmodule Eshopy.Catalog do
     |> Repo.update()
   end
 
+  @doc """
+  Updates/changes product's availability.
+
+  ## Examples
+
+      iex> update_product(product, %{field: new_value})
+      {:ok, %Product{}}
+
+      iex> update_product(product, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
   def change_product_availability(%Product{} = product, attrs \\ %{}) do
     if product.available == true do
       product

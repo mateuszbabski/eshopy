@@ -225,7 +225,10 @@ defmodule Eshopy.ShoppingCart do
     )
   end
 
-   def increase_quantity_by_one(item_id, %Cart{} = cart) do
+  @doc """
+  Increases specific item in cart by one and updates the price.
+  """
+  def increase_quantity_by_one(item_id, %Cart{} = cart) do
     item = get_cart_item!(item_id)
     product = Catalog.get_product!(item.product_id)
 
@@ -234,8 +237,11 @@ defmodule Eshopy.ShoppingCart do
     |> Repo.update()
 
     {:ok, reload_cart(cart.id)}
-   end
+  end
 
+  @doc """
+  Decreases specific item in cart by one and updates the price.
+  """
   def decrease_quantity_by_one(item_id, %Cart{} = cart) do
     item = get_cart_item!(item_id)
     product = Catalog.get_product!(item.product_id)
@@ -311,7 +317,6 @@ defmodule Eshopy.ShoppingCart do
   Returns a full price of shopping cart basis on user_id
 
   """
-
   def total_cart_price(user_id) do
     cart = get_cart_by_user_id_with_cart_items(user_id)
 
@@ -321,6 +326,10 @@ defmodule Eshopy.ShoppingCart do
     end)
   end
 
+  @doc """
+  Returns a full price of shopping cart basis on cart_id
+
+  """
   def cart_price_by_id(cart_id) do
     cart = get_cart_with_items(cart_id)
 

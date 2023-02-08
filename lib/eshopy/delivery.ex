@@ -21,6 +21,15 @@ defmodule Eshopy.Delivery do
     Repo.all(Shipping)
   end
 
+  @doc """
+  Returns the list of available shippings.
+
+  ## Examples
+
+      iex> list_shippings()
+      [%Shipping{}, ...]
+
+  """
   def list_available_shippings() do
     query =
       from s in Shipping,
@@ -45,6 +54,20 @@ defmodule Eshopy.Delivery do
   """
   def get_shipping!(id), do: Repo.get!(Shipping, id)
 
+  @doc """
+  Gets the price of a specific shipping.
+
+  Returns nil if no result was found.
+
+  ## Examples
+
+      iex> get_shipping_price(123)
+      %Shipping{"price" => price}
+
+      iex> get_shipping_price(456)
+      nil
+
+  """
   def get_shipping_price(id) do
     query =
       from s in Shipping,
@@ -90,6 +113,18 @@ defmodule Eshopy.Delivery do
     |> Repo.update()
   end
 
+  @doc """
+  Updates/changes shipping's availability.
+
+  ## Examples
+
+      iex> update_shipping(shipping, %{field: new_value})
+      {:ok, %Shipping{}}
+
+      iex> update_shipping(shipping, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
   def change_shipping_availability(%Shipping{} = shipping, attrs \\ %{}) do
     if shipping.available == true do
       shipping
