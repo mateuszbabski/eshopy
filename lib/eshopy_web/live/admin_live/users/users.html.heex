@@ -16,6 +16,7 @@
                     <th class="border border-slate-300">Email</th>
                     <th class="border border-slate-300">Role</th>
                     <th class="border border-slate-300">Online</th>
+                    <th class="border border-slate-300">Change role</th>
                     <th></th>
                 </tr>
             </thead>
@@ -27,9 +28,19 @@
                         <td class="border border-slate-300"><%= user.email %></td>
                         <td class="border border-slate-300"><%= user.role %></td>
                         <td class="border border-slate-300">?</td>
+                        <td class="border border-slate-300">
+                            <div class="flex flex-row">
+                                <form class="flex" phx-submit="save" phx-value-user={user.id}>
+                                    <select id="user_role" name="role">
+                                        <option value="admin">Admin</option>
+                                        <option value="user">User</option>
+                                    </select>
+                                    <button type="submit" class="flex bg-blue-400 text-sm text-white text-center font-[Poppins] duration-500 px-6 py-2 hover:bg-blue-600 rounded w-20 h-10">Save</button>
+                                </form>
+                            </div>
+                        </td>
                         <td>
                             <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.admin_user_show_path(@socket, :show, user) %></span>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= link "Delete", to: "#", phx_click: "change", phx_value_id: user.id, data: [confirm: "Are you sure?"] %></span>
                         </td>
                     </tr>
                 <% end %>

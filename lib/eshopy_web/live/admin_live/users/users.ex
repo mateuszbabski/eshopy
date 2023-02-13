@@ -29,4 +29,11 @@ defmodule EshopyWeb.AdminLive.Users do
       |> put_flash(:info, "Unauthorized")
       |> redirect(to: Routes.home_index_path(socket, :index))}
   end
+
+  @impl true
+  def handle_event("save", params, socket) do
+    IO.inspect(params)
+
+    {:noreply, socket}
+  end
 end

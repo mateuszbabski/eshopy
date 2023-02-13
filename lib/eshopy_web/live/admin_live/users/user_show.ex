@@ -53,8 +53,9 @@ defmodule EshopyWeb.AdminLive.UserShow do
       {:ok, user} = Accounts.update_user_role(socket.assigns[:user], %{"role" => role})
 
       {:noreply,
-      socket
-      |> assign(:user, Accounts.get_user_with_data(user.id))}
+        socket
+        |> put_flash(:info, "User's role is changed")
+        |> assign(:user, Accounts.get_user_with_data(user.id))}
     end
   end
 end
