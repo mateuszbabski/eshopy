@@ -2,6 +2,7 @@ defmodule EshopyWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
+  channel "users", EshopyWeb.UserChannel
   # channel "room:*", RealWorldWeb.RoomChannel
 
   # Socket params are passed from the client and can
@@ -16,8 +17,14 @@ defmodule EshopyWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   @impl true
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  def connect(%{"user_token" => user_token}, socket, _connect_info) do
+    case Phoenix.Token.verify(socket, "user", user_token) do
+      {:ok, user_id} ->
+        {:ok, assign(socket, :user_id, user_id)}
+
+      {:error, _} ->
+        :error
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
