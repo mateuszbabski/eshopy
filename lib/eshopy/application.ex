@@ -14,6 +14,7 @@ defmodule Eshopy.Application do
       EshopyWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: Eshopy.PubSub},
+      EshopyWeb.Presence,
       # Start the Endpoint (http/https)
       EshopyWeb.Endpoint
       # Start a worker by calling: Eshopy.Worker.start_link(arg)
