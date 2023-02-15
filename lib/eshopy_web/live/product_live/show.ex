@@ -63,9 +63,11 @@ defmodule EshopyWeb.ProductLive.Show do
   def handle_event("add_to_cart", %{"quantity" => quantity}, socket) do
     product = socket.assigns[:product]
 
-    if socket.assigns[:current_user].role == :user do
-      create_and_add_item(product, quantity, socket)
-    else
+    case socket.assigns[:current_user] do
+      %Eshopy.Accounts.User{role: :user} ->
+        create_and_add_item(product, quantity, socket)
+
+      _ ->
       {:noreply,
         socket
         |> put_flash(:info, "You must be logged in")}
