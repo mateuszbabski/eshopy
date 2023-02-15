@@ -1,0 +1,11 @@
+<div class="user-presence-component">
+    <div>WITAM
+        <%= for {user_id, users} <- @user_presence do %>
+        <h3> <%= user_id %> </h3>
+            <%= for user <- users do %>
+            <%= user.online_at %>
+                    <p>ONLINE</p>
+            <% end %>
+        <% end %>
+    </div>
+</div>

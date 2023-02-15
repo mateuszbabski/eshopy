@@ -3,27 +3,29 @@ defmodule EshopyWeb.UserChannel do
 
   alias EshopyWeb.Presence
 
-  @user_presence "user_presence"
+  @topic "user_presence"
 
   @impl true
-  def join("users", _payload, socket) do
-      send(self(), :after_join)
-      {:ok, socket}
+  def join(@topic, _payload, socket) do
+    send(self(), :after_join)
+
+    {:ok, socket}
   end
 
   @impl true
   def handle_info(:after_join, socket) do
     user_id = socket.assigns.user_id
+
     track_user_presence(user_id, socket)
+
+    push(socket, "presence_state", Presence.list(socket))
+
     {:noreply, socket}
   end
 
   defp track_user_presence(user_id, socket) do
     {:ok, _} =
-      Presence.track(socket, user_id, %{online_at: inspect(System.system_time(:second))})
-
-    push(socket, "user_presence", Presence.list(socket))
-    {:noreply, socket}
+      Presence.track(socket, user_id, %{users: [%{online_at: inspect(System.system_time(:second))}]})
   end
 
   # Channels can be used in a request/response fashion
