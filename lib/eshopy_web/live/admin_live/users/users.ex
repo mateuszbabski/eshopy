@@ -2,6 +2,7 @@ defmodule EshopyWeb.AdminLive.Users do
   use EshopyWeb, :live_view
 
   alias Eshopy.Accounts
+  alias EshopyWeb.Presence
   alias EshopyWeb.UserPresenceLive
 
   @topic "user_presence"
@@ -25,6 +26,7 @@ defmodule EshopyWeb.AdminLive.Users do
           socket
           |> assign(:current_user, user)
           |> assign(:user_presence_component_id, "user_presence")
+          |> assign(:online_users, extract_online_user_ids())
           |> assign(:users, Accounts.list_users())}
     end
   end
@@ -58,5 +60,9 @@ defmodule EshopyWeb.AdminLive.Users do
     IO.inspect(params)
 
     {:noreply, socket}
+  end
+
+  defp extract_online_user_ids() do
+    Enum.map(Presence.list_online_users(), fn {k, _v} -> k end)
   end
 end

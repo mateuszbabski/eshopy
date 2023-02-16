@@ -27,7 +27,13 @@
                         <td class="border border-slate-300"><%= user.id %></td>
                         <td class="border border-slate-300"><%= user.email %></td>
                         <td class="border border-slate-300"><%= user.role %></td>
-                        <td class="border border-slate-300">?</td>
+                        <td class="border border-slate-300">
+                            <%= if Enum.member?(@online_users, "#{user.id}") do %>
+                                <div class="flex align-center justify-center">
+                                    <ion-icon name="person-circle-outline"></ion-icon>
+                                </div>
+                            <% end %>
+                        </td>
                         <td class="border border-slate-300">
                             <div class="flex flex-row">
                                 <form class="flex" phx-submit="save" phx-value-user={user.id}>

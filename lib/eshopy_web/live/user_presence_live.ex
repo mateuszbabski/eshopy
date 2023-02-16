@@ -14,4 +14,8 @@ defmodule EshopyWeb.UserPresenceLive do
   defp assign_user_presence(socket) do
     assign(socket, :user_presence, Presence.list_online_users())
   end
+
+  defp extract_ids_from_list() do
+    Enum.map(Presence.list_online_users(), fn {k, _v} -> k end)
+  end
 end
