@@ -1,25 +1,9 @@
-<%= if @live_action in [:edit] do %>
-  <.modal return_to={Routes.admin_brand_show_path(@socket, :show, @brand)}>
-    <.live_component
-      module={EshopyWeb.BrandLive.FormComponent}
-      id={@brand.id}
-      title={@page_title}
-      action={@live_action}
-      brand={@brand}
-      products={@products}
-      return_to={Routes.admin_brand_show_path(@socket, :show, @brand)}
-    />
-  </.modal>
-<% end %>
-
-
-
 <div>
     <p class="text-center text-blue-500 md:text-2xl text-xl"><strong><%= @brand.name %></strong></p>
     <div class="flex flex-wrap mx-auto justify-center max-w-7xl">
         <%= for product <- @products do %>
           <div class="flex flex-col mx-auto my-5">
-            <%= live_patch to: Routes.product_show_path(@socket, :show, product.id) do %>
+            <%= live_redirect to: Routes.product_show_path(@socket, :show, product.id) do %>
               <div class="grid grid-cols-1 content-center justify-center mx-auto" id={"product-#{product.id}"}>
                 <div class="self-center w-64 h-64">
                   <img

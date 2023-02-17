@@ -1,16 +1,3 @@
-<%= if @live_action in [:edit] do %>
-  <.modal return_to={Routes.product_show_path(@socket, :show, @product)}>
-    <.live_component
-      module={EshopyWeb.ProductLive.FormComponent}
-      id={@product.id}
-      title={@page_title}
-      action={@live_action}
-      product={@product}
-      return_to={Routes.product_show_path(@socket, :show, @product)}
-    />
-  </.modal>
-<% end %>
-
 <div class="flex flex-col mx-auto justify-center max-w-screen-md mt-5">
   <div class="flex flex-row justify-between">
     <div class="flex justify-self-center mx-auto">
