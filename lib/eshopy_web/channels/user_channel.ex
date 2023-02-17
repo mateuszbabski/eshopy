@@ -14,13 +14,16 @@ defmodule EshopyWeb.UserChannel do
 
   @impl true
   def handle_info(:after_join, socket) do
-    user_id = socket.assigns.user_id
+    case socket.assigns do
+      %{user_id: user_id} ->
+        track_user_presence(user_id, socket)
+        push(socket, "presence_state", Presence.list(socket))
 
-    track_user_presence(user_id, socket)
+        {:noreply, socket}
 
-    push(socket, "presence_state", Presence.list(socket))
-
-    {:noreply, socket}
+      _ ->
+        {:noreply, socket}
+      end
   end
 
   defp track_user_presence(user_id, socket) do

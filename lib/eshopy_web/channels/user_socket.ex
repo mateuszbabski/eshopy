@@ -23,12 +23,8 @@ defmodule EshopyWeb.UserSocket do
       {:ok, user_id} ->
         {:ok, assign(socket, :user_id, user_id)}
       {:error, _reason} ->
-        :error
+        {:ok, socket}
     end
-  end
-
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
