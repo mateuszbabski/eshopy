@@ -2,7 +2,7 @@
   <p class="text-center text-blue-500 md:text-2xl text-xl"><strong><%= @title %></strong></p>
 
   <.form
-    let={f}
+    :let={f}
     for={@changeset}
     id="product-form"
     phx-target={@myself}
@@ -37,7 +37,7 @@
   </div>
 
     <div phx-drop-target={@uploads.image.ref}>
-      <%= live_file_input(@uploads.image) %>
+      <.live_file_input upload={@uploads.image} />
     </div>
 
     <p class="my-5">Entries</p>

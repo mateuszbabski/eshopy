@@ -62,6 +62,8 @@ defmodule EshopyWeb.ProductLive.Show do
   @impl true
   def handle_event("add_to_cart", %{"quantity" => quantity}, socket) do
     product = socket.assigns[:product]
+    IO.inspect(quantity)
+    IO.inspect(product)
 
     case socket.assigns[:current_user] do
       %Eshopy.Accounts.User{role: :user} ->

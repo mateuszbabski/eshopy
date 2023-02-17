@@ -1,7 +1,7 @@
 <section class="bg-white font-[Poppins] max-w-xl shadow-2xl rounded mx-auto">
 <h1 class="text-3xl mx-4 mb-5">Reset password</h1>
 
-<.form let={f} for={@changeset} action={Routes.user_reset_password_path(@conn, :update, @token)}>
+<.form :let={f} for={@changeset} action={Routes.user_reset_password_path(@conn, :update, @token)}>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>

@@ -220,6 +220,7 @@ defmodule Eshopy.Orders do
 
     available_products
   end
+
   # def complete_order() do
     #get order with shipping
     #add customer data

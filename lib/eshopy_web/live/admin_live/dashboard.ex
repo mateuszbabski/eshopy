@@ -1,5 +1,6 @@
 defmodule EshopyWeb.AdminLive.Dashboard do
   use EshopyWeb, :live_view
+  import Phoenix.Component
 
   alias Eshopy.Accounts
 

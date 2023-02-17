@@ -7,24 +7,38 @@ defmodule EshopyWeb.UserChannel do
 
   @impl true
   def join(@topic, _payload, socket) do
-    send(self(), :after_join)
+    case socket.assigns do
+      %{user_id: _user_id} ->
+        send(self(), :after_join)
+        {:ok, socket}
 
-    {:ok, socket}
+      _ ->
+        {:ok, socket}
+      end
   end
 
   @impl true
   def handle_info(:after_join, socket) do
-    case socket.assigns do
-      %{user_id: user_id} ->
-        track_user_presence(user_id, socket)
-        push(socket, "presence_state", Presence.list(socket))
+    user_id = socket.assigns[:user_id]
 
-        {:noreply, socket}
+    track_user_presence(user_id, socket)
+    push(socket, "presence_state", Presence.list(socket))
 
-      _ ->
-        {:noreply, socket}
-      end
+    {:noreply, socket}
   end
+
+  # def handle_info(:after_join, socket) do
+  #   case socket.assigns do
+  #     %{user_id: user_id} ->
+  #       track_user_presence(user_id, socket)
+  #       push(socket, "presence_state", Presence.list(socket))
+
+  #       {:noreply, socket}
+
+  #     _ ->
+  #       {:noreply, socket}
+  #     end
+  # end
 
   defp track_user_presence(user_id, socket) do
     {:ok, _} =

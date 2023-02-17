@@ -83,6 +83,7 @@ defmodule EshopyWeb.CartLive.Show do
   end
 
   def handle_event("checkout", _, socket) do
+    IO.inspect(Orders.get_only_available_products(socket.assigns[:cart]))
     case socket.assigns[:shipping] do
       %Shipping{} = shipping ->
         create_or_update_order(socket, socket.assigns[:cart], shipping)

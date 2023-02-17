@@ -1,7 +1,7 @@
 <section class="bg-white font-[Poppins] max-w-xl shadow-2xl rounded mx-auto">
 <h1 class="text-3xl mx-4 mb-5">Forgot your password?</h1>
 
-<.form let={f} for={:user} action={Routes.user_reset_password_path(@conn, :create)}>
+<.form :let={f} for={:user} action={Routes.user_reset_password_path(@conn, :create)}>
 
 <div class="flex flex-col mx-auto max-w-sm text-lg my-2">
   <div class="flex flex-col ">

@@ -3,7 +3,6 @@ defmodule EshopyWeb.ProductLive.Index do
 
   alias Eshopy.Accounts
   alias Eshopy.Catalog
-  alias Eshopy.Catalog.Product
   alias Eshopy.ShoppingCart
   alias Eshopy.ShoppingCart.Cart
 
@@ -84,16 +83,10 @@ defmodule EshopyWeb.ProductLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
+  defp apply_action(socket, :show, %{"id" => id}) do
     socket
-    |> assign(:page_title, "Edit Product")
+    |> assign(:page_title, "Show Product")
     |> assign(:product, Catalog.get_product!(id))
-  end
-
-  defp apply_action(socket, :new, _params) do
-    socket
-    |> assign(:page_title, "New Product")
-    |> assign(:product, %Product{})
   end
 
   defp apply_action(socket, :index, _params) do

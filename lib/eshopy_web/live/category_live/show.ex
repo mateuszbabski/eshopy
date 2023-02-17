@@ -25,6 +25,8 @@ defmodule EshopyWeb.CategoryLive.Show do
 
   @impl true
   def handle_event("add_to_cart", %{"product" => product_id, "quantity" => quantity}, socket) do
+    IO.inspect(product_id)
+    IO.inspect(quantity)
     case socket.assigns[:current_user] do
       %Eshopy.Accounts.User{role: :user} ->
         create_and_add_item(product_id, quantity, socket)

@@ -24,6 +24,9 @@ defmodule EshopyWeb.BrandLive.Show do
 
   @impl true
   def handle_event("add_to_cart", %{"product" => product_id, "quantity" => quantity}, socket) do
+    IO.inspect(product_id)
+    IO.inspect(quantity)
+
     case socket.assigns[:current_user] do
       %Eshopy.Accounts.User{role: :user} ->
         create_and_add_item(product_id, quantity, socket)
@@ -52,15 +55,6 @@ defmodule EshopyWeb.BrandLive.Show do
     {:noreply, socket}
   end
 
-  @impl true
-  def handle_params(%{"id" => id}, _, socket) do
-    {:noreply,
-      socket
-      |> assign(:page_title, page_title(socket.assigns.live_action))
-      |> assign(:brand, Catalog.get_brand!(id))
-      |> assign(:products, Catalog.get_available_products_by_brand_id(id))}
-  end
-
   defp add_item_to_shopping_cart(socket, cart, product, quantity) do
     case ShoppingCart.add_item_to_cart(cart, product, quantity) do
       {:ok, _item} ->
@@ -73,6 +67,12 @@ defmodule EshopyWeb.BrandLive.Show do
     end
   end
 
-  defp page_title(:show), do: "Show Brand"
-  defp page_title(:edit), do: "Edit Brand"
+  @impl true
+  def handle_params(%{"id" => id}, _, socket) do
+    {:noreply,
+      socket
+      |> assign(:page_title, "Show Brand")
+      |> assign(:brand, Catalog.get_brand!(id))
+      |> assign(:products, Catalog.get_available_products_by_brand_id(id))}
+  end
 end

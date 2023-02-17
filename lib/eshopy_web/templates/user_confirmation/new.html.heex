@@ -1,7 +1,7 @@
 <section class="bg-white font-[Poppins] max-w-xl shadow-2xl rounded mx-auto">
 <h1 class="text-3xl mx-4 mb-5">Resend confirmation instructions</h1>
 
-<.form let={f} for={:user} action={Routes.user_confirmation_path(@conn, :create)}>
+<.form :let={f} for={:user} action={Routes.user_confirmation_path(@conn, :create)}>
 
 <div class="flex flex-col mx-auto max-w-sm text-lg my-2">
   <div class="flex flex-col ">
@@ -20,7 +20,7 @@
 
 </section><h1>Log in</h1>
 
-<.form let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
+<.form :let={f} for={@conn} action={Routes.user_session_path(@conn, :create)} as={:user}>
   <%= if @error_message do %>
     <div class="alert alert-danger">
       <p><%= @error_message %></p>

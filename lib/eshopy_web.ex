@@ -45,7 +45,7 @@ defmodule EshopyWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {EshopyWeb.LayoutView, "live.html"}
+        layout: {EshopyWeb.LayoutView, :live}
         unquote(view_helpers())
         import EshopyWeb.LiveHelpers
     end
