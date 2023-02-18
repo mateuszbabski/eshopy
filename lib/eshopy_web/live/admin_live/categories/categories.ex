@@ -60,6 +60,7 @@ defmodule EshopyWeb.AdminLive.Categories do
     category = Catalog.get_category!(id)
     {:ok, _} = Catalog.delete_category(category)
 
-    {:noreply, assign(socket, :categories, Catalog.list_categories())}
+    # {:noreply, assign(socket, :categories, Catalog.list_categories())}
+    {:noreply, socket}
   end
 end

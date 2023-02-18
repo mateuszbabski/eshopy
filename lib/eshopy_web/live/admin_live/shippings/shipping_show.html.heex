@@ -15,8 +15,8 @@
   <div class="flex flex-col mx-auto justify-center">
       <h1 class="text-center md:text-2xl sm:text-xl myt-5">Show Shipping</h1>
       <div class="flex flex-row mx-auto justify-center my-5">
-      <span class="mx-5"><%= live_redirect "Back", to: Routes.admin_shippings_path(@socket, :index) %></span> |
-      <span class="mx-5"><%= live_patch "Edit", to: Routes.admin_shipping_show_path(@socket, :edit, @shipping), class: "button" %></span>
+      <span class="mx-5"><.link navigate={Routes.admin_shippings_path(@socket, :index)}>Back</.link></span> |
+      <span class="mx-5"><.link patch={Routes.admin_shipping_show_path(@socket, :edit, @shipping)}>Edit</.link></span>
       </div>
   </div>
   <div class="flex flex-row justify-center">

@@ -14,8 +14,8 @@
     <div class="flex flex-col mx-auto justify-center max-w-6xl">
             <h1 class="flex text-3xl font-[Poppins] justify-center">Categories</h1>
         <div class="flex flex-row justify-center my-5">
-            <span class="mx-5"><%= live_redirect "Back", to: Routes.admin_dashboard_path(@socket, :dashboard) %></span> |
-            <span class="mx-5"><%= live_patch "Add New Category", to: Routes.admin_categories_path(@socket, :new), class: "button" %></span>
+            <span class="mx-5"><.link navigate={Routes.admin_dashboard_path(@socket, :dashboard)}>Back</.link></span> |
+            <span class="mx-5"><.link patch={Routes.admin_categories_path(@socket, :new)}>Add New Category</.link></span>
         </div>
 
        <div class="flex flex-col mx-auto justify-center max-w-6xl">
@@ -37,9 +37,9 @@
                         <td class="border border-slate-300"><%= category.id %></td>
                         <td class="border border-slate-300"><%= category.name %></td>
                         <td>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.admin_category_show_path(@socket, :show, category) %></span>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= live_patch "Edit", to: Routes.admin_categories_path(@socket, :edit, category) %></span>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: category.id, data: [confirm: "Are you sure?"] %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><.link navigate={Routes.admin_category_show_path(@socket, :show, category)}>Show</.link></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><.link patch={Routes.admin_categories_path(@socket, :edit, category)}>Edit</.link></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><button data-confirm="Are you sure?" phx-click="delete" phx-value-id={category.id}>Delete</button></span>
                         </td>
                     </tr>
                 <% end %>

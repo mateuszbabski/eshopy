@@ -19,8 +19,8 @@
         src={ Routes.static_path(@socket, @category.image_upload || ~s[/images/default-thumbnail.jpg])} >
     <p class="text-center md:text-2xl text-xl mt-5"><strong><%= @category.name %></strong></p>
     <div class="flex flex-row mx-auto my-5">
-        <span class="mx-5"><%= live_redirect "Back", to: Routes.admin_categories_path(@socket, :index) %></span> |
-        <span class="mx-5"><%= live_patch "Edit", to: Routes.admin_category_show_path(@socket, :edit, @category), class: "button" %></span>
+        <span class="mx-5"><.link navigate={Routes.admin_categories_path(@socket, :index)}>Back</.link></span> |
+        <span class="mx-5"><.link patch={Routes.admin_category_show_path(@socket, :edit, @category)}>Edit</.link></span>
     </div>
     </div>
 
@@ -49,9 +49,9 @@
                         <td class="border border-slate-300"><%= product.unit_price %></td>
                         <td class="border border-slate-300"><%= product.available %></td>
                         <td>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.admin_product_show_path(@socket, :show, product) %></span>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= live_patch "Edit", to: Routes.admin_products_path(@socket, :edit, product) %></span>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= link "Delete", to: "#", phx_click: "change", phx_value_id: product.id, data: [confirm: "Are you sure?"] %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><.link navigate={Routes.admin_product_show_path(@socket, :show, product)}>Show</.link></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><.link patch={Routes.admin_products_path(@socket, :edit, product)}>Edit</.link></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><button data-confirm="Are you sure?" phx-click="change" phx-value-id={@product.id}>Delete</button></span>
                         </td>
                     </tr>
                 <% end %>

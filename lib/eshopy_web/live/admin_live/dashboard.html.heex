@@ -5,32 +5,32 @@
         </div>
         <div class="text-2xl font-[Poppins] main-section flex flex-col mx-auto max-w-4xl justify-center">
             <div class="flex flex-row justify-between my-5">
-                <%= live_patch "List products", to: Routes.admin_products_path(@socket, :index), class: "button" %>
-                <%= live_patch "Add New Product", to: Routes.admin_products_path(@socket, :new), class: "button" %>
+                <.link navigate={Routes.admin_products_path(@socket, :index)}>List Products</.link>
+                <.link patch={Routes.admin_products_path(@socket, :new)}>Add New Product</.link>
             </div>
             <hr>
 
             <div class="flex flex-row justify-between my-5">
-                <%= live_patch "List categories", to: Routes.admin_categories_path(@socket, :index), class: "button" %>
-                <%= live_patch "Add New Category", to: Routes.admin_categories_path(@socket, :new), class: "button" %>
+                <.link navigate={Routes.admin_categories_path(@socket, :index)}>List Categories</.link>
+                <.link patch={Routes.admin_categories_path(@socket, :new)}>Add New Category</.link>
             </div><hr>
 
             <div class="flex flex-row justify-between my-5">
-                <%= live_patch "List brands", to: Routes.admin_brands_path(@socket, :index), class: "button" %>
-                <%= live_patch "Add New Brand", to: Routes.admin_brands_path(@socket, :new), class: "button" %>
+                <.link navigate={Routes.admin_brands_path(@socket, :index)}>List Brands</.link>
+                <.link patch={Routes.admin_brands_path(@socket, :new)}>Add New Brand</.link>
             </div><hr>
 
             <div class="flex flex-row justify-between my-5">
-                <%= live_patch "List shippings", to: Routes.admin_shippings_path(@socket, :index), class: "button" %>
-                <%= live_patch "Add New Shipping", to: Routes.admin_shippings_path(@socket, :new), class: "button" %>
+                <.link navigate={Routes.admin_shippings_path(@socket, :index)}>List Shippings</.link>
+                <.link patch={Routes.admin_shippings_path(@socket, :new)}>Add New Shipping</.link>
             </div><hr>
 
             <div class="flex flex-row justify-between my-5">
-                <%= live_patch "List orders", to: Routes.admin_orders_path(@socket, :index), class: "button" %>
+                <.link navigate={Routes.admin_orders_path(@socket, :index)}>List Orders</.link>
             </div><hr>
 
             <div class="flex flex-row justify-between my-5">
-                <%= live_patch "List users", to: Routes.admin_users_path(@socket, :index), class: "button" %>
+                <.link navigate={Routes.admin_users_path(@socket, :index)}>List Users</.link>
             </div><hr>
         </div>
     </div>
