@@ -1,7 +1,7 @@
 <div class="mx-auto justify-center max-w-2xl md:max-w-5xl">
   <div class="flex justify-between mb-10">
     <h1 class="text-3xl font-[Poppins]">Shopping Cart</h1>
-    <button phx-click="clear_cart" class="cursor-pointer text-md font-[Poppins] self-end text-red-600 underline">Clear cart</button>
+    <button phx-click="clear_cart" class="cursor-pointer text-md font-[Poppins] self-end text-red-600 underline" phx-disable-with="Deleting...">Clear cart</button>
   </div>
 
   <div class="flex flex-col">
@@ -26,7 +26,7 @@
           </div>
           <div class="flex self-center justify-end ml-5 font-semibold text-green-700 w-6"><%= cart_item.price %>$</div>
           <div class="flex self-center cursor-pointer sm:mx-5">
-            <button phx-click="delete" phx-value-product={cart_item.product_id}>
+            <button phx-click="delete" phx-value-product={cart_item.product_id} phx-disable-with="Deleting...">
               <i class="fa-solid fa-trash sm:mx-5" title="Remove product from cart"></i>
             </button>
           </div>
@@ -56,6 +56,6 @@
     </div>
   </div>
   <div class="flex justify-end my-5">
-    <button phx-click="checkout" class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 md:my-0 hover:bg-blue-600 rounded">Checkout</button>
+    <button phx-click="checkout" class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 md:my-0 hover:bg-blue-600 rounded" phx-disable-with="Checking out...">Checkout</button>
   </div>
 </div>

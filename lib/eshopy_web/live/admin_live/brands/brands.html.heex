@@ -39,7 +39,7 @@
                         <td>
                             <span class="text-center md:text-2xl sm:text-xl"><.link navigate={Routes.admin_brand_show_path(@socket, :show, brand)}>Show</.link></span>
                             <span class="text-center md:text-2xl sm:text-xl"><.link patch={Routes.admin_brands_path(@socket, :edit, brand) }>Edit</.link></span>
-                            <span class="text-center md:text-2xl sm:text-xl"><button data-confirm="Are you sure?" phx-click="delete" phx-value-id={brand.id}>Delete</button></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><button data-confirm="Are you sure?" phx-click="delete" phx-value-id={brand.id} phx-throttle="1000">Delete</button></span>
                         </td>
                     </tr>
                 <% end %>

@@ -1,7 +1,7 @@
 <div class="flex flex-col mx-auto justify-center max-w-6xl">
     <h1 class="flex text-3xl font-[Poppins] justify-center">Order</h1>
     <div class="flex flex-row justify-center my-5">
-        <span><%= live_redirect "Back", to: Routes.admin_orders_path(@socket, :index) %></span>
+        <span><.link navigate={Routes.admin_orders_path(@socket, :index)}>Back</.link></span>
     </div>
     <div class="flex flex-col mx-auto justify-center max-w-2xl md:max-w-5xl">
         <div class="flex flex-col justify-center">

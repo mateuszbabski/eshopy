@@ -15,7 +15,7 @@
                     <p class="text-center text-blue-500 md:text-2xl sm:text-xl"><em><%= product.unit_price %>$</em></p>
               </div>
             </.link>
-            <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 md:my-0 hover:bg-blue-600 rounded" phx-click="add_to_cart" phx-value-product={product.id} phx-value-quantity={1}>Add to cart</button>
+            <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 md:my-0 hover:bg-blue-600 rounded" phx-click="add_to_cart" phx-value-product={product.id} phx-value-quantity={1} phx-throttle="1000">Add to cart</button>
           </div>
         <% end %>
     </div>

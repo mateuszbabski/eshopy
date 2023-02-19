@@ -27,19 +27,6 @@ defmodule EshopyWeb.UserChannel do
     {:noreply, socket}
   end
 
-  # def handle_info(:after_join, socket) do
-  #   case socket.assigns do
-  #     %{user_id: user_id} ->
-  #       track_user_presence(user_id, socket)
-  #       push(socket, "presence_state", Presence.list(socket))
-
-  #       {:noreply, socket}
-
-  #     _ ->
-  #       {:noreply, socket}
-  #     end
-  # end
-
   defp track_user_presence(user_id, socket) do
     {:ok, _} =
       Presence.track(socket, user_id, %{users: [%{online_at: inspect(System.system_time(:second))}]})

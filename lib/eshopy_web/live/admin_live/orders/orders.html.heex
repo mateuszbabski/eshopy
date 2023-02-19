@@ -2,7 +2,7 @@
     <div class="flex flex-col mx-auto justify-center max-w-6xl">
             <h1 class="flex text-3xl font-[Poppins] justify-center">Orders</h1>
         <div class="flex flex-row justify-center my-5">
-            <span class="mx-5"><%= live_redirect "Back", to: Routes.admin_dashboard_path(@socket, :dashboard) %></span>
+            <span class="mx-5"><.link navigate={Routes.admin_dashboard_path(@socket, :dashboard)}>Back</.link></span>
         </div>
 
        <div class="flex flex-col mx-auto justify-center max-w-6xl">
@@ -28,7 +28,7 @@
                         <td class="border border-slate-300"><%= order.total_price %>$</td>
                         <td class="border border-slate-300"><%= order.status %></td>
                         <td>
-                            <span class="text-center md:text-2xl sm:text-xl"><%= live_redirect "Show", to: Routes.admin_order_show_path(@socket, :show, order) %></span>
+                            <span class="text-center md:text-2xl sm:text-xl"><.link navigate={Routes.admin_order_show_path(@socket, :show, order)}>Show</.link></span>
                         </td>
                     </tr>
                 <% end %>
