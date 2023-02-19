@@ -1,7 +1,7 @@
 <div class="flex flex-wrap mx-auto justify-center max-w-6xl">
   <%= for product <- @products do %>
     <div class="flex flex-col mx-auto my-5">
-      <%= live_redirect to: Routes.product_show_path(@socket, :show, product.id) do %>
+      <.link navigate={Routes.product_show_path(@socket, :show, product.id)}>
         <div class="flex flex-col content-between justify-center mx-auto" id={"product-#{product.id}"}>
           <div class="self-center w-64 h-64">
             <img
@@ -12,7 +12,7 @@
           <p class="text-center text-blue-500 md:text-2xl sm:text-xl"><%= product.brand.name %></p>
           <p class="text-center text-blue-500 md:text-2xl sm:text-xl"><%= product.unit_price %>$</p>
         </div>
-      <% end %>
+      </.link>
       <button class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 md:my-0 hover:bg-blue-600 rounded" phx-click="add_to_cart" phx-value-product={product.id} phx-value-quantity={1}>Add to cart</button>
     </div>
   <% end %>

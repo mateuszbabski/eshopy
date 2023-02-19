@@ -10,10 +10,10 @@ defmodule EshopyWeb.BrandLive.Index do
       |> assign(:brands, Catalog.list_brands())}
   end
 
-  @impl true
-  def handle_event("add_to_cart", _, socket) do
-    {:noreply, socket}
-  end
+  # @impl true
+  # def handle_event("add_to_cart", _, socket) do
+  #   {:noreply, socket}
+  # end
 
   @impl true
   def handle_params(params, _url, socket) do

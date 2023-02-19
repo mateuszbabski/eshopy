@@ -19,7 +19,7 @@
           <td class="border border-slate-300"><%= shipping.days %></td>
 
           <td>
-            <span><%= live_redirect "Show", to: Routes.shipping_show_path(@socket, :show, shipping) %></span>
+            <span><.link navigate={Routes.shipping_show_path(@socket, :show, shipping)}>Show</.link></span>
           </td>
         </tr>
       <% end %>

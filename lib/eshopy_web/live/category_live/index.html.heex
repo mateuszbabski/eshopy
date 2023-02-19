@@ -9,7 +9,7 @@
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3 mx-auto justify-center max-w-7xl">
     <%= for category <- @categories do %>
-      <%= live_redirect to: Routes.category_show_path(@socket, :show, category.id) do %>
+      <.link navigate={Routes.category_show_path(@socket, :show, category.id)}>
         <div class="flex flex-col content-between justify-center mx-auto my-10 " id={"category-#{category.id}"}>
           <div class="self-center w-64 h-64">
             <img
@@ -18,7 +18,7 @@
           </div>
           <p class="text-center text-blue-500 md:text-2xl sm:text-xl mt-5"><%= category.name %></p>
         </div>
-      <% end %>
+      </.link>
     <% end %>
   </div>
 </div>

@@ -14,9 +14,9 @@
                 src={ Routes.static_path(@socket, cart_item.product.image_upload || ~s[/images/default-thumbnail.jpg])} >
         </div>
         <div class="self-center justify-start cursor-pointer hover:text-blue-500">
-          <%= live_patch to: Routes.product_show_path(@socket, :show, cart_item.product_id) do %>
+          <.link patch={Routes.product_show_path(@socket, :show, cart_item.product_id)}>
             <%= cart_item.product.name %>
-          <% end %>
+          </.link>
         </div>
         <div class="flex flex-row md:w-54">
           <div class="flex self-center">

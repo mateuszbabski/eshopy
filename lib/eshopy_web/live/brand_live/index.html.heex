@@ -5,7 +5,7 @@
 
   <div class="grid grid-cols-1 md:grid-cols-3 mx-auto justify-center max-w-7xl">
     <%= for brand <- @brands do %>
-      <%= live_redirect to: Routes.brand_show_path(@socket, :show, brand.id) do %>
+      <.link navigate={Routes.brand_show_path(@socket, :show, brand.id)}>
         <div class="flex flex-col content-between justify-center mx-auto my-10" id={"brand-#{brand.id}"}>
           <div class="self-center w-64 h-64">
             <img
@@ -14,7 +14,7 @@
           </div>
           <p class="text-center text-blue-500 md:text-2xl sm:text-xl mt-5"><%= brand.name %></p>
         </div>
-      <% end %>
+      </.link>
     <% end %>
   </div>
 </div>

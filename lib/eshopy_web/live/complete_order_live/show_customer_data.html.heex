@@ -50,11 +50,11 @@
 
 </ul>
 
-<span><%= live_patch "Edit", to: Routes.customer_form_component_path(@socket, :edit, @customer), class: "button" %></span>
+<span><.link patch={Routes.customer_form_component_path(@socket, :edit, @customer)}>Edit</.link></span>
 
 <div class="flex flex-col justify-center my-5">
   <span class="flex justify-center">
     <button phx-click="proceed" class="bg-blue-400 text-white font-[Poppins] duration-500 px-6 py-2 md:my-0 hover:bg-blue-600 rounded w-44" phx-value-customer={@customer.id} >Proceed order..</button>
   </span>
-  <span class="flex justify-center"><%= live_redirect "Back to cart", to: Routes.cart_show_path(@socket, :show) %></span>
+  <span class="flex justify-center"><.link navigate={Routes.cart_show_path(@socket, :show)}>Back to cart</.link></span>
 </div>
