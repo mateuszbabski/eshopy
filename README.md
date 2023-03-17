@@ -1,19 +1,67 @@
 # Eshopy
 
-To start your Phoenix server:
+## Table of content:
+* [Project description](#project-description)
+* [Technologies](#technologies)
+* [Setup](#setup)
+* [Features](#features)
+* [Contribution](#contribution)
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Project description
+Project done for learning purposes. Simple UI done just to realized how LiveView works under the hood and it is all connected with backend api.  
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+## Technologies
 
-## Learn more
+- Elixir 1.14.3
+- Phoenix 1.6.16
+- Ecto 3.6
+- Phoenix LiveView 0.18.15
+- PostgreSQL
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+## Setup
+
+#### Clone to repository
+```
+$ git clone https://github.com/mateuszbabski/eshopy
+```
+
+#### Go to the folder you cloned
+```
+$ cd eshopy
+```
+
+#### Instal dependencies
+```
+mix deps.get
+```
+
+#### Create and migrate database
+```
+mix ecto.setup
+```
+
+#### Start Phoenix server
+```
+mix phx.server
+```
+
+#### Visit [`localhost:4000`](http://localhost:4000)
+
+## Features
+
+- Full custom authentication proccess for a user including reset/forgot password
+- Confirmation emails
+- Adding, updating and deleting products available to sell
+- Adding products to shopping cart, invoke shopping cart from db after logout
+- Placing and order from shopping cart with additional informations about delivery address
+
+To implement:
+- Chat customer/customer-service
+- Payment service
+- Notifications about the orders.
+- Reviews for shop and products
+
+## Contribution
+
+Feel free to fork project and work on it with me. I am open to any suggestions how to make it better.
